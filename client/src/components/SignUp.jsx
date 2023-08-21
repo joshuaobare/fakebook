@@ -17,13 +17,28 @@ export default function SignUp() {
     });
   };
 
+  const handleSignUpSubmission = async (e) => {
+    e.preventDefault();
+
+    try {
+      const request = await fetch("http://localhost:3000/api/user/", {
+        method: "POST",
+        body: JSON.stringify(formData),
+      });
+      const response = await request.json()
+      console.log(response)
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className="sign-up">
       <div>
         <div>Sign Up</div>
         <div>It's quick and easy</div>
       </div>
-      <form action="">
+      <form action="" method="post" onSubmit={handleSignUpSubmission}>
         <div>
           <label htmlFor="fullName">Full Name</label>
           <input
