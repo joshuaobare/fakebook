@@ -28,12 +28,12 @@ exports.user_create = [
     .escape()
     .isLength({ min: 1 })
     .withMessage("Username too short")
-    .custom(async (value) => {
-      const user = await User.findOne({ where: { name: value } });
+    .custom(async (username) => {
+      const user = await User.findOne({ username });
       if (user) {
         throw new Error("Username already in use!");
       }
-      return true;
+      
     }),
 
   body("email")
@@ -41,10 +41,10 @@ exports.user_create = [
     .escape()
     .isEmail()
     .withMessage("Enter valid email address")
-    .custom(async (value) => {
-      const user = await User.findOne({ where: { email: value } });
-      if (user) throw new Error("Email address already in use!");
-      return true;
+    .custom(async (email) => {
+      const user = await User.findOne({ email });
+      if (user) throw new Error("Email address is already in use!");
+      
     }),
 
   body("password")

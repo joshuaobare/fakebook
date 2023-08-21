@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 /* eslint-disable react/no-unescaped-entities */
-export default function SignUp() {
+function SignUp() {
   const [formData, setFormData] = useState({
     fullName: "",
     username: "",
@@ -15,35 +15,42 @@ export default function SignUp() {
     email: "",
     password: "",
     confirmPassword: "",
-  })
+  });
 
   const handleSignUpChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => {
       return { ...prevState, [name]: value };
     });
+    console.log(formData);
   };
 
   const handleSignUpSubmission = async (e) => {
     e.preventDefault();
-
     try {
       const request = await fetch("http://localhost:3000/api/user/", {
         method: "POST",
+        headers: { "Content-type": "application/json" },
         body: JSON.stringify(formData),
       });
       const response = await request.json();
       console.log(response);
 
-      if(response.errors){
-        (response.errors).forEach(error => {
-          setSubmissionError(prevState => {
-            return {...prevState, [error.path]: error.msg}
-          })
-        })
+      if (response.errors) {
+        response.errors.forEach((error) => {
+          setSubmissionError((prevState) => {
+            return { ...prevState, [error.path]: error.msg };
+          });
+        });
+      } else {
+        setFormData({
+          fullName: "",
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
       }
-
-
     } catch (err) {
       console.error(err);
     }
@@ -76,9 +83,7 @@ export default function SignUp() {
             value={formData.fullName}
             onChange={handleSignUpChange}
           />
-          <span>
-          {submissionError.fullName}
-          </span>
+          <span className="error-msg">{submissionError.fullName}</span>
         </div>
         <div>
           <label htmlFor="username">Username</label>
@@ -90,9 +95,7 @@ export default function SignUp() {
             value={formData.username}
             onChange={handleSignUpChange}
           />
-          <span>
-            {submissionError.username}
-            </span>
+          <span className="error-msg">{submissionError.username}</span>
         </div>
         <div>
           <label htmlFor="email">Email</label>
@@ -104,9 +107,7 @@ export default function SignUp() {
             onChange={handleSignUpChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
-          <span>
-          {submissionError.email}
-            </span>
+          <span className="error-msg">{submissionError.email}</span>
         </div>
         <div>
           <label htmlFor="password">Password</label>
@@ -118,9 +119,7 @@ export default function SignUp() {
             value={formData.password}
             onChange={handleSignUpChange}
           />
-          <span>
-          {submissionError.password}
-            </span>
+          <span className="error-msg">{submissionError.password}</span>
         </div>
         <div>
           <label htmlFor="confirmPassword">Confirm Password</label>
@@ -132,9 +131,7 @@ export default function SignUp() {
             value={formData.confirmPassword}
             onChange={handleSignUpChange}
           />
-          <span>
-          {submissionError.confirmPassword}
-            </span>
+          <span className="error-msg">{submissionError.confirmPassword}</span>
         </div>
         <div>
           <button>Sign Up</button>
@@ -143,3 +140,5 @@ export default function SignUp() {
     </div>
   );
 }
+
+export default SignUp;
