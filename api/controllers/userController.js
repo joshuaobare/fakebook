@@ -32,8 +32,7 @@ exports.user_create = [
       const user = await User.findOne({ username });
       if (user) {
         throw new Error("Username already in use!");
-      }
-      
+      }      
     }),
 
   body("email")
