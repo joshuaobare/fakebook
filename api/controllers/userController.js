@@ -42,7 +42,7 @@ exports.user_create = [
     .isEmail()
     .withMessage("Enter valid email address")
     .custom(async (value) => {
-      const user = await User.findUserByEmail(value);
+      const user = await User.findOne({ where: { email: value } });
       if (user) throw new Error("Email address already in use!");
       return true;
     }),
