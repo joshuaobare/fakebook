@@ -7,6 +7,7 @@ const UserSchema = new Schema({
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
   joinedAt: { type: Date, default: Date.now() },
+  isAdmin: { type: Boolean, default: false, required: true },
 });
 
 UserSchema.virtual("url").get(function () {

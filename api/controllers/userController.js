@@ -16,7 +16,7 @@ exports.users_get = asyncHandler(async (req, res, next) => {
   res.json({ users });
 });
 
-exports.users_create = [
+exports.user_create = [
   body("fullName")
     .trim()
     .escape()
