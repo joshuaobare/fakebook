@@ -9,6 +9,13 @@ export default function SignUp() {
     password: "",
     confirmPassword: "",
   });
+  const [submissionError, setSubmissionError] = useState({
+    fullName: "",
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  })
 
   const handleSignUpChange = (e) => {
     const { name, value } = e.target;
@@ -25,8 +32,18 @@ export default function SignUp() {
         method: "POST",
         body: JSON.stringify(formData),
       });
-      const response = await request.json()
-      console.log(response)
+      const response = await request.json();
+      console.log(response);
+
+      if(response.errors){
+        (response.errors).forEach(error => {
+          setSubmissionError(prevState => {
+            return {...prevState, [error.path]: error.msg}
+          })
+        })
+      }
+
+
     } catch (err) {
       console.error(err);
     }
@@ -38,40 +55,72 @@ export default function SignUp() {
         <div>Sign Up</div>
         <div>It's quick and easy</div>
       </div>
-      <form action="" method="post" onSubmit={handleSignUpSubmission}>
+      <form
+        action=""
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        method="post"
+        onSubmit={handleSignUpSubmission}
+      >
         <div>
-          <label htmlFor="fullName">Full Name</label>
+          <label
+            htmlFor="fullName"
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
+            Full Name
+          </label>
           <input
             type="text"
             name="fullName"
             id="fullName"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             value={formData.fullName}
             onChange={handleSignUpChange}
           />
+          <span>
+          {submissionError.fullName}
+          </span>
         </div>
         <div>
           <label htmlFor="username">Username</label>
           <input
             type="text"
             name="username"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="username"
             value={formData.username}
             onChange={handleSignUpChange}
           />
+          <span>
+            {submissionError.username}
+            </span>
         </div>
         <div>
           <label htmlFor="email">Email</label>
-          <input type="email" name="email" id="email" value={formData.email} />
+          <input
+            type="email"
+            name="email"
+            id="email"
+            value={formData.email}
+            onChange={handleSignUpChange}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+          <span>
+          {submissionError.email}
+            </span>
         </div>
         <div>
           <label htmlFor="password">Password</label>
           <input
             type="password"
             name="password"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
             value={formData.password}
             onChange={handleSignUpChange}
           />
+          <span>
+          {submissionError.password}
+            </span>
         </div>
         <div>
           <label htmlFor="confirmPassword">Confirm Password</label>
@@ -79,9 +128,13 @@ export default function SignUp() {
             type="password"
             name="confirmPassword"
             id="confirmPassword"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             value={formData.confirmPassword}
             onChange={handleSignUpChange}
           />
+          <span>
+          {submissionError.confirmPassword}
+            </span>
         </div>
         <div>
           <button>Sign Up</button>
