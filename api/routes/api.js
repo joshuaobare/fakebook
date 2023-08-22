@@ -9,4 +9,8 @@ router.get("/user/:id", userController.user_get)
 
 router.post("/user", userController.user_create)
 
+router.post("login", userController.login_user)
+
+router.post("logout", userController.logout_user)
+
 module.exports = router
