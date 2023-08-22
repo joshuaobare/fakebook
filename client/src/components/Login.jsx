@@ -13,10 +13,25 @@ const Login = () => {
     });
   };
 
+  const handleLoginSubmission = async (e) => {
+    e.preventDefault();
+    try {
+      const request = await fetch("http://localhost:3000/api/login/", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const response = await request.json()
+      console.log(response)
+    } catch (err) {
+        console.error(err)
+    }
+  };
+
   return (
     <div>
       <h1>Login</h1>
-      <form action="">
+      <form action="" method="post" onSubmit={handleLoginSubmission}>
         <div>
           <label htmlFor="username">Username</label>
           <input
@@ -40,6 +55,9 @@ const Login = () => {
             onChange={handleLoginChange}
           />
           <span className="error-msg"></span>
+        </div>
+        <div>
+            <button>Log In</button>
         </div>
       </form>
     </div>
