@@ -2,6 +2,8 @@ const User = require("../models/userModel");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
+const passport = require("passport");
+const jwt = require("jsonwebtoken");
 
 exports.user_get = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
@@ -32,7 +34,7 @@ exports.user_create = [
       const user = await User.findOne({ username });
       if (user) {
         throw new Error("Username already in use!");
-      }      
+      }
     }),
 
   body("email")
@@ -43,7 +45,6 @@ exports.user_create = [
     .custom(async (email) => {
       const user = await User.findOne({ email });
       if (user) throw new Error("Email address is already in use!");
-      
     }),
 
   body("password")
@@ -86,3 +87,33 @@ exports.user_create = [
     });
   }),
 ];
+
+exports.login_user = asyncHandler(async (req, res, next) => {
+  passport.authenticate("local", async (err, user, info) => {
+    try {
+      if (err || !user) {
+        const error = new Error("An error occurred");
+        return next(error);
+      }
+
+      req.login(user, { session: false }, async (error) => {
+        if (error) return next(error);
+        jwt.sign({ user: req.user }, "secretkey", (err, token) => {
+          res.json({ token, user: JSON.stringify(req.user) });
+        });
+      });
+    } catch (err) {
+      return next(error);
+    }
+  })(req, res, next);
+});
+
+exports.logout_user = (req, res, next) => {
+  req.logout(function (err) {
+    if(err) {
+      console.log(err)
+      return next(err)
+    }
+    res.json({message: "Successfully logged out"})
+  })
+}
