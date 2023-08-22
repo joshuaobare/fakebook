@@ -1,5 +1,6 @@
 const User = require("./models/userModel");
-const Post = require("./models/postModel")
+const Post = require("./models/postModel");
+const Comment = require("./models/commentModel");
 const { faker } = require("@faker-js/faker");
 require("dotenv").config();
 const mongoose = require("mongoose");
@@ -47,11 +48,29 @@ async function createPosts() {
                 text: faker.lorem.paragraphs(),
                 timestamp: faker.date.past()
             })
-
-            await post.save()         
-
+            await post.save() 
           } 
     })
     
 }
 
+async function createComments() {
+    const users = await User.find({}).exec()
+    const posts = await Post.find({}).exec()
+
+    posts.forEach(async (post) => {
+        for (let x = 0; x < (randomIntFromInterval(2,5)); x++) {
+            const randomUser = users[randomIntFromInterval(0,10)]
+
+            const comment = new Comment({
+                userId: randomUser._id,
+                timestamp: post.timestamp,
+                postId: post._id,
+                text: faker.lorem.paragraph()                
+            })
+            await comment.save()
+        }
+            
+    })
+}
+createComments()
