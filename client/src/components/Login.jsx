@@ -5,6 +5,7 @@ const Login = () => {
     username: "",
     password: "",
   });
+  const [loginError, setLoginError] = useState(false)
 
   const handleLoginChange = (e) => {
     const { name, value } = e.target;
@@ -22,9 +23,12 @@ const Login = () => {
         body: JSON.stringify(formData),
       });
       const response = await request.json()
-      console.log(response)
+
+      localStorage.setItem("token", response.token)
+      localStorage.setItem("user", response.user)      
+      setLoginError(false)
     } catch (err) {
-        console.error(err)
+        setLoginError(true)
     }
   };
 
@@ -56,8 +60,12 @@ const Login = () => {
           />
           <span className="error-msg"></span>
         </div>
+        
         <div>
             <button>Log In</button>
+        </div>
+        <div>
+            {loginError? "Invalid credentials, try again": ""}
         </div>
       </form>
     </div>
