@@ -8,33 +8,58 @@ function SignUp() {
     email: "",
     password: "",
     confirmPassword: "",
-    avatar: ""
+    
   });
+  const [avatar, setAvatar] = useState("")
   const [submissionError, setSubmissionError] = useState({
     fullName: "",
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
-    avatar: ""
+    
   });
+
+  function convertToBase64 (file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();      
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      }
+    });
+  }
+
+  const handleAvatar = async(e) => {
+    setAvatar(await convertToBase64(e.target.files[0]))
+  }
   
 
   const handleSignUpChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevState) => {
-      return { ...prevState, [name]: value };
+   
+    setFormData((prevState) => {      
+      return {
+        ...prevState,
+        [name]: value,
+      };
     });
     console.log(formData);
   };
 
+
+
   const handleSignUpSubmission = async (e) => {
     e.preventDefault();
+    console.log({... formData, avatar})
     try {
       const request = await fetch("http://localhost:3000/api/user/", {
         method: "POST",
         headers: { "Content-type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({... formData, avatar}),
       });
       const response = await request.json();
       console.log(response);
@@ -53,6 +78,7 @@ function SignUp() {
           password: "",
           confirmPassword: "",
         });
+        setAvatar("")
       }
     } catch (err) {
       console.error(err);
@@ -174,9 +200,10 @@ function SignUp() {
               <input
                 id="dropzone-file"
                 type="file"
+                accept=".jpg, .png, .jpeg, .gif"
                 className="hidden"
                 name="avatar"
-                onChange={handleSignUpChange}                
+                onChange={handleAvatar}
               />
             </label>
           </div>
