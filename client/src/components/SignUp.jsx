@@ -8,6 +8,7 @@ function SignUp() {
     email: "",
     password: "",
     confirmPassword: "",
+    avatar: ""
   });
   const [submissionError, setSubmissionError] = useState({
     fullName: "",
@@ -15,7 +16,9 @@ function SignUp() {
     email: "",
     password: "",
     confirmPassword: "",
+    avatar: ""
   });
+  
 
   const handleSignUpChange = (e) => {
     const { name, value } = e.target;
@@ -168,7 +171,13 @@ function SignUp() {
                   SVG, PNG, JPG or GIF
                 </p>
               </div>
-              <input id="dropzone-file" type="file" className="hidden" />
+              <input
+                id="dropzone-file"
+                type="file"
+                className="hidden"
+                name="avatar"
+                onChange={handleSignUpChange}                
+              />
             </label>
           </div>
         </div>
