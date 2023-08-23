@@ -63,7 +63,7 @@ exports.user_create = [
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
-    const { fullName, password, username, email } = req.body;
+    const { fullName, password, username, email, avatar } = req.body;
 
     bcrypt.hash(password, 10, async (err, hashedPassword) => {
       if (err) {
@@ -74,6 +74,7 @@ exports.user_create = [
           fullName,
           password: hashedPassword,
           email,
+          avatar: avatar || ""
         });
 
         if (!errors.isEmpty()) {

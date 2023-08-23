@@ -11,7 +11,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/userModel");
 const bcrypt = require("bcryptjs");
-const FacebookStrategy = require('passport-facebook');
+const FacebookStrategy = require("passport-facebook");
 const JWTstrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
 
@@ -34,8 +34,8 @@ app.set("view engine", "pug");
 
 app.use(cors());
 app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({ limit: "25MB" }));
+app.use(express.urlencoded({ extended: false, limit: "25MB" }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -107,7 +107,7 @@ function(accessToken, refreshToken, profile, cb) {
 passport.use(
   new JWTstrategy(
     {
-      secretOrKey: 'secretkey',
+      secretOrKey: "secretkey",
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     },
     async (token, done) => {
@@ -120,21 +120,20 @@ passport.use(
   )
 );
 
-
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
 
-passport.deserializeUser(async function(id, done) {
+passport.deserializeUser(async function (id, done) {
   try {
     const user = await User.findById(id);
     done(null, user);
-  } catch(err) {
+  } catch (err) {
     done(err);
-  };
+  }
 });
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.locals.currentUser = req.user;
   next();
 });
