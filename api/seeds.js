@@ -12,21 +12,33 @@ async function main() {
   await mongoose.connect(mongoDB);
 }
 
-async function createUser() {
-  const user = new User({
-    username: faker.internet.userName(),
-    fullName: faker.person.fullName(),
-    email: faker.internet.email(),
-    password: process.env.TEST_PASS,
-    joinedAt: faker.date.past(),
-  });
-
-  await user.save();
+async function createUser(user) {
+  if(user === undefined){
+    const user = new User({
+      username: faker.internet.userName(),
+      fullName: faker.person.fullName(),
+      email: faker.internet.email(),
+      password: process.env.TEST_PASS,
+      joinedAt: faker.date.past(),
+      avatar: faker.internet.avatar()
+    });
+  
+    await user.save();
+  } else {
+    const user = new User({
+      username: "jjackson",
+      fullName: "Jack Jackson",
+      email: "admin@gmail.com",
+      password: process.env.TEST_PASS,
+      joinedAt: faker.date.past(),
+      avatar: faker.internet.avatar()
+    });
+  
+    await user.save();
+  }
+  
 }
-/*
-for (let x = 0; x < 10; x++) {
-  createUser();
-} */
+
 
 function randomIntFromInterval(min, max) { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min)
@@ -73,4 +85,10 @@ async function createComments() {
             
     })
 }
+/*
+for (let x = 0; x < 10; x++) {
+  createUser();
+}
+createUser("user") 
+createPosts()*/
 createComments()

@@ -7,6 +7,7 @@ const UserSchema = new Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
   joinedAt: { type: Date, default: Date.now() },
+  avatar: { type: String },
   isAdmin: { type: Boolean, default: false, required: true },
 });
 
