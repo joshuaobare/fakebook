@@ -17,19 +17,19 @@ const NavBar = () => {
         </div>
       </div>
       <div className="navbar-center">
-        <div>
+        <div className="navbar-icon-cont">
           <span className="material-symbols-outlined navbar-middle-tab">
             home
           </span>
         </div>
-        <div>
+        <div className="navbar-icon-cont">
           <span className="material-symbols-outlined navbar-middle-tab">
             group
           </span>
         </div>
       </div>
       <div className="navbar-right">
-        <img src="" alt="Profile Pic Icon" />
+        <img src={fblogo} alt="Profile Pic Icon" className="navbar-profile-pic" />
       </div>
     </nav>
   );
