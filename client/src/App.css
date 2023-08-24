@@ -24,8 +24,9 @@
 .navbar {
   display: flex;
   justify-content: space-between;
-  width: 90vw;
+  width: 98vw;
   height: 7.8vh;
+  border-bottom: 1px solid #DADDE1;
 }
 .navbar-logo {
   height: 40px;
@@ -74,11 +75,46 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 .navbar-profile-pic {
-  height: 40px;
-  
+  height: 40px;  
   border-radius: 100%;
+
+}
+
+.navbar-center {
+  margin-right: 12vw;
+}
+
+.homepage {
+  height: 90vh;
+  width: 100vw;
+  background-color: #f0f2f5;
+  display: flex;  
+  justify-content: center;
+}
+
+.homepage-create-post {
+  background-color: #fff;
+  height: 5.6vh;
+  display: flex;
+  align-items: center;
+  width: 30vw;
+  margin-top: 3.49vh;
+  padding: 30px 10px;
+  font-size: 1.0625rem;
+  border-radius:8px;
+}
+
+.homepage-create-post-input {
+  width: 100%;
+  padding: 8px 12px;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-top-left-radius: 50px;
+  background-color: #f0f2f5;
 
 }
 @keyframes logo-spin {
