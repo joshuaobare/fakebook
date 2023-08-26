@@ -24,12 +24,12 @@ const Post = (props) => {
   }, []);
 
   return (
-    <div>
-      <div>
+    <div className="post">
+      <div className="post-header">
         <img src={user.avatar} alt="User Avatar" className="navbar-profile-pic"/>
-        <div>
-          <div>{user.username}</div>
-          <div>{props.post.timestamp}</div>
+        <div className="post-header-name-section">
+          <div className="post-header-username">{user.username}</div>
+          <div className="post-header-timestamp">{props.post.timestamp}</div>
         </div>
       </div>
       <div>{props.post.text}</div>

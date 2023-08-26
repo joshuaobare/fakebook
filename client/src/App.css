@@ -124,6 +124,29 @@
   display: flex;
   flex-direction: column;
   gap: 50px;
+  margin-top: 20px;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  width: 31vw;
+  background-color: #fff;
+}
+
+.post-header {
+  display: flex;
+  gap: 10px;
+  
+}
+.post-header-name-section {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.post-header-username, .post-header-timestamp {
+  text-align: left;
 }
 @keyframes logo-spin {
   from {
