@@ -39,10 +39,10 @@ router.get(
 );
 
 // COMMENT ROUTES
-router.get("/post/:id/comments",
-passport.authenticate("jwt", { session: false }),
-commentController.comments_get
-)
-
+router.get(
+  "/post/:id/comments",
+  passport.authenticate("jwt", { session: false }),
+  commentController.comments_get
+);
 
 module.exports = router;
