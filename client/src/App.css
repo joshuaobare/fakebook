@@ -88,11 +88,13 @@
 }
 
 .homepage {
-  height: 90vh;
+  
   width: 100vw;
   background-color: #f0f2f5;
   display: flex;  
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .homepage-create-post {
@@ -116,6 +118,12 @@
   border-top-left-radius: 50px;
   background-color: #f0f2f5;
 
+}
+
+.homepage-posts-section {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
 }
 @keyframes logo-spin {
   from {

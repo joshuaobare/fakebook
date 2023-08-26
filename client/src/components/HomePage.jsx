@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
 import fblogo from "../assets/fblogo.png";
+import Post from "./Post";
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
-  
-  const fetchPosts = async () => {
-      const request = await fetch("http://localhost:3000/api/posts", {
-          method:'GET',
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-      })
-      const response = request.json()
-      setPosts(response)
 
+  const fetchPosts = async () => {
+    const request = await fetch("http://localhost:3000/api/posts", {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    const response = await request.json();
+    setPosts(response.posts);
   };
 
   useEffect(() => {
-      fetchPosts()
+    fetchPosts();
   }, []);
 
   return (
@@ -34,6 +34,11 @@ const HomePage = () => {
           placeholder="What's on your mind, user?"
           className="homepage-create-post-input"
         />
+      </div>
+      <div className="homepage-posts-section">
+        {posts.map((post) => (
+          <Post key={post._id} post={post} />
+        ))}
       </div>
     </div>
   );
