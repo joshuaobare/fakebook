@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
 const postController = require("../controllers/postController");
+const commentController = require("../controllers/commentController");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 
@@ -36,5 +37,12 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   postController.posts_get
 );
+
+// COMMENT ROUTES
+router.get("/post/:id/comments",
+passport.authenticate("jwt", { session: false }),
+commentController.comments_get
+)
+
 
 module.exports = router;
