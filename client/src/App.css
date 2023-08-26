@@ -148,6 +148,16 @@
 .post-header-username, .post-header-timestamp {
   text-align: left;
 }
+
+.like-comment-count-section , .like-comment-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.like-comment-section > div {
+  width: 100%;
+  text-align: center;
+}
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

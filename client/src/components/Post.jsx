@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
+import {ReactComponent as LikeIcon} from "../assets/fbLike.svg"
 
 const Post = (props) => {
   const [user, setUser] = useState({});
@@ -33,8 +34,14 @@ const Post = (props) => {
         </div>
       </div>
       <div>{props.post.text}</div>
-      <div>
-        <div>Like</div>
+      <div className="like-comment-count-section">
+          <div>Like count</div>
+          <div>Comment count</div>
+      </div>
+      <div className="like-comment-section">
+        <div>
+            <div><LikeIcon /></div>
+            Like</div>
         <div>Comment</div>
       </div>
       <div></div>
