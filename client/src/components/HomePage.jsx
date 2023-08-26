@@ -1,14 +1,39 @@
+import { useEffect, useState } from "react";
 import fblogo from "../assets/fblogo.png";
 
 const HomePage = () => {
-    return(
-        <div className="homepage">
-            <div className="homepage-create-post">
-            <img src={fblogo} alt="Profile Pic Icon" className="navbar-profile-pic" />
-                <input type="text" placeholder="What's on your mind, user?" className="homepage-create-post-input" />
-            </div>
-        </div>
-    )
+  const [posts, setPosts] = useState([]);
+  
+  const fetchPosts = async () => {
+      const request = await fetch("http://localhost:3000/posts", {
+          method:'GET',
+          authorization: `Bearer ${localStorage.getItem("token")}`
+      })
+      const response = request.json()
+      setPosts(response)
+
+  };
+
+  useEffect(() => {
+      fetchPosts()
+  }, []);
+
+  return (
+    <div className="homepage">
+      <div className="homepage-create-post">
+        <img
+          src={fblogo}
+          alt="Profile Pic Icon"
+          className="navbar-profile-pic"
+        />
+        <input
+          type="text"
+          placeholder="What's on your mind, user?"
+          className="homepage-create-post-input"
+        />
+      </div>
+    </div>
+  );
 };
 
 export default HomePage;
