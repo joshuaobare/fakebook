@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import {ReactComponent as LikeIcon} from "../assets/fbLike.svg"
+import { ReactComponent as LikeIcon } from "../assets/fbLike.svg";
+import { ReactComponent as CommentIcon } from "../assets/comment.svg";
 
 const Post = (props) => {
   const [user, setUser] = useState({});
@@ -27,7 +28,11 @@ const Post = (props) => {
   return (
     <div className="post">
       <div className="post-header">
-        <img src={user.avatar} alt="User Avatar" className="navbar-profile-pic"/>
+        <img
+          src={user.avatar}
+          alt="User Avatar"
+          className="navbar-profile-pic"
+        />
         <div className="post-header-name-section">
           <div className="post-header-username">{user.username}</div>
           <div className="post-header-timestamp">{props.post.timestamp}</div>
@@ -35,14 +40,18 @@ const Post = (props) => {
       </div>
       <div>{props.post.text}</div>
       <div className="like-comment-count-section">
-          <div>Like count</div>
-          <div>Comment count</div>
+        <div>Like count</div>
+        <div>Comment count</div>
       </div>
       <div className="like-comment-section">
-        <div>
-            <div><LikeIcon /></div>
-            Like</div>
-        <div>Comment</div>
+        <div className="like-section">
+          <LikeIcon />
+          <div>Like</div>
+        </div>
+        <div className="comment-section">
+            <CommentIcon />
+            <div>Comment</div> 
+        </div>
       </div>
       <div></div>
     </div>

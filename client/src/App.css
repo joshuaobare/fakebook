@@ -152,11 +152,23 @@
 .like-comment-count-section , .like-comment-section {
   display: flex;
   justify-content: space-between;
+  
 }
 
 .like-comment-section > div {
   width: 100%;
   text-align: center;
+}
+
+.like-comment-section {
+  align-items: center;
+}
+
+.like-section, .comment-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 @keyframes logo-spin {
   from {
