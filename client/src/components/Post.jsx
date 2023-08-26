@@ -40,7 +40,10 @@ const Post = (props) => {
       </div>
       <div>{props.post.text}</div>
       <div className="like-comment-count-section">
-        <div>Like count</div>
+        <div>
+          {props.post.likes.length}{" "}
+          {props.post.likes.length === 1 ? "like" : "likes"}
+        </div>
         <div>Comment count</div>
       </div>
       <div className="like-comment-section">
@@ -49,8 +52,8 @@ const Post = (props) => {
           <div>Like</div>
         </div>
         <div className="comment-section">
-            <CommentIcon />
-            <div>Comment</div> 
+          <CommentIcon />
+          <div>Comment</div>
         </div>
       </div>
       <div></div>

@@ -158,6 +158,7 @@
 .like-comment-section > div {
   width: 100%;
   text-align: center;
+  cursor: pointer;
 }
 
 .like-comment-section {
