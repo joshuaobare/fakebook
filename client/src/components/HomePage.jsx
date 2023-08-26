@@ -5,9 +5,12 @@ const HomePage = () => {
   const [posts, setPosts] = useState([]);
   
   const fetchPosts = async () => {
-      const request = await fetch("http://localhost:3000/posts", {
+      const request = await fetch("http://localhost:3000/api/posts", {
           method:'GET',
-          authorization: `Bearer ${localStorage.getItem("token")}`
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
       })
       const response = request.json()
       setPosts(response)
