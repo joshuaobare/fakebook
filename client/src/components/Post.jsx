@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { ReactComponent as LikeIcon } from "../assets/fbLike.svg";
 import { ReactComponent as CommentIcon } from "../assets/comment.svg";
+import Comment from "./Comment";
 
 const Post = (props) => {
   const [user, setUser] = useState({});
@@ -73,7 +74,9 @@ const Post = (props) => {
           <div>Comment</div>
         </div>
       </div>
-      <div></div>
+      <div>
+        {comments.map(comment => <Comment key={comment._id} comment = {comment}/>)}
+      </div>
     </div>
   );
 };
