@@ -7,9 +7,16 @@ import Dialog from "@mui/material/Dialog";
 import { Close } from "@mui/icons-material";
 
 const FullPost = (props) => {
-  const [postData, setPostData] = useState({});
-  const [user, setUser] = useState({});
+  const [postData, setPostData] = useState({
+    likes: [],
+  });
+  const [poster, setPoster] = useState({
+    fullName: "",
+  });
   const [comments, setComments] = useState([]);
+  const [user, setUser] = useState({
+      avatar:""
+  })
 
   const fetchPost = async () => {
     const request = await fetch(
@@ -26,7 +33,7 @@ const FullPost = (props) => {
     setPostData(response.post[0]);
     setComments(response.comments);
   };
-  const fetchUser = async () => {
+  const fetchPoster = async () => {
     const request = await fetch(
       `http://localhost:3000/api/user/${props.activePostData.userId}`,
       {
@@ -39,56 +46,71 @@ const FullPost = (props) => {
     );
     const response = await request.json();
 
-    setUser(response.user);
+    setPoster(response.user);
   };
 
-  console.log(postData);
+  console.log(user);
 
   useEffect(() => {
     fetchPost();
-    fetchUser();
+    fetchPoster();
+    setUser(JSON.parse(localStorage.getItem("user")))
   }, []);
 
   return (
-    <div>
-      <Dialog open={props.postDialogOpen}>
+    <Dialog open={props.postDialogOpen}>
+      <div className="full-post">
         <div className="full-post-header">
-          <div className="full-post-header-title">{user.fullName.split(" ")[0]}'s Post</div>
-          <div className="dialog-close"><Close /></div>
+          <div className="full-post-header-title">
+            {poster.fullName.split(" ")[0]}'s Post
+          </div>
+          <div className="dialog-close" onClick={props.dialogCloser}>
+            <Close />
+          </div>
         </div>
-        <div className="post-header">
+        <div>
+          <div className="post-header">
+            <img
+              src={poster.avatar}
+              alt="Poster Avatar"
+              className="navbar-profile-pic"
+            />
+            <div className="post-header-name-section">
+              <div className="post-header-username">{poster.fullName}</div>
+              <div className="post-header-timestamp">{postData.timestamp}</div>
+            </div>
+          </div>
+          <div className="post-text">{postData.text}</div>
+          <div className="like-comment-count-section">
+            <div>
+              {postData.likes.length}{" "}
+              {postData.likes.length === 1 ? "like" : "likes"}
+            </div>
+            <div>
+              {comments.length} {comments.length === 1 ? "comment" : "comments"}
+            </div>
+          </div>
+          <div className="like-comment-section">
+            <div className="like-section">
+              <LikeIcon />
+              <div>Like</div>
+            </div>
+            <div className="comment-section">
+              <CommentIcon />
+              <div>Comment</div>
+            </div>
+          </div>
+        </div>
+        <div>
           <img
             src={user.avatar}
             alt="User Avatar"
-            className="navbar-profile-pic"
+            className="comment-pic"
           />
-          <div className="post-header-name-section">
-            <div className="post-header-username">{user.fullName}</div>
-            <div className="post-header-timestamp">{postData.timestamp}</div>
-          </div>
+          <div></div>
         </div>
-        <div>{postData.text}</div>
-        <div className="like-comment-count-section">
-          <div>
-            {/* {postData.likes.length}{" "}
-            {postData.likes.length === 1 ? "like" : "likes"} */}
-          </div>
-          <div>
-            {comments.length} {comments.length === 1 ? "comment" : "comments"}
-          </div>
-        </div>
-        <div className="like-comment-section">
-          <div className="like-section">
-            <LikeIcon />
-            <div>Like</div>
-          </div>
-          <div className="comment-section">
-            <CommentIcon />
-            <div>Comment</div>
-          </div>
-        </div>
-      </Dialog>
-    </div>
+      </div>
+    </Dialog>
   );
 };
 

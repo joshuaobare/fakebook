@@ -139,6 +139,10 @@
   gap: 10px;
   
 }
+
+.post-text {
+  padding: 10px;
+}
 .post-header-name-section {
   display: flex;
   justify-content: flex-start;
@@ -176,10 +180,14 @@
   display: flex;
   gap: 5px;
 }
+.full-post {
+  height: 84vh;
+}
 .full-post-header {
   display: flex;
   align-items: center;
   height: 8.4vh;
+  border-bottom: 1px solid #DADDE1;
 }
 .dialog-close {
   height: 36px;
@@ -197,7 +205,12 @@
   justify-content: center;
   font-size: 1.25rem;
   font-weight: bold;
-  border-bottom: 1px solid #DADDE1;
+  
+}
+
+.comment-pic {
+  height: 32px;  
+  border-radius: 100%;
 }
 @keyframes logo-spin {
   from {

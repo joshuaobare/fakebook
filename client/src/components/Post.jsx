@@ -54,7 +54,7 @@ const Post = (props) => {
           <div className="post-header-timestamp">{props.post.timestamp}</div>
         </div>
       </div>
-      <div>{props.post.text}</div>
+      <div className="post-text">{props.post.text}</div>
       <div className="like-comment-count-section">
         <div>
           {props.post.likes.length}{" "}
