@@ -171,6 +171,11 @@
   justify-content: center;
   gap: 5px;
 }
+
+.comment {
+  display: flex;
+  gap: 5px;
+}
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
