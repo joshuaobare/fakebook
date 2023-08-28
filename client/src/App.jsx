@@ -13,18 +13,26 @@ function App() {
   });
   const [postDialogOpen, setPostDialogOpen] = useState(false);
 
-  const dialogHandler = (postData) => {
-    setPostDialogOpen((prevState) => !prevState);
+  const dialogOpener = (postData) => {
+    setPostDialogOpen(true);
 
     if (postData !== undefined) {
       setActivePostData(postData);
     }
   };
 
+  const dialogCloser = () => {
+    setPostDialogOpen(false)
+    setActivePostData({
+      postId:"",
+      userId:""
+    })
+  }
+
   return (
     <>
       <NavBar />
-      <HomePage dialogHandler={dialogHandler} activePostData={activePostData} postDialogOpen={postDialogOpen}/>
+      <HomePage dialogHandler={dialogOpener} dialogCloser={dialogCloser} activePostData={activePostData} postDialogOpen={postDialogOpen}/>
      
     </>
   );

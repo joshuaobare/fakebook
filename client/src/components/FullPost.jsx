@@ -2,12 +2,12 @@
 import { ReactComponent as LikeIcon } from "../assets/fbLike.svg";
 import { ReactComponent as CommentIcon } from "../assets/comment.svg";
 import { useEffect, useState } from "react";
+import Dialog from "@mui/material/Dialog";
 
 const FullPost = (props) => {
   const [postData, setPostData] = useState({});
   const [user, setUser] = useState({});
   const [comments, setComments] = useState([]);
-  const [postId, setPostId] = useState("");
 
   const fetchPost = async () => {
     const request = await fetch(
@@ -48,8 +48,8 @@ const FullPost = (props) => {
   }, []);
 
   return (
-   
-      <dialog open={props.postDialogOpen ? "open" : false}>
+    <div>
+      <Dialog open={props.postDialogOpen}>
         <div className="post-header">
           <img
             src={user.avatar}
@@ -64,9 +64,8 @@ const FullPost = (props) => {
         <div>{postData.text}</div>
         <div className="like-comment-count-section">
           <div>
-            {/*
-          {postData.likes.length}{" "}
-        {postData.likes.length === 1 ? "like" : "likes"} */}
+            {/* {postData.likes.length}{" "}
+            {postData.likes.length === 1 ? "like" : "likes"} */}
           </div>
           <div>
             {comments.length} {comments.length === 1 ? "comment" : "comments"}
@@ -82,8 +81,8 @@ const FullPost = (props) => {
             <div>Comment</div>
           </div>
         </div>
-      </dialog>
-    
+      </Dialog>
+    </div>
   );
 };
 
