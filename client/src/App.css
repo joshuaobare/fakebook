@@ -26,7 +26,7 @@
   justify-content: space-between;
   width: 98vw;
   height: 7.8vh;
-  border-bottom: 1px solid #DADDE1;
+  border-bottom: 1px solid #dadde1;
 }
 .navbar-logo {
   height: 40px;
@@ -78,9 +78,8 @@
   cursor: pointer;
 }
 .navbar-profile-pic {
-  height: 40px;  
+  height: 40px;
   border-radius: 100%;
-
 }
 
 .navbar-center {
@@ -88,10 +87,9 @@
 }
 
 .homepage {
-  
   width: 100vw;
   background-color: #f0f2f5;
-  display: flex;  
+  display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -106,7 +104,7 @@
   margin-top: 3.49vh;
   padding: 30px 10px;
   font-size: 1.0625rem;
-  border-radius:8px;
+  border-radius: 8px;
 }
 
 .homepage-create-post-input {
@@ -117,7 +115,6 @@
   border-bottom-left-radius: 50px;
   border-top-left-radius: 50px;
   background-color: #f0f2f5;
-
 }
 
 .homepage-posts-section {
@@ -137,7 +134,6 @@
 .post-header {
   display: flex;
   gap: 10px;
-  
 }
 
 .post-text {
@@ -149,14 +145,15 @@
   flex-direction: column;
 }
 
-.post-header-username, .post-header-timestamp {
+.post-header-username,
+.post-header-timestamp {
   text-align: left;
 }
 
-.like-comment-count-section , .like-comment-section {
+.like-comment-count-section,
+.like-comment-section {
   display: flex;
   justify-content: space-between;
-  
 }
 
 .like-comment-section > div {
@@ -169,7 +166,8 @@
   align-items: center;
 }
 
-.like-section, .comment-section {
+.like-section,
+.comment-section {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -187,13 +185,16 @@
   display: flex;
   align-items: center;
   height: 8.4vh;
-  border-bottom: 1px solid #DADDE1;
+  border-bottom: 1px solid #dadde1;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
 }
 .dialog-close {
   height: 36px;
   width: 36px;
   border-radius: 100%;
-  background-color: #E4E6EB;
+  background-color: #e4e6eb;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -205,11 +206,14 @@
   justify-content: center;
   font-size: 1.25rem;
   font-weight: bold;
-  
 }
 
+.full-post-comments {
+  height: 100%;
+  overflow-y: scroll;
+}
 .commenter-pic {
-  height: 32px;  
+  height: 32px;
   border-radius: 100%;
 }
 
@@ -219,10 +223,34 @@
   gap: 5px;
   align-items: center;
   width: 100%;
+  position: relative;
+  bottom: 0;
+  background-color: white;
 }
 
 .full-post-comment-input {
   width: 100%;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 @keyframes logo-spin {
   from {

@@ -5,6 +5,7 @@ import { ReactComponent as CommentIcon } from "../assets/comment.svg";
 import { useEffect, useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import { Close } from "@mui/icons-material";
+import Comment from "./Comment";
 
 const FullPost = (props) => {
   const [postData, setPostData] = useState({
@@ -68,7 +69,7 @@ const FullPost = (props) => {
             <Close />
           </div>
         </div>
-        <div>
+        <div className="full-post-center">
           <div className="post-header">
             <img
               src={poster.avatar}
@@ -99,6 +100,9 @@ const FullPost = (props) => {
               <CommentIcon />
               <div>Comment</div>
             </div>
+          </div>
+          <div className="full-post-comments">
+              {comments.map(comment => <Comment key={comment._id} comment={comment}/>)}
           </div>
         </div>
         <div className="full-post-add-comment-section">
