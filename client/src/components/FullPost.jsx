@@ -15,8 +15,8 @@ const FullPost = (props) => {
   });
   const [comments, setComments] = useState([]);
   const [user, setUser] = useState({
-      avatar:""
-  })
+    avatar: "",
+  });
 
   const fetchPost = async () => {
     const request = await fetch(
@@ -54,7 +54,7 @@ const FullPost = (props) => {
   useEffect(() => {
     fetchPost();
     fetchPoster();
-    setUser(JSON.parse(localStorage.getItem("user")))
+    setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
 
   return (
@@ -101,13 +101,13 @@ const FullPost = (props) => {
             </div>
           </div>
         </div>
-        <div>
-          <img
-            src={user.avatar}
-            alt="User Avatar"
-            className="comment-pic"
+        <div className="full-post-add-comment-section">
+          <img src={user.avatar} alt="User Avatar" className="commenter-pic" />
+          <input
+            type="text"
+            placeholder="Write a comment..."
+            className="full-post-comment-input"
           />
-          <div></div>
         </div>
       </div>
     </Dialog>

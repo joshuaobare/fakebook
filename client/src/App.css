@@ -208,9 +208,21 @@
   
 }
 
-.comment-pic {
+.commenter-pic {
   height: 32px;  
   border-radius: 100%;
+}
+
+.full-post-add-comment-section {
+  height: 5vh;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  width: 100%;
+}
+
+.full-post-comment-input {
+  width: 100%;
 }
 @keyframes logo-spin {
   from {
