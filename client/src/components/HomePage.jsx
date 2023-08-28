@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import fblogo from "../assets/fblogo.png";
 import Post from "./Post";
+import FullPost from "./FullPost";
 
 const HomePage = (props) => {
   const [posts, setPosts] = useState([]);
@@ -24,6 +25,9 @@ const HomePage = (props) => {
 
   return (
     <div className="homepage">
+      {props.postDialogOpen ? (
+        <FullPost postDialogOpen={props.postDialogOpen} activePostData={props.activePostData} />
+      ) : null}
       <div className="homepage-create-post">
         <img
           src={fblogo}

@@ -24,10 +24,8 @@ function App() {
   return (
     <>
       <NavBar />
-      <HomePage dialogHandler={dialogHandler} />
-      {postDialogOpen ? (
-        <FullPost postDialogOpen={postDialogOpen} activePostData={activePostData} />
-      ) : null}
+      <HomePage dialogHandler={dialogHandler} activePostData={activePostData} postDialogOpen={postDialogOpen}/>
+     
     </>
   );
 }
