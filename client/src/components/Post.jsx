@@ -21,7 +21,6 @@ const Post = (props) => {
         }
       );
       const response = await request.json();
-
       setUser(response.user);
     };
     const fetchComments = async () => {
@@ -36,7 +35,7 @@ const Post = (props) => {
         }
       );
       const response = await request.json();
-      setComments(response.comments)
+      setComments(response.comments);
     };
     fetchUser();
     fetchComments();
@@ -61,15 +60,24 @@ const Post = (props) => {
           {props.post.likes.length}{" "}
           {props.post.likes.length === 1 ? "like" : "likes"}
         </div>
-        <div>{comments.length}{" "}
-          {comments.length === 1 ? "comment" : "comments"}</div>
+        <div>
+          {comments.length} {comments.length === 1 ? "comment" : "comments"}
+        </div>
       </div>
       <div className="like-comment-section">
         <div className="like-section">
           <LikeIcon />
           <div>Like</div>
         </div>
-        <div className="comment-section">
+        <div
+          className="comment-section"
+          onClick={() =>
+            props.dialogHandler({
+              postId: props.post._id,
+              userId: props.post.userId,
+            })
+          }
+        >
           <CommentIcon />
           <div>Comment</div>
         </div>

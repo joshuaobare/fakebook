@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import fblogo from "../assets/fblogo.png";
 import Post from "./Post";
 
-const HomePage = () => {
+const HomePage = (props) => {
   const [posts, setPosts] = useState([]);
 
   const fetchPosts = async () => {
@@ -37,7 +38,7 @@ const HomePage = () => {
       </div>
       <div className="homepage-posts-section">
         {posts.map((post) => (
-          <Post key={post._id} post={post} />
+          <Post key={post._id} post={post} dialogHandler = {props.dialogHandler} />
         ))}
       </div>
     </div>
