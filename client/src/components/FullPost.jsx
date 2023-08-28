@@ -1,9 +1,9 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 import { ReactComponent as LikeIcon } from "../assets/fbLike.svg";
 import { ReactComponent as CommentIcon } from "../assets/comment.svg";
 import { useEffect, useState } from "react";
 import Dialog from "@mui/material/Dialog";
-import { IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
 
 const FullPost = (props) => {
@@ -53,7 +53,7 @@ const FullPost = (props) => {
     <div>
       <Dialog open={props.postDialogOpen}>
         <div className="full-post-header">
-          <div></div>
+          <div className="full-post-header-title">{user.fullName.split(" ")[0]}'s Post</div>
           <div className="dialog-close"><Close /></div>
         </div>
         <div className="post-header">
