@@ -3,6 +3,8 @@ import { ReactComponent as LikeIcon } from "../assets/fbLike.svg";
 import { ReactComponent as CommentIcon } from "../assets/comment.svg";
 import { useEffect, useState } from "react";
 import Dialog from "@mui/material/Dialog";
+import { IconButton } from "@mui/material";
+import { Close } from "@mui/icons-material";
 
 const FullPost = (props) => {
   const [postData, setPostData] = useState({});
@@ -50,6 +52,10 @@ const FullPost = (props) => {
   return (
     <div>
       <Dialog open={props.postDialogOpen}>
+        <div className="full-post-header">
+          <div></div>
+          <div className="dialog-close"><Close /></div>
+        </div>
         <div className="post-header">
           <img
             src={user.avatar}

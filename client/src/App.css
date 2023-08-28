@@ -176,6 +176,15 @@
   display: flex;
   gap: 5px;
 }
+.dialog-close {
+  height: 36px;
+  width: 36px;
+  border-radius: 100%;
+  background-color: #E4E6EB;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
