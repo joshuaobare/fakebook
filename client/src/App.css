@@ -232,6 +232,11 @@
   width: 100%;
 }
 
+.profile {
+  height: 100vh;
+  margin-top: 20px;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;

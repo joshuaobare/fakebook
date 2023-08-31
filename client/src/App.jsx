@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import HomePage from "./components/HomePage";
 import NavBar from "./components/NavBar";
 import FullPost from "./components/FullPost";
+import Profile from "./components/Profile";
 
 function App() {
   const [activePostData, setActivePostData] = useState({
@@ -32,8 +33,10 @@ function App() {
   return (
     <>
       <NavBar />
-      <HomePage dialogHandler={dialogOpener} dialogCloser={dialogCloser} activePostData={activePostData} postDialogOpen={postDialogOpen}/>
-     
+      {/*<HomePage dialogHandler={dialogOpener} dialogCloser={dialogCloser} activePostData={activePostData} postDialogOpen={postDialogOpen}/>
+     */}
+
+     <Profile />
     </>
   );
 }

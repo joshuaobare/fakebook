@@ -1,9 +1,14 @@
 const Profile = () => {
     return (
-        <div>
-            
+        <div className="profile">
+            <div></div>
+            <div>
+                <aside></aside>
+                <div></div>              
+                
+            </div>
         </div>
     )
 }
 
-export default function Profile;
+export default Profile
