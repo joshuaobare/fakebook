@@ -23,8 +23,8 @@ const Profile = () => {
           </div>
         </div>
         <div className="profile-bottom">
-          <aside>
-            <h3>Intro</h3>
+          <div>
+            <div>Intro</div>
             <div className="profile-intro-item">
               <img src={worklogo} alt="" /> Works At
             </div>
@@ -39,7 +39,7 @@ const Profile = () => {
               {" "}
               <img src={rellogo} alt="" /> Relationship Status
             </div>
-          </aside>
+          </div>
           <div></div>
         </div>
       </div>
