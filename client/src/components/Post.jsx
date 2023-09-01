@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { ReactComponent as LikeIcon } from "../assets/fbLike.svg";
 import { ReactComponent as CommentIcon } from "../assets/comment.svg";
 //import Comment from "./Comment";
@@ -50,7 +51,9 @@ const Post = (props) => {
           className="navbar-profile-pic"
         />
         <div className="post-header-name-section">
-          <div className="post-header-username">{user.fullName}</div>
+          <div className="post-header-username">
+            <Link to={`/user/${props.post.userId}`}>{user.fullName}</Link>
+          </div>
           <div className="post-header-timestamp">{props.post.timestamp}</div>
         </div>
       </div>
