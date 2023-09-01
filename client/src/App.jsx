@@ -48,7 +48,7 @@ function App() {
               />
             }
           />
-          <Route path="/user/:id" exact element={<Profile />} />
+          <Route path="/user/:id" exact element={<Profile dialogHandler={dialogOpener}/>} />
         </Routes>
       </BrowserRouter>
     </>

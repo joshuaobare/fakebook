@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import fblogo from "../assets/fblogo.png";
 import educationlogo from "../assets/educationlogo.png";
 import locationlogo from "../assets/locationlogo.png";
@@ -5,48 +6,46 @@ import worklogo from "../assets/worklogo.png";
 import rellogo from "../assets/rellogo.png";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+import Post from "./Post";
 const Profile = (props) => {
-  
   const { id } = useParams();
   const [profile, setProfile] = useState({});
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState([]);
 
   const fetchPosts = async () => {
     const request = await fetch(`http://localhost:3000/api/user/${id}/posts`, {
-      method:'GET',
+      method: "GET",
       headers: {
         "Content-type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-    })
-    
-    const response = await request.json()
-    setPosts(response.posts)
-    
+    });
+
+    const response = await request.json();
+    setPosts(response.posts);
   };
 
   const fetchProfile = async () => {
     const request = await fetch(`http://localhost:3000/api/user/${id}`, {
-      method:'GET',
+      method: "GET",
       headers: {
         "Content-type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-    })    
-    const response = await request.json()
-    setProfile(response.user)   
-    
+    });
+    const response = await request.json();
+    setProfile(response.user);
   };
   const style = {
     backgroundImage: `url(${profile.avatar})`,
-    background: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
   };
 
-  useEffect(()=>{
-    fetchPosts()
-    fetchProfile()
-  },[])
+  useEffect(() => {
+    fetchPosts();
+    fetchProfile();
+  }, []);
 
   return (
     <div className="profile">
@@ -54,7 +53,11 @@ const Profile = (props) => {
         <div className="profile-top">
           <div className="profile-cover" style={style}></div>
           <div className="profile-header">
-            <img src={profile.avatar} alt="Profile Picture" className="profile-pic" />
+            <img
+              src={profile.avatar}
+              alt="Profile Picture"
+              className="profile-pic"
+            />
             <div>
               <h1 className="profile-header-username">{profile.fullName}</h1>
               <div>Friend Count</div>
@@ -79,7 +82,15 @@ const Profile = (props) => {
               <img src={rellogo} alt="" /> Relationship Status
             </div>
           </div>
-          <div></div>
+          <div>
+            {posts.map((post) => (
+              <Post
+                key={post._id}
+                post={post}
+                dialogHandler={props.dialogHandler}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
