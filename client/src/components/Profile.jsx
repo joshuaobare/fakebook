@@ -7,6 +7,8 @@ import rellogo from "../assets/rellogo.png";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Post from "./Post";
+import FullPost from "./FullPost";
+
 const Profile = (props) => {
   const { id } = useParams();
   const [profile, setProfile] = useState({});
@@ -49,6 +51,9 @@ const Profile = (props) => {
 
   return (
     <div className="profile">
+      {props.postDialogOpen ? (
+        <FullPost postDialogOpen={props.postDialogOpen} dialogCloser={props.dialogCloser} activePostData={props.activePostData} />
+      ) : null}
       <div className="profile-cont">
         <div className="profile-top">
           <div className="profile-cover" style={style}></div>

@@ -34,7 +34,7 @@ function App() {
   return (
     <>
       <BrowserRouter basename="/">
-        <NavBar />        
+        <NavBar />
         <Routes>
           <Route
             path="/"
@@ -48,7 +48,18 @@ function App() {
               />
             }
           />
-          <Route path="/user/:id" exact element={<Profile dialogHandler={dialogOpener}/>} />
+          <Route
+            path="/user/:id"
+            exact
+            element={
+              <Profile
+                dialogCloser={dialogCloser}
+                activePostData={activePostData}
+                dialogHandler={dialogOpener}
+                postDialogOpen={postDialogOpen}
+              />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </>
