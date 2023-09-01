@@ -6,11 +6,12 @@ import HomePage from "./components/HomePage";
 import NavBar from "./components/NavBar";
 import FullPost from "./components/FullPost";
 import Profile from "./components/Profile";
+import { HashRouter, BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const [activePostData, setActivePostData] = useState({
-    postId:"",
-    userId:""
+    postId: "",
+    userId: "",
   });
   const [postDialogOpen, setPostDialogOpen] = useState(false);
 
@@ -23,20 +24,33 @@ function App() {
   };
 
   const dialogCloser = () => {
-    setPostDialogOpen(false)
+    setPostDialogOpen(false);
     setActivePostData({
-      postId:"",
-      userId:""
-    })
-  }
+      postId: "",
+      userId: "",
+    });
+  };
 
   return (
     <>
-      <NavBar />
-      {/*<HomePage dialogHandler={dialogOpener} dialogCloser={dialogCloser} activePostData={activePostData} postDialogOpen={postDialogOpen}/>
-     */}
-
-     <Profile />
+      <BrowserRouter basename="/">
+        <NavBar />        
+        <Routes>
+          <Route
+            path="/"
+            exact
+            element={
+              <HomePage
+                dialogHandler={dialogOpener}
+                dialogCloser={dialogCloser}
+                activePostData={activePostData}
+                postDialogOpen={postDialogOpen}
+              />
+            }
+          />
+          <Route path="/user/:id" exact element={<Profile />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
