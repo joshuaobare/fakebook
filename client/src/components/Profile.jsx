@@ -7,12 +7,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const Profile = (props) => {
-  const style = {
-    backgroundImage: `url(${fblogo})`,
-    background: "cover",
-  };
+  
   const { id } = useParams();
   const [profile, setProfile] = useState({});
+  const [posts, setPosts] = useState([])
 
   const fetchPosts = async () => {
     const request = await fetch(`http://localhost:3000/api/user/${id}/posts`, {
@@ -24,12 +22,30 @@ const Profile = (props) => {
     })
     
     const response = await request.json()
-    console.log(response)   
+    setPosts(response.posts)
     
+  };
+
+  const fetchProfile = async () => {
+    const request = await fetch(`http://localhost:3000/api/user/${id}`, {
+      method:'GET',
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })    
+    const response = await request.json()
+    setProfile(response.user)   
+    
+  };
+  const style = {
+    backgroundImage: `url(${profile.avatar})`,
+    background: "cover",
   };
 
   useEffect(()=>{
     fetchPosts()
+    fetchProfile()
   },[])
 
   return (
@@ -38,9 +54,9 @@ const Profile = (props) => {
         <div className="profile-top">
           <div className="profile-cover" style={style}></div>
           <div className="profile-header">
-            <img src={fblogo} alt="Profile Picture" className="profile-pic" />
+            <img src={profile.avatar} alt="Profile Picture" className="profile-pic" />
             <div>
-              <h1 className="profile-header-username">Profile Name</h1>
+              <h1 className="profile-header-username">{profile.fullName}</h1>
               <div>Friend Count</div>
             </div>
           </div>
