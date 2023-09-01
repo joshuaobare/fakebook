@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as LikeIcon } from "../assets/fbLike.svg";
+import { ReactComponent as LikedIcon } from "../assets/fbLiked.svg";
 import { ReactComponent as CommentIcon } from "../assets/comment.svg";
 //import Comment from "./Comment";
 
