@@ -3,12 +3,35 @@ import educationlogo from "../assets/educationlogo.png";
 import locationlogo from "../assets/locationlogo.png";
 import worklogo from "../assets/worklogo.png";
 import rellogo from "../assets/rellogo.png";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-const Profile = () => {
+const Profile = (props) => {
   const style = {
     backgroundImage: `url(${fblogo})`,
     background: "cover",
   };
+  const { id } = useParams();
+  const [profile, setProfile] = useState({});
+
+  const fetchPosts = async () => {
+    const request = await fetch(`http://localhost:3000/api/user/${id}/posts`, {
+      method:'GET',
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    
+    const response = await request.json()
+    console.log(response)   
+    
+  };
+
+  useEffect(()=>{
+    fetchPosts()
+  },[])
+
   return (
     <div className="profile">
       <div className="profile-cont">
