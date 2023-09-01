@@ -38,6 +38,12 @@ router.get(
   postController.posts_get
 );
 
+router.get(
+  "/user/:id/posts" ,
+  passport.authenticate("jwt", { session: false }),
+  postController.user_posts_get
+)
+
 // COMMENT ROUTES
 router.get(
   "/post/:id/comments",
