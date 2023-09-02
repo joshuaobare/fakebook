@@ -24,6 +24,10 @@ async function createUser(user) {
       password: process.env.TEST_PASS,
       joinedAt: faker.date.past(),
       avatar: faker.internet.avatar(),
+      bio: faker.person.bio(),
+      jobTitle: faker.person.jobTitle(),
+      homeLocation: faker.location.city(),
+      relationshipStatus: Math.random() < 0.5 ? "Single" : "Married"
     });
 
     await user.save();
@@ -35,6 +39,10 @@ async function createUser(user) {
       password: process.env.TEST_PASS,
       joinedAt: faker.date.past(),
       avatar: faker.internet.avatar(),
+      bio: faker.person.bio(),
+      jobTitle: faker.person.jobTitle(),
+      homeLocation: faker.location.city(),
+      relationshipStatus: Math.random() < 0.5 ? "Single" : "Married"
     });
 
     await user.save();
@@ -79,7 +87,7 @@ async function createComments() {
         userId: randomUser._id,
         timestamp: post.timestamp,
         postId: post._id,
-        text: faker.lorem.paragraph(),
+        text: faker.lorem.sentence(),
       });
       await comment.save();
     }

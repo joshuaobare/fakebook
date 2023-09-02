@@ -11,6 +11,8 @@ const UserSchema = new Schema({
   bio: { type: String },
   jobTitle: { type: String },
   homeLocation: { type: String },
+  friends: { type: Array, required: true },
+  friendRequests: { type: Array, required: true },
 });
 
 UserSchema.virtual("url").get(function () {
