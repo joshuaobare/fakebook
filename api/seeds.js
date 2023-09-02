@@ -27,7 +27,7 @@ async function createUser(user) {
       bio: faker.person.bio(),
       jobTitle: faker.person.jobTitle(),
       homeLocation: faker.location.city(),
-      relationshipStatus: Math.random() < 0.5 ? "Single" : "Married"
+      relationshipStatus: Math.random() < 0.5 ? "Single" : "Married",
     });
 
     await user.save();
@@ -42,7 +42,7 @@ async function createUser(user) {
       bio: faker.person.bio(),
       jobTitle: faker.person.jobTitle(),
       homeLocation: faker.location.city(),
-      relationshipStatus: Math.random() < 0.5 ? "Single" : "Married"
+      relationshipStatus: Math.random() < 0.5 ? "Single" : "Married",
     });
 
     await user.save();
@@ -93,10 +93,66 @@ async function createComments() {
     }
   });
 }
-/*
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+
+  return array;
+};
+async function populateFriends() {
+  const usersList = await User.find({}).exec();
+
+  //users.forEach(async (user) => {
+
+  for (let x = 0; x < usersList.length; x++) {
+    const users = await User.find({}).exec();
+    const index = users.indexOf(users[x]);
+    const usersArr = [...users];
+    const removed = usersArr.splice(x, 1);
+    //console.log(index, usersArr, usersArr.length)
+    const randomFriends = shuffleArray(usersArr).slice(
+      randomIntFromInterval(0, 5),
+      7
+    );
+    console.log(randomFriends, randomFriends.length);
+    const randomFriendIds = [];
+    randomFriends.forEach((friend) => randomFriendIds.push(friend._id));
+
+    //console.log(randomFriendIds)
+    randomFriendIds.forEach(async (id) => {
+      const isFriend = users[x].friends.some((user) => user._id === id);
+
+      if (!isFriend) {
+        const updatedUser = await User.findByIdAndUpdate(users[x]._id, {
+          $push: { friends: id },
+        }).exec();
+      }
+    });
+
+    randomFriends.forEach(async (friend) => {
+      const updatedFriend = await User.findByIdAndUpdate(friend._id, {
+        $push: { friends: users[x]._id },
+      }).exec();
+    });
+  }
+
+  //});
+}
+ /*
 for (let x = 0; x < 10; x++) {
   createUser();
 }
-createUser("user"); 
+createUser("user");
+
+/*
 createPosts()
-createComments() */
+createComments() 
+populateFriends();
+;
+
+*/
+populateFriends();
