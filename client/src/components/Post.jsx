@@ -7,11 +7,28 @@ import { ReactComponent as CommentIcon } from "../assets/comment.svg";
 //import Comment from "./Comment";
 
 const Post = (props) => {
-  const [user, setUser] = useState({});
+  const [poster, setPoster] = useState({});
   const [comments, setComments] = useState([]);
+  const user = JSON.parse(localStorage.getItem("user"))
+
+  const likePost = async () => {
+    const request = await fetch(
+      `http://localhost:3000/api/post/${props.post._id}/like`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body:JSON.stringify({userId: user._id})
+      }
+    );
+    const response = await request.json()
+    console.log(response)
+  };
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchPoster = async () => {
       const request = await fetch(
         `http://localhost:3000/api/user/${props.post.userId}`,
         {
@@ -23,7 +40,7 @@ const Post = (props) => {
         }
       );
       const response = await request.json();
-      setUser(response.user);
+      setPoster(response.user);
     };
     const fetchComments = async () => {
       const request = await fetch(
@@ -39,21 +56,23 @@ const Post = (props) => {
       const response = await request.json();
       setComments(response.comments);
     };
-    fetchUser();
+    fetchPoster();
     fetchComments();
   }, []);
+
+  
 
   return (
     <div className="post">
       <div className="post-header">
         <img
-          src={user.avatar}
+          src={poster.avatar}
           alt="User Avatar"
           className="navbar-profile-pic"
         />
         <div className="post-header-name-section">
           <div className="post-header-username">
-            <Link to={`/user/${props.post.userId}`}>{user.fullName}</Link>
+            <Link to={`/user/${props.post.userId}`}>{poster.fullName}</Link>
           </div>
           <div className="post-header-timestamp">{props.post.timestamp}</div>
         </div>
@@ -69,7 +88,7 @@ const Post = (props) => {
         </div>
       </div>
       <div className="like-comment-section">
-        <div className="like-section">
+        <div className="like-section" onClick={likePost}>
           <LikeIcon />
           <div>Like</div>
         </div>
