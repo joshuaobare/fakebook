@@ -56,6 +56,12 @@ router.post(
   postController.create_post
 )
 
+router.delete(
+  "/post/:id",
+  passport.authenticate("jwt", { session: false }),
+  postController.delete_post
+)
+
 // COMMENT ROUTES
 router.get(
   "/post/:id/comments",

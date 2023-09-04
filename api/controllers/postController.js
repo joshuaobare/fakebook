@@ -72,3 +72,14 @@ exports.create_post = [
     }
   }),
 ];
+
+exports.delete_post = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const post = await Post.findByIdAndDelete(id).exec();
+    res.json({ message: "Post deleted successfully" });
+  } catch (error) {
+    res.json({ error });
+  }
+});
