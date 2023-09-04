@@ -13,6 +13,7 @@ const UserSchema = new Schema({
   homeLocation: { type: String },
   friends: { type: Array, required: true },
   friendRequests: { type: Array, required: true },
+  relationshipStatus: { type: String },
 });
 
 UserSchema.virtual("url").get(function () {

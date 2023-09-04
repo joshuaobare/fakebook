@@ -110,6 +110,7 @@ async function populateFriends() {
 
   for (let x = 0; x < usersList.length; x++) {
     const users = await User.find({}).exec();
+    users.sort()
     const index = users.indexOf(users[x]);
     const usersArr = [...users];
     const removed = usersArr.splice(x, 1);
@@ -118,13 +119,14 @@ async function populateFriends() {
       randomIntFromInterval(0, 5),
       7
     );
-    console.log(randomFriends, randomFriends.length);
+    
     const randomFriendIds = [];
     randomFriends.forEach((friend) => randomFriendIds.push(friend._id));
 
     //console.log(randomFriendIds)
     randomFriendIds.forEach(async (id) => {
-      const isFriend = users[x].friends.some((user) => user._id === id);
+      const currentUser = await User.findById(users[x]._id)
+      const isFriend = currentUser.friends.some((user) => user._id.toString() === id.toString());
 
       if (!isFriend) {
         const updatedUser = await User.findByIdAndUpdate(users[x]._id, {
@@ -134,15 +136,20 @@ async function populateFriends() {
     });
 
     randomFriends.forEach(async (friend) => {
-      const updatedFriend = await User.findByIdAndUpdate(friend._id, {
-        $push: { friends: users[x]._id },
-      }).exec();
+      const currentUser = await User.findById(users[x]._id)
+      const isFriend = friend.friends.some((user) => (user._id).toString() === (currentUser._id).toString());
+
+      if (!isFriend) {
+        const updatedFriend = await User.findByIdAndUpdate(friend._id, {
+          $push: { friends: users[x]._id },
+        }).exec();
+      }
     });
   }
 
   //});
 }
- /*
+/*
 for (let x = 0; x < 10; x++) {
   createUser();
 }
@@ -156,3 +163,20 @@ populateFriends();
 
 */
 populateFriends();
+
+const friendsArrayToSet = async () => {
+  const users = await User.find({})
+
+  users.forEach(async user => {
+    const friends = (Array.from(new Set(user.friends)))
+
+    await User.findByIdAndUpdate(user._id, {
+      friends: [...friends]
+    })
+
+  })
+
+
+}
+
+//friendsArrayToSet()
