@@ -28,18 +28,7 @@ const HomePage = (props) => {
       {props.postDialogOpen ? (
         <FullPost postDialogOpen={props.postDialogOpen} dialogCloser={props.dialogCloser} activePostData={props.activePostData} />
       ) : null}
-      <div className="homepage-create-post">
-        <img
-          src={fblogo}
-          alt="Profile Pic Icon"
-          className="navbar-profile-pic"
-        />
-        <input
-          type="text"
-          placeholder="What's on your mind, user?"
-          className="homepage-create-post-input"
-        />
-      </div>
+      
       <div className="homepage-posts-section">
         {posts.map((post) => (
           <Post key={post._id} post={post} dialogHandler = {props.dialogHandler} fetchPosts={fetchPosts} />
