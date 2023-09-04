@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import { ReactComponent as LikeIcon } from "../assets/fbLike.svg";
 import { ReactComponent as CommentIcon } from "../assets/comment.svg";
+import { ReactComponent as LikedIcon } from "../assets/fbLiked.svg";
 import { useEffect, useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import { Close } from "@mui/icons-material";
@@ -15,9 +16,27 @@ const FullPost = (props) => {
     fullName: "",
   });
   const [comments, setComments] = useState([]);
-  const [user, setUser] = useState({
-    avatar: "",
-  });
+  const user = JSON.parse(localStorage.getItem("user"))
+  const [liked, setLiked] = useState(false);
+  
+
+  const likePost = async () => {
+    const request = await fetch(
+      `http://localhost:3000/api/post/${postData._id}/like`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ userId: user._id }),
+      }
+    );
+    const response = await request.json();
+    console.log(response);
+    fetchPost();
+    setLiked((prevState) => !prevState);
+  };
 
   const fetchPost = async () => {
     const request = await fetch(
@@ -54,9 +73,21 @@ const FullPost = (props) => {
 
   useEffect(() => {
     fetchPost();
-    fetchPoster();
-    setUser(JSON.parse(localStorage.getItem("user")));
+    fetchPoster();    
+
+    
   }, []);
+  
+  useEffect(() =>{
+    const hasLiked = postData.likes.some(
+      (like) => like.toString() === user._id.toString()
+    );
+    console.log(user)
+
+    if (hasLiked) {
+      setLiked(true);
+    }
+  }, [postData])
 
   return (
     <Dialog open={props.postDialogOpen}>
@@ -92,9 +123,20 @@ const FullPost = (props) => {
             </div>
           </div>
           <div className="like-comment-section">
-            <div className="like-section">
-              <LikeIcon />
-              <div>Like</div>
+            <div
+              className="like-section"
+              onClick={() => likePost()}
+            >
+              {!liked ? (
+                <div className="like-section">
+                  <LikeIcon />
+                  <div>Like</div>
+                </div>
+              ) : (
+                <div className="like-section">
+                  <LikedIcon /> <div>Unlike</div>
+                </div>
+              )}
             </div>
             <div className="comment-section">
               <CommentIcon />
@@ -102,7 +144,9 @@ const FullPost = (props) => {
             </div>
           </div>
           <div className="full-post-comments">
-              {comments.map(comment => <Comment key={comment._id} comment={comment}/>)}
+            {comments.map((comment) => (
+              <Comment key={comment._id} comment={comment} />
+            ))}
           </div>
         </div>
         <div className="full-post-add-comment-section">
