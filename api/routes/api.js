@@ -44,6 +44,12 @@ router.get(
   postController.user_posts_get
 )
 
+router.put (
+  "/post/:id/like",
+  passport.authenticate("jwt", { session: false }),
+  postController.like_post
+)
+
 // COMMENT ROUTES
 router.get(
   "/post/:id/comments",

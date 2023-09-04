@@ -25,3 +25,24 @@ exports.user_posts_get = asyncHandler(async (req, res, next) => {
 
   res.json({ posts });
 });
+
+exports.like_post = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  const { userId } = req.body;
+
+  const post = await Post.findById(id).exec();
+
+  const likePost = post.likes.some((like) => like === userId);
+
+  if (likePost) {
+    await Post.findByIdAndUpdate(id, {
+      $pull: { likes: userId },
+    }).exec();
+    res.json({ message: "unliked post" });
+  } else {
+    await Post.findByIdAndUpdate(id, {
+      $push: { likes: userId },
+    }).exec();
+    res.json({ message: "liked post" });
+  }
+});
