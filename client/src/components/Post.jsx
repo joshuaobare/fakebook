@@ -9,7 +9,8 @@ import { ReactComponent as CommentIcon } from "../assets/comment.svg";
 const Post = (props) => {
   const [poster, setPoster] = useState({});
   const [comments, setComments] = useState([]);
-  const user = JSON.parse(localStorage.getItem("user"))
+  const [liked, setLiked] = useState(false);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const likePost = async (refresh) => {
     const request = await fetch(
@@ -20,12 +21,13 @@ const Post = (props) => {
           "Content-type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body:JSON.stringify({userId: user._id})
+        body: JSON.stringify({ userId: user._id }),
       }
     );
-    const response = await request.json()
-    console.log(response)
-    refresh()
+    const response = await request.json();
+    console.log(response);
+    refresh();
+    setLiked(prevState => !prevState)
   };
 
   useEffect(() => {
@@ -59,9 +61,16 @@ const Post = (props) => {
     };
     fetchPoster();
     fetchComments();
-  }, []);
 
-  
+    const hasLiked = props.post.likes.some(
+      (like) => like.toString() === user._id.toString()
+    );
+    console.log(user)
+
+    if (hasLiked) {
+      setLiked(true);
+    }
+  }, []);
 
   return (
     <div className="post">
@@ -89,9 +98,20 @@ const Post = (props) => {
         </div>
       </div>
       <div className="like-comment-section">
-        <div className="like-section" onClick={() => likePost(props.fetchPosts)}>
-          <LikeIcon />
-          <div>Like</div>
+        <div
+          className="like-section"
+          onClick={() => likePost(props.fetchPosts)}
+        >
+          {!liked ? (
+            <div className="like-section">
+              <LikeIcon />
+              <div>Like</div>
+            </div>
+          ) : (
+            <div className="like-section">
+              <LikedIcon /> <div>Unlike</div>
+            </div>
+          )}
         </div>
         <div
           className="comment-section"
