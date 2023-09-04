@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import fblogo from "../assets/fblogo.png";
 import Post from "./Post";
 import FullPost from "./FullPost";
+import CreatePost from "./CreatePost";
 
 const HomePage = (props) => {
   const [posts, setPosts] = useState([]);
@@ -28,7 +29,7 @@ const HomePage = (props) => {
       {props.postDialogOpen ? (
         <FullPost postDialogOpen={props.postDialogOpen} dialogCloser={props.dialogCloser} activePostData={props.activePostData} />
       ) : null}
-      
+      <CreatePost />
       <div className="homepage-posts-section">
         {posts.map((post) => (
           <Post key={post._id} post={post} dialogHandler = {props.dialogHandler} fetchPosts={fetchPosts} />
