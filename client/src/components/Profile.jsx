@@ -11,7 +11,9 @@ import FullPost from "./FullPost";
 
 const Profile = (props) => {
   const { id } = useParams();
-  const [profile, setProfile] = useState({});
+  const [profile, setProfile] = useState({
+    friends: []
+  });
   const [posts, setPosts] = useState([]);
 
   const fetchPosts = async () => {
@@ -65,26 +67,24 @@ const Profile = (props) => {
             />
             <div>
               <h1 className="profile-header-username">{profile.fullName}</h1>
-              <div>Friend Count</div>
+              <div>{profile.friends.length} friends</div>
             </div>
           </div>
         </div>
         <div className="profile-bottom">
           <div>
             <div>Intro</div>
+            <div>{profile.bio}</div>
             <div className="profile-intro-item">
-              <img src={worklogo} alt="" /> Works At
-            </div>
+              <img src={worklogo} alt="" /> {profile.jobTitle}
+            </div>            
             <div className="profile-intro-item">
-              <img src={educationlogo} alt="" /> Education
+              {" "}
+              <img src={locationlogo} alt="" /> {profile.homeLocation}
             </div>
             <div className="profile-intro-item">
               {" "}
-              <img src={locationlogo} alt="" /> Home Location
-            </div>
-            <div className="profile-intro-item">
-              {" "}
-              <img src={rellogo} alt="" /> Relationship Status
+              <img src={rellogo} alt="" /> {profile.relationshipStatus}
             </div>
           </div>
           <div>

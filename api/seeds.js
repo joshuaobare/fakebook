@@ -155,14 +155,17 @@ for (let x = 0; x < 10; x++) {
 }
 createUser("user");
 
-/*
+
 createPosts()
 createComments() 
-populateFriends();
+
 ;
 
 */
-populateFriends();
+//populateFriends();
+
+//createPosts()
+createComments()
 
 const friendsArrayToSet = async () => {
   const users = await User.find({})
