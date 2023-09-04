@@ -11,7 +11,7 @@ const Post = (props) => {
   const [comments, setComments] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"))
 
-  const likePost = async () => {
+  const likePost = async (refresh) => {
     const request = await fetch(
       `http://localhost:3000/api/post/${props.post._id}/like`,
       {
@@ -25,6 +25,7 @@ const Post = (props) => {
     );
     const response = await request.json()
     console.log(response)
+    refresh()
   };
 
   useEffect(() => {
@@ -88,7 +89,7 @@ const Post = (props) => {
         </div>
       </div>
       <div className="like-comment-section">
-        <div className="like-section" onClick={likePost}>
+        <div className="like-section" onClick={() => likePost(props.fetchPosts)}>
           <LikeIcon />
           <div>Like</div>
         </div>

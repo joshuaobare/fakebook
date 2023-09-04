@@ -42,7 +42,7 @@ const HomePage = (props) => {
       </div>
       <div className="homepage-posts-section">
         {posts.map((post) => (
-          <Post key={post._id} post={post} dialogHandler = {props.dialogHandler} />
+          <Post key={post._id} post={post} dialogHandler = {props.dialogHandler} fetchPosts={fetchPosts} />
         ))}
       </div>
     </div>

@@ -93,6 +93,7 @@ const Profile = (props) => {
                 key={post._id}
                 post={post}
                 dialogHandler={props.dialogHandler}
+                fetchPosts={fetchPosts}
               />
             ))}
           </div>
