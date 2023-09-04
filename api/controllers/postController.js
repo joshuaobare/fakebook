@@ -46,3 +46,29 @@ exports.like_post = asyncHandler(async (req, res, next) => {
     res.json({ message: "liked post" });
   }
 });
+
+exports.create_post = [
+  body("text")
+    .escape()
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("Post cannot be blank"),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    const { userId, text } = req.body;
+
+    const post = new Post({
+      userId,
+      text,
+    });
+
+    if (!errors.isEmpty()) {
+      res.json({ errors: errors.array() });
+      return;
+    } else {
+      await post.save();
+      res.json({ message: "Post created successfully" });
+    }
+  }),
+];

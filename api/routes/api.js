@@ -50,6 +50,12 @@ router.put (
   postController.like_post
 )
 
+router.post(
+  "/post",
+  passport.authenticate("jwt", { session: false }),
+  postController.create_post
+)
+
 // COMMENT ROUTES
 router.get(
   "/post/:id/comments",
