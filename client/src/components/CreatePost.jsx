@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 
-const CreatePost = () => {
+const CreatePost = (props) => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [formData, setFormData] = useState({
@@ -13,26 +14,26 @@ const CreatePost = () => {
       return { ...prevState, [e.target.name]: e.target.value };
     });
   };
-
+  
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const request = await fetch("http://localhost:3000/api/", {
+    e.preventDefault();    
+    const request = await fetch("http://localhost:3000/api/post", {
       method: "POST",
       headers: {
-        "Content-type": "application/json",
-        body: JSON.stringify(formData),
+        "Content-type": "application/json",       
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
+      body: JSON.stringify(formData),
     });
 
     const response = await request.json();
-
+    
     if (response.message !== undefined) {
       setFormData({
         userId: user._id,
         text: "",
       });
+      props.fetchPosts()
     }
   };
 
@@ -50,6 +51,7 @@ const CreatePost = () => {
           className="homepage-create-post-input"
           name="text"
           onChange={handleChange}
+          value={formData.text}
         />
         <button className="create-post-form-btn">
           <span className="material-symbols-outlined">send</span>

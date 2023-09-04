@@ -29,7 +29,7 @@ const HomePage = (props) => {
       {props.postDialogOpen ? (
         <FullPost postDialogOpen={props.postDialogOpen} dialogCloser={props.dialogCloser} activePostData={props.activePostData} />
       ) : null}
-      <CreatePost />
+      <CreatePost fetchPosts={fetchPosts} />
       <div className="homepage-posts-section">
         {posts.map((post) => (
           <Post key={post._id} post={post} dialogHandler = {props.dialogHandler} fetchPosts={fetchPosts} />
