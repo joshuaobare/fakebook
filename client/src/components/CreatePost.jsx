@@ -1,5 +1,41 @@
+import { useState } from "react";
+
 const CreatePost = () => {
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const [formData, setFormData] = useState({
+    userId: user._id,
+    text: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData((prevState) => {
+      return { ...prevState, [e.target.name]: e.target.value };
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const request = await fetch("http://localhost:3000/api/", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        body: JSON.stringify(formData),
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    const response = await request.json();
+
+    if (response.message !== undefined) {
+      setFormData({
+        userId: user._id,
+        text: "",
+      });
+    }
+  };
+
   return (
     <div className="homepage-create-post">
       <img
@@ -7,11 +43,13 @@ const CreatePost = () => {
         alt="Profile Pic Icon"
         className="navbar-profile-pic"
       />
-      <form action="" className="create-post-form">
+      <form action="" className="create-post-form" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder={`What's on your mind, ${user.fullName.split(" ")[0]}?`}
           className="homepage-create-post-input"
+          name="text"
+          onChange={handleChange}
         />
         <button className="create-post-form-btn">
           <span className="material-symbols-outlined">send</span>
