@@ -21,7 +21,7 @@ const FullPost = (props) => {
   const [formData, setFormData] = useState({
     text: "",
     postId: props.activePostData.postId,
-    userId: props.activePostData.userId,
+    userId: user._id,
   });
 
   const likePost = async () => {
@@ -82,7 +82,7 @@ const FullPost = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const request = await fetch(``, {
+    const request = await fetch(`http://localhost:3000/api/post/${props.activePostData.postId}/comment`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -91,13 +91,14 @@ const FullPost = (props) => {
       body: JSON.stringify(formData),
     });
     const response = await request.json()
-
-    if(response.status === 200){
+    
+    if(response.message !== undefined){
       setFormData({
         text: "",
         postId: props.activePostData.postId,
         userId: props.activePostData.userId,
       })
+      fetchPost()      
     }
   };
 
@@ -124,7 +125,10 @@ const FullPost = (props) => {
           <div className="full-post-header-title">
             {poster.fullName.split(" ")[0]}'s Post
           </div>
-          <div className="dialog-close" onClick={props.dialogCloser}>
+          <div className="dialog-close" onClick={() => {
+            props.dialogCloser()
+            props.fetchPosts()
+            }}>
             <Close />
           </div>
         </div>

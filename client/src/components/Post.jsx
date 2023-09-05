@@ -25,52 +25,67 @@ const Post = (props) => {
       }
     );
     const response = await request.json();
-    console.log(response);
+    
+    if(response.message === "liked post"){
+      setLiked(true);
+    } else {
+      setLiked(false);
+    }
     refresh();
-    setLiked(prevState => !prevState)
+    //
   };
 
-  useEffect(() => {
-    const fetchPoster = async () => {
-      const request = await fetch(
-        `http://localhost:3000/api/user/${props.post.userId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      const response = await request.json();
-      setPoster(response.user);
-    };
-    const fetchComments = async () => {
-      const request = await fetch(
-        `http://localhost:3000/api/post/${props.post._id}/comments`,
-        {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      const response = await request.json();
-      setComments(response.comments);
-    };
-    fetchPoster();
-    fetchComments();
+  const fetchPoster = async () => {
+    const request = await fetch(
+      `http://localhost:3000/api/user/${props.post.userId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    const response = await request.json();
+    setPoster(response.user);
+  };
+  const fetchComments = async () => {
+    const request = await fetch(
+      `http://localhost:3000/api/post/${props.post._id}/comments`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    const response = await request.json();
+    setComments([...response.comments]);
+  };
 
+  const likeChecker = () => {
     const hasLiked = props.post.likes.some(
       (like) => like.toString() === user._id.toString()
     );
-    console.log(user)
-
+    
     if (hasLiked) {
       setLiked(true);
+    } else {
+      setLiked(false)
     }
+  };
+
+  useEffect(() => {
+    fetchPoster();
+    fetchComments();
+    likeChecker();
   }, []);
+
+  useEffect(() => {    
+    fetchComments();
+    likeChecker();
+  }, [props.activePostData]);
 
   return (
     <div className="post">

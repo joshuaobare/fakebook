@@ -17,23 +17,28 @@ const HomePage = (props) => {
       },
     });
     const response = await request.json();
-    setPosts(response.posts);
+    setPosts([...response.posts]);
   };
 
   useEffect(() => {
     fetchPosts();
   }, []);
 
+  useEffect(() => {
+    fetchPosts();    
+  }, [props.activePostData, props.postDialogOpen]);
+
   return (
     <div className="homepage">
       {props.postDialogOpen ? (
-        <FullPost postDialogOpen={props.postDialogOpen} dialogCloser={props.dialogCloser} activePostData={props.activePostData} />
+        <FullPost postDialogOpen={props.postDialogOpen} dialogCloser={props.dialogCloser} activePostData={props.activePostData} fetchPosts={fetchPosts}/>
       ) : null}
       <CreatePost fetchPosts={fetchPosts} />
       <div className="homepage-posts-section">
-        {posts.map((post) => (
-          <Post key={post._id} post={post} dialogHandler = {props.dialogHandler} fetchPosts={fetchPosts} />
-        ))}
+        {posts.map((post) => {
+          console.log("Posts changed")
+          return <Post key={post._id} post={post} dialogHandler = {props.dialogHandler} activePostData={props.activePostData} fetchPosts={fetchPosts} />}
+        )}
       </div>
     </div>
   );
