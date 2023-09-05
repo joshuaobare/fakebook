@@ -15,6 +15,7 @@ const Profile = (props) => {
     friends: [],
   });
   const [posts, setPosts] = useState([]);
+  const [currentUserProfile, setCurrentUserProfile] = useState(false)
 
   const fetchPosts = async () => {
     const request = await fetch(`http://localhost:3000/api/user/${id}/posts`, {
@@ -40,15 +41,26 @@ const Profile = (props) => {
     const response = await request.json();
     setProfile(response.user);
   };
+
+  const userCheck = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if(user._id === id){
+      setCurrentUserProfile(true)
+    }
+
+  }
   const style = {
     backgroundImage: `url(${profile.avatar})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
   };
 
+
   useEffect(() => {
     fetchPosts();
     fetchProfile();
+    userCheck()
   }, []);
 
   return (
