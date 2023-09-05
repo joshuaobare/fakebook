@@ -75,6 +75,25 @@ const Profile = (props) => {
     backgroundSize: "cover",
   };
 
+  const sendRequest = async () => {
+    const request = await fetch(`http://localhost:3000/api/friend/request`, {
+      method: 'PUT',
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body : JSON.stringify({userId: user._id, friendId: profile._id})
+    })
+
+    const response = await request.json()
+    console.log(response)
+    fetchProfile()
+  }
+
+  const removeFriend = () => {
+
+  }
+
   useEffect(() => {
     fetchPosts();
     fetchProfile();
@@ -116,7 +135,7 @@ const Profile = (props) => {
               ) : requestSent ? (
                 <button>Request Pending</button>
               ) : !isFriend ? (
-                <button>Add Friend</button>
+                <button onClick={sendRequest}>Add Friend</button>
               ) : (
                 <button>Remove Friend</button>
               )}
