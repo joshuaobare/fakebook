@@ -36,7 +36,6 @@ const HomePage = (props) => {
       <CreatePost fetchPosts={fetchPosts} />
       <div className="homepage-posts-section">
         {posts.map((post) => {
-          console.log("Posts changed")
           return <Post key={post._id} post={post} dialogHandler = {props.dialogHandler} activePostData={props.activePostData} fetchPosts={fetchPosts} />}
         )}
       </div>
