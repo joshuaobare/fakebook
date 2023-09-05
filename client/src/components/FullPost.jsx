@@ -79,6 +79,28 @@ const FullPost = (props) => {
     });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const request = await fetch(``, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(formData),
+    });
+    const response = await request.json()
+
+    if(response.status === 200){
+      setFormData({
+        text: "",
+        postId: props.activePostData.postId,
+        userId: props.activePostData.userId,
+      })
+    }
+  };
+
   useEffect(() => {
     fetchPost();
     fetchPoster();
@@ -154,7 +176,12 @@ const FullPost = (props) => {
         </div>
         <div className="full-post-add-comment-section">
           <img src={user.avatar} alt="User Avatar" className="commenter-pic" />
-          <form action="" method="post" className="comment-form">
+          <form
+            action=""
+            method="post"
+            className="comment-form"
+            onSubmit={handleSubmit}
+          >
             <input
               type="text"
               placeholder="Write a comment..."
