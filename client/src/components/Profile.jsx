@@ -16,7 +16,7 @@ const Profile = (props) => {
   });
   const [posts, setPosts] = useState([]);
   const [currentUserProfile, setCurrentUserProfile] = useState(false);
-  const [isFriend, setIsFriend] = useState(false)
+  const [isFriend, setIsFriend] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const fetchPosts = async () => {
@@ -44,22 +44,21 @@ const Profile = (props) => {
     setProfile(response.user);
   };
 
-  const userCheck = () => {   
-    
+  const userCheck = () => {
     if (user._id === id) {
       setCurrentUserProfile(true);
     }
   };
 
   const friendsCheck = () => {
-    const check = profile.friends.some(friend => friend === user._id)
+    const check = profile.friends.some((friend) => friend === user._id);
 
-    if(check) {
-      setIsFriend(true)
+    if (check) {
+      setIsFriend(true);
     } else {
-      setIsFriend(false)
+      setIsFriend(false);
     }
-  }
+  };
   const style = {
     backgroundImage: `url(${profile.avatar})`,
     backgroundRepeat: "no-repeat",
@@ -73,8 +72,8 @@ const Profile = (props) => {
   }, []);
 
   useEffect(() => {
-    friendsCheck()
-  }, [profile])
+    friendsCheck();
+  }, [profile]);
 
   return (
     <div className="profile">
@@ -103,8 +102,10 @@ const Profile = (props) => {
             <div>
               {currentUserProfile ? (
                 <button>Edit Profile</button>
-              ) : (
+              ) : !isFriend ? (
                 <button>Add friend</button>
+              ) : (
+                <button>Remove friend</button>
               )}
             </div>
           </div>
