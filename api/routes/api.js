@@ -26,16 +26,30 @@ router.post("/login", userController.login_user);
 
 router.post("/logout", userController.logout_user);
 
+
+// FRIEND ROUTES
 router.put(
-  "/user/:id/request",
+  "/friend/:id/request",
   passport.authenticate("jwt", { session: false }),
   friendController.friend_request
 );
 
 router.put(
-  "/user/:id/friend",
+  "/friend/:id/deleteRequest",
+  passport.authenticate("jwt", { session: false }),
+  friendController.delete_friend_request
+);
+
+router.put(
+  "/friend/:id/friend",
   passport.authenticate("jwt", { session: false }),
   friendController.add_friend
+);
+
+router.put(
+  "/friend/:id/remove",
+  passport.authenticate("jwt", { session: false }),
+  friendController.remove_friend
 );
 
 // POST ROUTES
