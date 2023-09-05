@@ -1,6 +1,4 @@
 /* eslint-disable react/prop-types */
-import fblogo from "../assets/fblogo.png";
-import educationlogo from "../assets/educationlogo.png";
 import locationlogo from "../assets/locationlogo.png";
 import worklogo from "../assets/worklogo.png";
 import rellogo from "../assets/rellogo.png";
@@ -13,10 +11,12 @@ const Profile = (props) => {
   const { id } = useParams();
   const [profile, setProfile] = useState({
     friends: [],
+    friendRequests: []
   });
   const [posts, setPosts] = useState([]);
   const [currentUserProfile, setCurrentUserProfile] = useState(false);
   const [isFriend, setIsFriend] = useState(false);
+  const [requestSent, setRequestSent] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const fetchPosts = async () => {
@@ -59,6 +59,16 @@ const Profile = (props) => {
       setIsFriend(false);
     }
   };
+
+  const requestCheck = () => {
+    const check = profile.friendRequests.some((friend) => friend === user._id);
+
+    if (check) {
+      setRequestSent(true);
+    } else {
+      setRequestSent(false);
+    }
+  };
   const style = {
     backgroundImage: `url(${profile.avatar})`,
     backgroundRepeat: "no-repeat",
@@ -73,6 +83,7 @@ const Profile = (props) => {
 
   useEffect(() => {
     friendsCheck();
+    requestCheck();
   }, [profile]);
 
   return (
@@ -102,10 +113,12 @@ const Profile = (props) => {
             <div>
               {currentUserProfile ? (
                 <button>Edit Profile</button>
+              ) : requestSent ? (
+                <button>Request Pending</button>
               ) : !isFriend ? (
-                <button>Add friend</button>
+                <button>Add Friend</button>
               ) : (
-                <button>Remove friend</button>
+                <button>Remove Friend</button>
               )}
             </div>
           </div>
