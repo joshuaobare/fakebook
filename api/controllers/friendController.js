@@ -35,3 +35,22 @@ exports.add_friend = asyncHandler(async (req, res, next) => {
     res.json({ error });
   }
 });
+
+exports.remove_friend = asyncHandler(async (req, res, next) => {
+    const { friendId, userId } = req.body;
+  
+    const user = User.findByIdAndUpdate(userId, {      
+      $pull: { friends: friendId },
+    });
+    const friend = User.findByIdAndUpdate(friendId, {
+      $pull: { friends: userId },
+    });
+  
+    try {
+      await user.exec();
+      await friend.exec();
+      res.json({ message: "added friend successfully" });
+    } catch (error) {
+      res.json({ error });
+    }
+  });
