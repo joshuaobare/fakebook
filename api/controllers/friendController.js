@@ -16,6 +16,21 @@ exports.friend_request = asyncHandler(async (req, res, next) => {
   }
 });
 
+exports.delete_friend_request = asyncHandler(async (req, res, next) => {
+    const { friendId, userId } = req.body;
+  
+    const user = User.findByIdAndUpdate(userId, {
+      $pull: { friendRequests: friendId },
+    });
+  
+    try {
+      await user.exec();
+      res.json({ message: "friend request deleted successfully" });
+    } catch (error) {
+      res.json({ error });
+    }
+  });
+
 exports.add_friend = asyncHandler(async (req, res, next) => {
   const { friendId, userId } = req.body;
 
