@@ -16,9 +16,13 @@ const FullPost = (props) => {
     fullName: "",
   });
   const [comments, setComments] = useState([]);
-  const user = JSON.parse(localStorage.getItem("user"))
+  const user = JSON.parse(localStorage.getItem("user"));
   const [liked, setLiked] = useState(false);
-  
+  const [formData, setFormData] = useState({
+    text: "",
+    postId: props.activePostData.postId,
+    userId: props.activePostData.userId,
+  });
 
   const likePost = async () => {
     const request = await fetch(
@@ -69,25 +73,27 @@ const FullPost = (props) => {
     setPoster(response.user);
   };
 
-  console.log(user);
+  const handleChange = (e) => {
+    setFormData((prevState) => {
+      return { ...prevState, [e.target.name]: e.target.value };
+    });
+  };
 
   useEffect(() => {
     fetchPost();
-    fetchPoster();    
-
-    
+    fetchPoster();
   }, []);
-  
-  useEffect(() =>{
+
+  useEffect(() => {
     const hasLiked = postData.likes.some(
       (like) => like.toString() === user._id.toString()
     );
-    console.log(user)
+    console.log(user);
 
     if (hasLiked) {
       setLiked(true);
     }
-  }, [postData])
+  }, [postData]);
 
   return (
     <Dialog open={props.postDialogOpen}>
@@ -123,10 +129,7 @@ const FullPost = (props) => {
             </div>
           </div>
           <div className="like-comment-section">
-            <div
-              className="like-section"
-              onClick={() => likePost()}
-            >
+            <div className="like-section" onClick={() => likePost()}>
               {!liked ? (
                 <div className="like-section">
                   <LikeIcon />
@@ -151,11 +154,19 @@ const FullPost = (props) => {
         </div>
         <div className="full-post-add-comment-section">
           <img src={user.avatar} alt="User Avatar" className="commenter-pic" />
-          <input
-            type="text"
-            placeholder="Write a comment..."
-            className="full-post-comment-input"
-          />
+          <form action="" method="post" className="comment-form">
+            <input
+              type="text"
+              placeholder="Write a comment..."
+              className="full-post-comment-input"
+              name="text"
+              value={formData.text}
+              onChange={handleChange}
+            />
+            <button className="create-post-form-btn">
+              <span className="material-symbols-outlined">send</span>
+            </button>
+          </form>
         </div>
       </div>
     </Dialog>

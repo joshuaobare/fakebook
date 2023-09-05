@@ -292,6 +292,12 @@
   align-items: center;
   justify-content: center;
 }
+
+.comment-form {
+  display: flex;
+  gap: 5px;
+  width: 100%;
+}
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
