@@ -69,4 +69,10 @@ router.get(
   commentController.comments_get
 );
 
+router.post(
+  "/post/:id/comment",
+  passport.authenticate("jwt", { session: false }),
+  commentController.create_comment
+);
+
 module.exports = router;
