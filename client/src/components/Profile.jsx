@@ -12,7 +12,7 @@ import FullPost from "./FullPost";
 const Profile = (props) => {
   const { id } = useParams();
   const [profile, setProfile] = useState({
-    friends: []
+    friends: [],
   });
   const [posts, setPosts] = useState([]);
 
@@ -54,20 +54,29 @@ const Profile = (props) => {
   return (
     <div className="profile">
       {props.postDialogOpen ? (
-        <FullPost postDialogOpen={props.postDialogOpen} dialogCloser={props.dialogCloser} activePostData={props.activePostData} />
+        <FullPost
+          postDialogOpen={props.postDialogOpen}
+          dialogCloser={props.dialogCloser}
+          activePostData={props.activePostData}
+        />
       ) : null}
       <div className="profile-cont">
         <div className="profile-top">
           <div className="profile-cover" style={style}></div>
-          <div className="profile-header">
-            <img
-              src={profile.avatar}
-              alt="Profile Picture"
-              className="profile-pic"
-            />
+          <div className="profile-header-cont">
+            <div className="profile-header">
+              <img
+                src={profile.avatar}
+                alt="Profile Picture"
+                className="profile-pic"
+              />
+              <div>
+                <h1 className="profile-header-username">{profile.fullName}</h1>
+                <div>{profile.friends.length} friends</div>
+              </div>
+            </div>
             <div>
-              <h1 className="profile-header-username">{profile.fullName}</h1>
-              <div>{profile.friends.length} friends</div>
+              <button>Add fiend</button>
             </div>
           </div>
         </div>
@@ -77,7 +86,7 @@ const Profile = (props) => {
             <div>{profile.bio}</div>
             <div className="profile-intro-item">
               <img src={worklogo} alt="" /> {profile.jobTitle}
-            </div>            
+            </div>
             <div className="profile-intro-item">
               {" "}
               <img src={locationlogo} alt="" /> {profile.homeLocation}

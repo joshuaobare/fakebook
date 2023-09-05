@@ -249,12 +249,19 @@
 
 .profile-header {
   display: flex;
-  gap: 10px
+  gap: 10px;
+  align-items: center;
 }
 
 .profile-header-username {
   font-size: 2rem;
   margin-left: 50px;
+}
+
+.profile-header-cont {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .profile-pic {
   height: 168px;
