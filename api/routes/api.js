@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require("../controllers/userController");
 const postController = require("../controllers/postController");
 const commentController = require("../controllers/commentController");
+const friendController = require("../controllers/friendController");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 
@@ -24,6 +25,18 @@ router.post("/user", userController.user_create);
 router.post("/login", userController.login_user);
 
 router.post("/logout", userController.logout_user);
+
+router.put(
+  "/user/:id/request",
+  passport.authenticate("jwt", { session: false }),
+  friendController.friend_request
+);
+
+router.put(
+  "/user/:id/friend",
+  passport.authenticate("jwt", { session: false }),
+  friendController.add_friend
+);
 
 // POST ROUTES
 router.get(
