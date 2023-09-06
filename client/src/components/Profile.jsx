@@ -4,6 +4,8 @@ import worklogo from "../assets/worklogo.png";
 import rellogo from "../assets/rellogo.png";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Dialog from "@mui/material/Dialog";
+import { Close } from "@mui/icons-material";
 import Post from "./Post";
 import FullPost from "./FullPost";
 
@@ -11,12 +13,13 @@ const Profile = (props) => {
   const { id } = useParams();
   const [profile, setProfile] = useState({
     friends: [],
-    friendRequests: []
+    friendRequests: [],
   });
   const [posts, setPosts] = useState([]);
   const [currentUserProfile, setCurrentUserProfile] = useState(false);
   const [isFriend, setIsFriend] = useState(false);
   const [requestSent, setRequestSent] = useState(false);
+  const [friendDialogOpen, setFriendDialogOpen] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const fetchPosts = async () => {
@@ -76,23 +79,24 @@ const Profile = (props) => {
   };
 
   const sendRequest = async () => {
-    const request = await fetch(`http://localhost:3000/api/friend/request`, {
-      method: 'PUT',
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      body : JSON.stringify({userId: user._id, friendId: profile._id})
-    })
+    const request = await fetch(
+      `http://localhost:3000/api/friend/${id}/request`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ userId: user._id, friendId: profile._id }),
+      }
+    );
 
-    const response = await request.json()
-    console.log(response)
-    fetchProfile()
-  }
+    const response = await request.json();
+    console.log(response);
+    fetchProfile();
+  };
 
-  const removeFriend = () => {
-
-  }
+  const removeFriend = () => {};
 
   useEffect(() => {
     fetchPosts();
@@ -114,6 +118,15 @@ const Profile = (props) => {
           activePostData={props.activePostData}
         />
       ) : null}
+      <Dialog open={friendDialogOpen}>
+        <div>
+          <div>
+            <Close />
+          </div>
+          <div>Are you sure?</div>
+          <div>Remove friend</div>
+        </div>
+      </Dialog>
       <div className="profile-cont">
         <div className="profile-top">
           <div className="profile-cover" style={style}></div>
