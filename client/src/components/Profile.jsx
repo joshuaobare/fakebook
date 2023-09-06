@@ -111,7 +111,10 @@ const Profile = (props) => {
     })
 
     const response = await request.json()
-    console.log(response)
+    console.log({userId: user._id, friendId: profile._id })
+    setFriendDialogOpen(false)
+    fetchProfile();
+
   };
 
   useEffect(() => {
