@@ -96,7 +96,23 @@ const Profile = (props) => {
     fetchProfile();
   };
 
-  const removeFriend = () => {};
+  const friendDialogHandler = () => {
+    setFriendDialogOpen(prevState => !prevState)
+  }
+
+  const removeFriend = async () => {
+    const request = await fetch(`http://localhost:3000/api/friend/${id}/remove`, {
+      method:'PUT',
+      headers:{
+        "Content-type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({ userId: user._id, friendId: profile._id }),
+    })
+
+    const response = await request.json()
+    console.log(response)
+  };
 
   useEffect(() => {
     fetchPosts();
@@ -120,11 +136,11 @@ const Profile = (props) => {
       ) : null}
       <Dialog open={friendDialogOpen}>
         <div>
-          <div>
+          <div onClick={friendDialogHandler}>
             <Close />
           </div>
           <div>Are you sure?</div>
-          <div>Remove friend</div>
+          <button onClick={removeFriend}>Remove friend</button>
         </div>
       </Dialog>
       <div className="profile-cont">
@@ -150,7 +166,7 @@ const Profile = (props) => {
               ) : !isFriend ? (
                 <button onClick={sendRequest}>Add Friend</button>
               ) : (
-                <button>Remove Friend</button>
+                <button onClick={friendDialogHandler}>Remove Friend</button>
               )}
             </div>
           </div>
