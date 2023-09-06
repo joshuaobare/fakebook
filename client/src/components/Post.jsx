@@ -5,6 +5,8 @@ import { ReactComponent as LikeIcon } from "../assets/fbLike.svg";
 import { ReactComponent as LikedIcon } from "../assets/fbLiked.svg";
 import { ReactComponent as CommentIcon } from "../assets/comment.svg";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Dialog from "@mui/material/Dialog";
+import { Close } from "@mui/icons-material";
 //import Comment from "./Comment";
 
 const Post = (props) => {
@@ -13,6 +15,7 @@ const Post = (props) => {
   const [liked, setLiked] = useState(false);
   const [currentUserProfile, setCurrentUserProfile] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   const likePost = async (refresh) => {
     const request = await fetch(
@@ -83,6 +86,9 @@ const Post = (props) => {
       setCurrentUserProfile(true);
     }
   };
+  const deleteDialogHandler = () => {
+    setDeleteDialogOpen(prevState => !prevState)
+  }
 
   useEffect(() => {
     fetchPoster();
@@ -99,6 +105,15 @@ const Post = (props) => {
 
   return (
     <div className="post">
+      <Dialog open={deleteDialogOpen}>
+        <div>
+          <div onClick={deleteDialogHandler}>
+            <Close />
+          </div>
+          <div>Are you sure?</div>
+          <button>Delete Post</button>
+        </div>
+      </Dialog>
       <div className="post-header">
         <img
           src={poster.avatar}
@@ -112,7 +127,7 @@ const Post = (props) => {
           <div className="post-header-timestamp">{props.post.timestamp}</div>
         </div>
         {currentUserProfile ? (
-          <div className="delete-post-icon">
+          <div className="delete-post-icon" onClick={deleteDialogHandler}>
             <DeleteIcon />
           </div>
         ) : null}

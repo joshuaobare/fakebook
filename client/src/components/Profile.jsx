@@ -110,8 +110,7 @@ const Profile = (props) => {
       body: JSON.stringify({ userId: user._id, friendId: profile._id }),
     })
 
-    const response = await request.json()
-    console.log({userId: user._id, friendId: profile._id })
+    const response = await request.json()    
     setFriendDialogOpen(false)
     fetchProfile();
 
