@@ -87,8 +87,22 @@ const Post = (props) => {
     }
   };
   const deleteDialogHandler = () => {
-    setDeleteDialogOpen(prevState => !prevState)
-  }
+    setDeleteDialogOpen((prevState) => !prevState);
+  };
+
+  const deletePost = async () => {
+    const request = await fetch(`http://localhost:3000/api/post/${props.post._id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    const response = await request.json()
+    setDeleteDialogOpen(false)
+    props.fetchPosts()
+    
+  };
 
   useEffect(() => {
     fetchPoster();
@@ -111,7 +125,7 @@ const Post = (props) => {
             <Close />
           </div>
           <div>Are you sure?</div>
-          <button>Delete Post</button>
+          <button onClick={deletePost}>Delete Post</button>
         </div>
       </Dialog>
       <div className="post-header">
