@@ -6,6 +6,7 @@ import HomePage from "./components/HomePage";
 import NavBar from "./components/NavBar";
 import FullPost from "./components/FullPost";
 import Profile from "./components/Profile";
+import FriendsTab from "./components/FriendsTab";
 import { HashRouter, BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
     <>
       <BrowserRouter basename="/">
         <NavBar />
+        <main className="main-body">
         <Routes>
           <Route
             path="/"
@@ -60,7 +62,14 @@ function App() {
               />
             }
           />
+          <Route 
+          path="/friends"
+          element={<FriendsTab />}
+          
+          />
         </Routes>
+        </main>
+        
       </BrowserRouter>
     </>
   );

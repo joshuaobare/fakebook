@@ -86,6 +86,20 @@
   margin-right: 12vw;
 }
 
+.main-body{ 
+  width: 100vw;
+}
+.friends-tab {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+  height: calc(100vh - 7.8vh);
+}
+
+.friends-tab > div {
+  width: 35vw;
+}
 .homepage {
   width: 100vw;
   background-color: #f0f2f5;
