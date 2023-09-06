@@ -130,7 +130,11 @@
   width: 31vw;
   background-color: #fff;
 }
-
+.delete-post-icon {
+  
+  display: flex;
+  justify-content: flex-end;
+}
 .post-header {
   display: flex;
   gap: 10px;
@@ -143,6 +147,7 @@
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
+  width: 100%;
 }
 
 .post-header-username,

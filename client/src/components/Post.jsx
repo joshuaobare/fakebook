@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 import { ReactComponent as LikeIcon } from "../assets/fbLike.svg";
 import { ReactComponent as LikedIcon } from "../assets/fbLiked.svg";
 import { ReactComponent as CommentIcon } from "../assets/comment.svg";
+import DeleteIcon from "@mui/icons-material/Delete";
 //import Comment from "./Comment";
 
 const Post = (props) => {
   const [poster, setPoster] = useState({});
   const [comments, setComments] = useState([]);
   const [liked, setLiked] = useState(false);
+  const [currentUserProfile, setCurrentUserProfile] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const likePost = async (refresh) => {
@@ -25,8 +27,8 @@ const Post = (props) => {
       }
     );
     const response = await request.json();
-    
-    if(response.message === "liked post"){
+
+    if (response.message === "liked post") {
       setLiked(true);
     } else {
       setLiked(false);
@@ -68,11 +70,17 @@ const Post = (props) => {
     const hasLiked = props.post.likes.some(
       (like) => like.toString() === user._id.toString()
     );
-    
+
     if (hasLiked) {
       setLiked(true);
     } else {
-      setLiked(false)
+      setLiked(false);
+    }
+  };
+
+  const userCheck = () => {
+    if (user._id === props.post.userId) {
+      setCurrentUserProfile(true);
     }
   };
 
@@ -80,11 +88,13 @@ const Post = (props) => {
     fetchPoster();
     fetchComments();
     likeChecker();
+    userCheck();
   }, []);
 
-  useEffect(() => {    
+  useEffect(() => {
     fetchComments();
     likeChecker();
+    userCheck();
   }, [props.activePostData]);
 
   return (
@@ -101,6 +111,11 @@ const Post = (props) => {
           </div>
           <div className="post-header-timestamp">{props.post.timestamp}</div>
         </div>
+        {currentUserProfile ? (
+          <div className="delete-post-icon">
+            <DeleteIcon />
+          </div>
+        ) : null}
       </div>
       <div className="post-text">{props.post.text}</div>
       <div className="like-comment-count-section">
