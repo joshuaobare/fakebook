@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const NavBar = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const [profiles, setProfiles] = useState([]);
+  const [searchValue, setSearchValue] = useState("")
 
   const fetchProfiles = async () => {
     const request = await fetch(`http://localhost:3000/api/users`, {
@@ -27,6 +28,14 @@ const NavBar = () => {
       setProfiles(nonFriends);
     }
   };
+
+  const searchHandler = () => {
+
+  }
+
+  useEffect(() => {
+    fetchProfiles()
+  }, [])
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -39,6 +48,8 @@ const NavBar = () => {
             type="text"
             placeholder="Search Fakebook"
             className="navbar-search-input"
+            value={searchValue}
+            onChange={searchHandler}
           />
         </div>
       </div>
