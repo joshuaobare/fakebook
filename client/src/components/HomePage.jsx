@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import fblogo from "../assets/fblogo.png";
 import Post from "./Post";
 import FullPost from "./FullPost";
 import CreatePost from "./CreatePost";
@@ -8,6 +7,30 @@ import CreatePost from "./CreatePost";
 const HomePage = (props) => {
   const [posts, setPosts] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const postSorter = (postsArray) => {
+    const friendsPosts = [];
+
+    user.friends.forEach((friend) => {
+      const posts = postsArray.filter(
+        (post) => post.userId.toString() === friend.toString()
+      );
+
+      posts.forEach((post) => friendsPosts.push(post));
+    });
+
+    const userPosts = postsArray.filter(
+      (post) => post.userId.toString() === user._id.toString()
+    );
+
+    userPosts.forEach((post) => friendsPosts.push(post));
+
+    friendsPosts.sort((x, y) => {
+      return new Date(y.timestamp).getTime() - new Date(x.timestamp).getTime();
+    });
+
+    setPosts([...friendsPosts]);
+  };
 
   const fetchPosts = async () => {
     const request = await fetch("http://localhost:3000/api/posts", {
@@ -19,27 +42,17 @@ const HomePage = (props) => {
     });
     const response = await request.json();
 
-    if (response.message !== undefined) {
-      const friendsPosts = [];
-
-      user.friends.forEach((friend) => {
-        const posts = response.posts.filter(
-          (post) => post.userId.toString() === friend.toString()
-        );
-
-        friendsPosts.push(posts);
-      });
-
-      const userPosts = response.posts.filter(
-        (post) => post.userId.toString() === user._id.toString()
-      );
-      friendsPosts.push([...userPosts]);
-
-      friendsPosts.sort(function (x, y) {
-        return y.timestamp - x.timestamp;
-      });
-
-      setPosts([...friendsPosts]);
+    if (response.posts !== undefined) {
+      if (user.friends.length !== 0) {
+        postSorter();
+      } else {
+        response.posts.sort((x, y) => {
+          return (
+            new Date(y.timestamp).getTime() - new Date(x.timestamp).getTime()
+          );
+        });
+        setPosts([...response.posts]);
+      }
     }
   };
 
