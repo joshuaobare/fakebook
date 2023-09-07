@@ -52,9 +52,22 @@ const FriendsTab = () => {
     <div className="friends-tab">
       <div>
         <h1>Friend Requests</h1>
+        {friendRequests.length === 0 ? (
+          <div>No friend requests to show</div>
+        ) : null}
       </div>
       <div>
         <h1>Friends</h1>
+        {friends.length === 0 ? (
+          <div>No friends</div>
+        ) : (
+            friends.map(friend => (
+                <div key={friend._id} className="friends-tab-friend">
+                    <img src={friend.avatar} alt="friend-avatar" className="navbar-profile-pic" />
+                    <div>{friend.fullName}</div>
+                </div>
+            ))
+        )}
       </div>
     </div>
   );
