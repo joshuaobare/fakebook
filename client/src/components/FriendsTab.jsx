@@ -45,8 +45,21 @@ const FriendsTab = () => {
     }
   };
 
-  const acceptRequest = async () => {
-      
+  const acceptRequest = async (id) => {
+      const request = await fetch(`http://localhost:3000/api/friend/${id}/friend`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({friendId: id, userId: user._id})
+      })
+
+      const response = await request.json()
+
+      if(response.message !== undefined){
+          fetchProfiles()
+      } 
   }
 
   useEffect(() => {
@@ -71,7 +84,7 @@ const FriendsTab = () => {
                   <div>{request.fullName}</div>
                 </Link>
                 <div>
-                    <button>Accept Request</button>
+                    <button onClick={() => acceptRequest(request._id)}>Accept Request</button>
                     <button>Reject Request</button>
                 </div>
               </div>
