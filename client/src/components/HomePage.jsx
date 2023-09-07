@@ -8,7 +8,7 @@ const HomePage = (props) => {
   const [posts, setPosts] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const postSorter = (postsArray) => {
+  const postsSorter = (postsArray) => {
     const friendsPosts = [];
 
     user.friends.forEach((friend) => {
@@ -44,7 +44,7 @@ const HomePage = (props) => {
 
     if (response.posts !== undefined) {
       if (user.friends.length !== 0) {
-        postSorter();
+        postsSorter(response.posts);
       } else {
         response.posts.sort((x, y) => {
           return (
