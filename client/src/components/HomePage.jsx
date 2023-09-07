@@ -75,9 +75,10 @@ const HomePage = (props) => {
           fetchPosts={fetchPosts}
         />
       ) : null}
-      <CreatePost fetchPosts={fetchPosts} />
-      <div>
+      
+      <main className="homepage-main">
         <div className="homepage-posts-section">
+        <CreatePost fetchPosts={fetchPosts} />
           {posts.map((post) => {
             return (
               <Post
@@ -90,10 +91,10 @@ const HomePage = (props) => {
             );
           })}
         </div>
-        <aside>
+        <aside className="homepage-people-section">
           <People />
         </aside>
-      </div>
+      </main>
     </div>
   );
 };

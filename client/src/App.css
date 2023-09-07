@@ -120,6 +120,17 @@
   align-items: center;
 }
 
+.homepage-main {
+  display: flex;
+  gap: 50px;
+}
+.homepage-people-section {
+  margin-top: 16vh;
+  position: sticky;
+  height: 100vh;
+  top: 0;
+  padding-top: 5px;
+}
 .homepage-create-post {
   background-color: #fff;
   height: 5.6vh;
