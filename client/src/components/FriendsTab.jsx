@@ -87,10 +87,10 @@ const FriendsTab = () => {
     <div className="friends-tab">
       <div>
         <h1>Friend Requests</h1>
-        {friends.length === 0 ? (
+        {friendRequests.length === 0 ? (
           <div>No friend requests to show</div>
         ) : (
-            friends.map((request) => (
+            friendRequests.map((request) => (
               <div key={request._id} className="friends-tab-requests">
                 <Link to={`/user/${request._id}`} className="friends-tab-friend">
                   <img
