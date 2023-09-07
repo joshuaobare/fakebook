@@ -104,6 +104,12 @@
 .friends-tab-friend {
   display: flex;
   align-items: center;
+  gap: 10px;
+}
+.friends-tab-requests {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .homepage {
   width: 100vw;

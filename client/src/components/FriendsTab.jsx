@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const FriendsTab = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -44,6 +45,10 @@ const FriendsTab = () => {
     }
   };
 
+  const acceptRequest = async () => {
+      
+  }
+
   useEffect(() => {
     fetchProfiles();
   }, []);
@@ -52,21 +57,44 @@ const FriendsTab = () => {
     <div className="friends-tab">
       <div>
         <h1>Friend Requests</h1>
-        {friendRequests.length === 0 ? (
+        {friends.length === 0 ? (
           <div>No friend requests to show</div>
-        ) : null}
+        ) : (
+            friends.map((request) => (
+              <div key={request._id} className="friends-tab-requests">
+                <Link to={`/user/${request._id}`} className="friends-tab-friend">
+                  <img
+                    src={request.avatar}
+                    alt="friend-avatar"
+                    className="navbar-profile-pic"
+                  />
+                  <div>{request.fullName}</div>
+                </Link>
+                <div>
+                    <button>Accept Request</button>
+                    <button>Reject Request</button>
+                </div>
+              </div>
+            ))
+          )}
       </div>
       <div>
         <h1>Friends</h1>
         {friends.length === 0 ? (
           <div>No friends</div>
         ) : (
-            friends.map(friend => (
-                <div key={friend._id} className="friends-tab-friend">
-                    <img src={friend.avatar} alt="friend-avatar" className="navbar-profile-pic" />
-                    <div>{friend.fullName}</div>
-                </div>
-            ))
+          friends.map((friend) => (
+            <div key={friend._id} >
+              <Link to={`/user/${friend._id}`} className="friends-tab-friend">
+                <img
+                  src={friend.avatar}
+                  alt="friend-avatar"
+                  className="navbar-profile-pic"
+                />
+                <div>{friend.fullName}</div>
+              </Link>
+            </div>
+          ))
         )}
       </div>
     </div>
