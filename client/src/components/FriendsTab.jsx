@@ -62,6 +62,23 @@ const FriendsTab = () => {
       } 
   }
 
+  const rejectRequest = async (id) => {
+    const request = await fetch(`http://localhost:3000/api/friend/${id}/deleteRequest`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({friendId: id, userId: user._id})
+      })
+
+      const response = await request.json()
+
+      if(response.message !== undefined){
+          fetchProfiles()
+      } 
+  }
+
   useEffect(() => {
     fetchProfiles();
   }, []);
@@ -85,7 +102,7 @@ const FriendsTab = () => {
                 </Link>
                 <div>
                     <button onClick={() => acceptRequest(request._id)}>Accept Request</button>
-                    <button>Reject Request</button>
+                    <button onClick={() => rejectRequest(request._id)}>Reject Request</button>
                 </div>
               </div>
             ))
