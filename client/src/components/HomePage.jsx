@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Post from "./Post";
 import FullPost from "./FullPost";
 import CreatePost from "./CreatePost";
+import People from "./People";
 
 const HomePage = (props) => {
   const [posts, setPosts] = useState([]);
@@ -75,18 +76,23 @@ const HomePage = (props) => {
         />
       ) : null}
       <CreatePost fetchPosts={fetchPosts} />
-      <div className="homepage-posts-section">
-        {posts.map((post) => {
-          return (
-            <Post
-              key={post._id}
-              post={post}
-              dialogHandler={props.dialogHandler}
-              activePostData={props.activePostData}
-              fetchPosts={fetchPosts}
-            />
-          );
-        })}
+      <div>
+        <div className="homepage-posts-section">
+          {posts.map((post) => {
+            return (
+              <Post
+                key={post._id}
+                post={post}
+                dialogHandler={props.dialogHandler}
+                activePostData={props.activePostData}
+                fetchPosts={fetchPosts}
+              />
+            );
+          })}
+        </div>
+        <aside>
+          <People />
+        </aside>
       </div>
     </div>
   );
