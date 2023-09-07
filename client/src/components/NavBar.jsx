@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 const NavBar = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const [profiles, setProfiles] = useState([]);
-  const [searchValue, setSearchValue] = useState("")
+  const [searchValue, setSearchValue] = useState("");
+  const [foundProfiles, setFoundProfiles] = useState([]);
 
   const fetchProfiles = async () => {
     const request = await fetch(`http://localhost:3000/api/users`, {
@@ -18,24 +19,34 @@ const NavBar = () => {
     const response = await request.json();
 
     if (response.users !== undefined) {
-      const nonFriends = response.users.filter(
-        (friend) => !user.friends.includes(friend._id.toString())
-      );
-      const index = nonFriends.findIndex(
+      const allProfiles = [...response.users]
+      const index = allProfiles.findIndex(
         (profile) => profile._id.toString() === user._id.toString()
       );
-      nonFriends.splice(index, 1);
-      setProfiles(nonFriends);
+      allProfiles.splice(index, 1);
+      setProfiles(allProfiles);
     }
   };
 
-  const searchHandler = () => {
-
-  }
+  const searchHandler = (e) => {
+    setSearchValue(e.target.value);
+  };
 
   useEffect(() => {
-    fetchProfiles()
-  }, [])
+    fetchProfiles();
+  }, []);
+
+  useEffect(() => {
+    const filteredValue = profiles.filter((profile) => {
+      if (searchValue === "") {
+        return profile;
+      } else {
+        return (profile.fullName).toLowerCase().includes(searchValue.toLowerCase());
+      }
+    });
+    setFoundProfiles(filteredValue);
+  }, [searchValue]);
+
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -48,9 +59,11 @@ const NavBar = () => {
             type="text"
             placeholder="Search Fakebook"
             className="navbar-search-input"
+            name="search"
             value={searchValue}
             onChange={searchHandler}
           />
+          <div>{foundProfiles.map(profile => <div key={profile._id}>{profile.fullName}</div>)}</div>
         </div>
       </div>
       <div className="navbar-center">
@@ -66,7 +79,11 @@ const NavBar = () => {
         </div>
       </div>
       <div className="navbar-right">
-        <img src={fblogo} alt="Profile Pic Icon" className="navbar-profile-pic" />
+        <img
+          src={user.avatar}
+          alt="Profile Pic Icon"
+          className="navbar-profile-pic"
+        />
       </div>
     </nav>
   );
