@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
@@ -33,9 +33,22 @@ function App() {
     });
   };
 
-  const loginCheck = () => {
-    
+  const loginCheck = async () => {
+    const request = await fetch(`http://localhost:3000/api/verification`, {
+      method:'GET',
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      }
+    })
+    const response = await request.json()
+    console.log(response)
+
   }
+
+  useEffect(() => {
+    loginCheck()
+  },[])
 
   return (
     <>

@@ -101,23 +101,6 @@ router.post(
   commentController.create_comment
 );
 
-router.post(
-  "/verification".
-  verifyToken, 
-  (req, res) => {
-    jwt.verify(req.token, 'secretkey', (err, user) => {
-      if(err){
-        res.sendStatus(403)
-      } else {
-        res.json({
-          message: "Success",
-          user
-        })
-      }
-    })
-  }
-)
-
 const verifyToken = (req, res, next) => {
   // Get auth header value
   const bearerHeader = req.headers["authorization"];
@@ -129,11 +112,30 @@ const verifyToken = (req, res, next) => {
     const bearer = bearerHeader.split(" ")
     const token = bearer[1]
 
-    req.token = bearerToken;
+    req.token = token;
     next()
   } else {
     res.sendStatus(403);
   }
 };
+
+router.get(
+  "/verification",
+  verifyToken, 
+  (req, res) => {
+    jwt.verify(req.token, 'secretkey', (error, user) => {
+      if(error){        
+        res.sendStatus(403).json({error})
+      } else {
+        res.json({
+          message: "Success",
+          user
+        })
+      }
+    })
+  }
+)
+
+
 
 module.exports = router;
