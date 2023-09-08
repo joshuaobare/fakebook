@@ -19,7 +19,7 @@ const NavBar = () => {
     const response = await request.json();
 
     if (response.users !== undefined) {
-      const allProfiles = [...response.users]
+      const allProfiles = [...response.users];
       const index = allProfiles.findIndex(
         (profile) => profile._id.toString() === user._id.toString()
       );
@@ -41,7 +41,9 @@ const NavBar = () => {
       if (searchValue === "") {
         return "";
       } else {
-        return (profile.fullName).toLowerCase().includes(searchValue.toLowerCase());
+        return profile.fullName
+          .toLowerCase()
+          .includes(searchValue.toLowerCase());
       }
     });
     setFoundProfiles(filteredValue);
@@ -63,19 +65,39 @@ const NavBar = () => {
             value={searchValue}
             onChange={searchHandler}
           />
-          <div className="search-bar-results">{foundProfiles.map(profile => <li key={profile._id} className="search-bar-result-item">{profile.fullName}</li>)}</div>
+          <div className="search-bar-results">
+            {foundProfiles.map((profile) => (
+              <li key={profile._id} className="search-bar-result-item">
+                <Link
+                  to={`/user/${profile._id}`}
+                  className="friends-tab-friend"
+                >
+                  <img
+                    src={profile.avatar}
+                    alt="friend-avatar"
+                    className="navbar-profile-pic"
+                  />
+                  <div>{profile.fullName}</div>
+                </Link>
+              </li>
+            ))}
+          </div>
         </div>
       </div>
       <div className="navbar-center">
         <div className="navbar-icon-cont">
-          <span className="material-symbols-outlined navbar-middle-tab">
-            home
-          </span>
+          <Link to="/">
+            <span className="material-symbols-outlined navbar-middle-tab">
+              home
+            </span>
+          </Link>
         </div>
         <div className="navbar-icon-cont">
-          <span className="material-symbols-outlined navbar-middle-tab">
-            group
-          </span>
+          <Link to="/friends">
+            <span className="material-symbols-outlined navbar-middle-tab">
+              group
+            </span>
+          </Link>
         </div>
       </div>
       <div className="navbar-right">
