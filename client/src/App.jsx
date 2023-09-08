@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar";
 import FullPost from "./components/FullPost";
 import Profile from "./components/Profile";
 import FriendsTab from "./components/FriendsTab";
+import ErrorPage from "./components/ErrorPage";
 import { HashRouter, BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -83,6 +84,7 @@ function App() {
                   <Login loginHandler={loginHandler}/>
                 )
               }
+              errorElement={<ErrorPage />}
             />
             <Route
               path="/user/:id"
@@ -98,6 +100,7 @@ function App() {
             />
             <Route path="/friends" element={<FriendsTab />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
         </main>
       </BrowserRouter>
