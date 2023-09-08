@@ -26,7 +26,6 @@ router.post("/login", userController.login_user);
 
 router.post("/logout", userController.logout_user);
 
-
 // FRIEND ROUTES
 router.put(
   "/friend/:id/request",
@@ -66,28 +65,28 @@ router.get(
 );
 
 router.get(
-  "/user/:id/posts" ,
+  "/user/:id/posts",
   passport.authenticate("jwt", { session: false }),
   postController.user_posts_get
-)
+);
 
-router.put (
+router.put(
   "/post/:id/like",
   passport.authenticate("jwt", { session: false }),
   postController.like_post
-)
+);
 
 router.post(
   "/post",
   passport.authenticate("jwt", { session: false }),
   postController.create_post
-)
+);
 
 router.delete(
   "/post/:id",
   passport.authenticate("jwt", { session: false }),
   postController.delete_post
-)
+);
 
 // COMMENT ROUTES
 router.get(
@@ -101,5 +100,40 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   commentController.create_comment
 );
+
+router.post(
+  "/verification".
+  verifyToken, 
+  (req, res) => {
+    jwt.verify(req.token, 'secretkey', (err, user) => {
+      if(err){
+        res.sendStatus(403)
+      } else {
+        res.json({
+          message: "Success",
+          user
+        })
+      }
+    })
+  }
+)
+
+const verifyToken = (req, res, next) => {
+  // Get auth header value
+  const bearerHeader = req.headers["authorization"];
+
+  // Check bearer is undefined
+
+  if (typeof bearerHeader !== "undefined") {
+    // Split at the space
+    const bearer = bearerHeader.split(" ")
+    const token = bearer[1]
+
+    req.token = bearerToken;
+    next()
+  } else {
+    res.sendStatus(403);
+  }
+};
 
 module.exports = router;

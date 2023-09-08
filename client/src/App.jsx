@@ -15,6 +15,7 @@ function App() {
     userId: "",
   });
   const [postDialogOpen, setPostDialogOpen] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false)
 
   const dialogOpener = (postData) => {
     setPostDialogOpen(true);
@@ -31,6 +32,10 @@ function App() {
       userId: "",
     });
   };
+
+  const loginCheck = () => {
+    
+  }
 
   return (
     <>
