@@ -65,7 +65,7 @@ function App() {
   return (
     <>
       <BrowserRouter basename="/">
-        {/*<NavBar />*/}
+        {loggedIn? <NavBar /> : null}
         <main className="main-body">
           <Routes>
             <Route
