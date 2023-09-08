@@ -40,12 +40,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 passport.use(
-  new LocalStrategy(async (username, password, done) => {
+  new LocalStrategy(async (username, password, done) => {    
     try {
-      if (username === "testerProfile") {
-        console.log("istester")
+      if (username.toString() === "testerProfile") {
         const user = await User.findOne({ username:"jjackson" });
-        console.log(user)
+        
         return done(null, user);
 
       } else {

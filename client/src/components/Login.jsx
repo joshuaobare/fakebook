@@ -44,14 +44,17 @@ const Login = (props) => {
       const request = await fetch("http://localhost:3000/api/login/", {
         method: "POST",
         headers: { "Content-type": "application/json" },
-        body: JSON.stringify({username:"testerProfile"}),
+        body: JSON.stringify({username:"testerProfile", password:"random"}),
       });
       const response = await request.json()
       console.log(response)
 
-      localStorage.setItem("token", response.token)
-      localStorage.setItem("user", response.user)      
-      setLoginError(false)
+      if(response.token !== undefined){
+        localStorage.setItem("token", response.token)
+        localStorage.setItem("user", response.user)      
+        setLoginError(false)
+        props.loginHandler()
+      }
     } catch (err) {
         setLoginError(true)
     }
