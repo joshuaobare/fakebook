@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
+import errorimg from "../assets/404.webp"
 
 const ErrorPage = () => {
   return (
-    <div id="error-page">
+    <div className="error-page">
       <Link to="/">
-        <img src="https://miro.medium.com/v2/resize:fit:1080/format:webp/1*DeBkx8vjbumpCO-ZkPE9Cw.png" />
+        <img src={errorimg} />
         <div id="info">
           <h3>This page could not be found</h3>
         </div>

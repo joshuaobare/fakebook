@@ -353,6 +353,12 @@
   gap: 5px;
   width: 100%;
 }
+
+.error-page {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+}
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
