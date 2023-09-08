@@ -15,7 +15,7 @@ function App() {
     userId: "",
   });
   const [postDialogOpen, setPostDialogOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const dialogOpener = (postData) => {
     setPostDialogOpen(true);
@@ -35,59 +35,66 @@ function App() {
 
   const loginCheck = async () => {
     const request = await fetch(`http://localhost:3000/api/verification`, {
-      method:'GET',
+      method: "GET",
       headers: {
         "Content-type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-      }
-    })
-    const response = await request.json()
+      },
+    });
+    const response = await request.json();
     console.log(response)
 
-  }
+    if (response.error === undefined) {
+      localStorage.setItem("user", JSON.stringify(response.user.user));
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  };
+  console.log(loggedIn)
 
   useEffect(() => {
-    loginCheck()
-  },[])
+    loginCheck();
+  }, []);
 
   return (
     <>
       <BrowserRouter basename="/">
         <NavBar />
         <main className="main-body">
-        <Routes>
-          <Route
-            path="/"
-            exact
-            element={
-              <HomePage
-                dialogHandler={dialogOpener}
-                dialogCloser={dialogCloser}
-                activePostData={activePostData}
-                postDialogOpen={postDialogOpen}
-              />
-            }
-          />
-          <Route
-            path="/user/:id"
-            exact
-            element={
-              <Profile
-                dialogCloser={dialogCloser}
-                activePostData={activePostData}
-                dialogHandler={dialogOpener}
-                postDialogOpen={postDialogOpen}
-              />
-            }
-          />
-          <Route 
-          path="/friends"
-          element={<FriendsTab />}
-          
-          />
-        </Routes>
+          <Routes>
+            <Route
+              path="/"
+              exact
+              element={
+                loggedIn ? (
+                  <HomePage
+                    dialogHandler={dialogOpener}
+                    dialogCloser={dialogCloser}
+                    activePostData={activePostData}
+                    postDialogOpen={postDialogOpen}
+                  />
+                ) : (
+                  <Login />
+                )
+              }
+            />
+            <Route
+              path="/user/:id"
+              exact
+              element={
+                <Profile
+                  dialogCloser={dialogCloser}
+                  activePostData={activePostData}
+                  dialogHandler={dialogOpener}
+                  postDialogOpen={postDialogOpen}
+                />
+              }
+            />
+            <Route path="/friends" element={<FriendsTab />} />
+            <Route path="signup" element={<SignUp />} />
+          </Routes>
         </main>
-        
       </BrowserRouter>
     </>
   );
