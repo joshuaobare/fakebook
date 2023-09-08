@@ -43,8 +43,9 @@ passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
       if (username === "testerProfile") {
+        console.log("istester")
         const user = await User.findOne({ username:"jjackson" });
-
+        console.log(user)
         return done(null, user);
 
       } else {

@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 
-const Login = () => {
+const Login = (props) => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -23,6 +24,30 @@ const Login = () => {
         body: JSON.stringify(formData),
       });
       const response = await request.json()
+
+      if(response.token !== undefined){
+        localStorage.setItem("token", response.token)
+        localStorage.setItem("user", response.user)      
+        setLoginError(false)
+        props.loginHandler()
+      }
+
+      
+    } catch (err) {
+        setLoginError(true)
+    }
+  };
+
+  const guestLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const request = await fetch("http://localhost:3000/api/login/", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({username:"testerProfile"}),
+      });
+      const response = await request.json()
+      console.log(response)
 
       localStorage.setItem("token", response.token)
       localStorage.setItem("user", response.user)      
@@ -64,6 +89,7 @@ const Login = () => {
         <div>
             <button>Log In</button>
         </div>
+        <button onClick={guestLogin}>Log In as guest</button>
         <div>
             {loginError? "Invalid credentials, try again": ""}
         </div>

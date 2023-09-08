@@ -32,6 +32,9 @@ function App() {
       userId: "",
     });
   };
+  const loginHandler = () => {
+    setLoggedIn(true)
+  }
 
   const loginCheck = async () => {
     const request = await fetch(`http://localhost:3000/api/verification`, {
@@ -42,7 +45,7 @@ function App() {
       },
     });
     const response = await request.json();
-    console.log(response)
+    console.log(response);
 
     if (response.error === undefined) {
       localStorage.setItem("user", JSON.stringify(response.user.user));
@@ -51,16 +54,18 @@ function App() {
       setLoggedIn(false);
     }
   };
-  console.log(loggedIn)
+  console.log(loggedIn);
 
   useEffect(() => {
-    loginCheck();
+    if (localStorage.getItem("token") !== null) {      
+      loginCheck();
+    }
   }, []);
 
   return (
     <>
       <BrowserRouter basename="/">
-        <NavBar />
+        {/*<NavBar />*/}
         <main className="main-body">
           <Routes>
             <Route
@@ -75,7 +80,7 @@ function App() {
                     postDialogOpen={postDialogOpen}
                   />
                 ) : (
-                  <Login />
+                  <Login loginHandler={loginHandler}/>
                 )
               }
             />
@@ -92,7 +97,7 @@ function App() {
               }
             />
             <Route path="/friends" element={<FriendsTab />} />
-            <Route path="signup" element={<SignUp />} />
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
         </main>
       </BrowserRouter>
