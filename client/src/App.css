@@ -85,8 +85,17 @@
 .navbar-center {
   margin-right: 12vw;
 }
+.search-bar-results {
+  position: absolute;
+  top: 6.3vh;
+  background-color: #fff;
+  left: 6.3vw;
+}
 
-.main-body{ 
+.search-bar-result-item {
+  list-style-type: none;
+}
+.main-body {
   width: 100vw;
 }
 .friends-tab {
@@ -274,11 +283,10 @@
 }
 
 .profile {
-  height: 100vh;  
-  width: 98vw;  
+  height: 100vh;
+  width: 98vw;
   display: flex;
-  justify-content: center;  
-  
+  justify-content: center;
 }
 
 .profile-cont {
@@ -309,8 +317,7 @@
   border-radius: 100%;
   position: relative;
   left: 60px;
-  bottom:100px;
-
+  bottom: 100px;
 }
 
 .profile-intro-item {

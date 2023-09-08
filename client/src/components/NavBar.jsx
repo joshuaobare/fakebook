@@ -39,7 +39,7 @@ const NavBar = () => {
   useEffect(() => {
     const filteredValue = profiles.filter((profile) => {
       if (searchValue === "") {
-        return profile;
+        return "";
       } else {
         return (profile.fullName).toLowerCase().includes(searchValue.toLowerCase());
       }
@@ -63,7 +63,7 @@ const NavBar = () => {
             value={searchValue}
             onChange={searchHandler}
           />
-          <div>{foundProfiles.map(profile => <div key={profile._id}>{profile.fullName}</div>)}</div>
+          <div className="search-bar-results">{foundProfiles.map(profile => <li key={profile._id} className="search-bar-result-item">{profile.fullName}</li>)}</div>
         </div>
       </div>
       <div className="navbar-center">
