@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login = (props) => {
   const [formData, setFormData] = useState({
@@ -92,10 +93,13 @@ const Login = (props) => {
           </div>
 
           <div>
-            <button className="login-btn">Log In</button>
+            <button className="login-btn" type="submit">Log In</button>
           </div>
-          <button onClick={guestLogin}>Log In as guest</button>
+          <button onClick={guestLogin}>Guest Login</button>
           <div>{loginError ? "Invalid credentials, try again" : ""}</div>
+          <Link to='signup'>
+            <button className="login-signup-btn">Create Account</button>
+          </Link>
         </form>
       </div>
     </div>

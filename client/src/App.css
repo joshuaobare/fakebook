@@ -374,11 +374,17 @@
   gap: 30px;
   justify-content: center;
   align-items: center;
+  background-color: #f0f2f5;
+  height: 100vh;
 }
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
+  box-shadow: 0px 2px 4px rgba(1, 1, 1, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 20px 20px 28px;
+  border-radius: 8px;
+  background-color: white;
 }
 .login-btn {
   border-radius: 6px;
@@ -396,9 +402,13 @@
   font-size: 17px;
   width: 330px;
   padding: 14px 16px;
-
+  border: 1px solid #dddfe2;
 }
-
+.login-signup-btn {
+  width: 75%;
+  background-color: #42B72A;
+  color: white;
+}
 .login-left {
   width: 500px;
 }
@@ -447,6 +457,34 @@
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
+  }
+}
+
+@media (max-width:600px) {
+  .login {
+    flex-direction: column;
+  }
+
+  .login-left {
+    width: 100vw;
+    
+  }
+
+  .login-input {
+    width: 85vw;
+  }
+
+  .login-form {
+    width: 95vw;
+    padding: 15px 15px 15px;
+  }
+
+  .login-left-header {
+    text-align: center;
+  }
+
+  .login-left-bottom {
+    display: none;
   }
 }
 
