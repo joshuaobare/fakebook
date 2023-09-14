@@ -542,6 +542,9 @@
   .login-left-bottom {
     display: none;
   }
+  .sign-up {
+    height: 100%;
+  }
 }
 
 .card {
