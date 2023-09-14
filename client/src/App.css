@@ -513,6 +513,9 @@
   background-color: #f0f2f5;
   border-radius: 5px;
 }
+
+
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -622,6 +625,11 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+  }
+  .user-dropdown {
+    top: 10.7vh;
+    position: absolute;
+    right: 9.4vw;
   }
 }
 
