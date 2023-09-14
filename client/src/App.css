@@ -37,6 +37,7 @@
   height: 7.8vh;
   border-bottom: 1px solid #dadde1;
   padding-left: 20px;
+  background-color: #fff;
   padding-right: 20px;
 }
 .navbar-logo {
@@ -156,11 +157,12 @@
   height: 5.6vh;
   display: flex;
   align-items: center;
-  width: 30vw;
+  width: 31vw;
   margin-top: 3.49vh;
   padding: 30px 10px;
   font-size: 1.0625rem;
   border-radius: 8px;
+  gap: 10px;
 }
 
 .homepage-create-post-input {
@@ -205,7 +207,7 @@
   color: #828282;
 }
 .post-text {
-  padding: 0px 10px 10px 10px;
+  padding: 5px 10px 10px 10px;
   text-align: left;
 }
 .post-header-name-section {
@@ -232,8 +234,8 @@
   cursor: pointer;
 }
 .like-comment-count-section {
-  border-top: .5px solid #CED0D4;
-  border-bottom: .5px solid #CED0D4;
+  border-top: .5px solid rgba(130,130,130,.2);
+  border-bottom: .5px solid rgba(130,130,130,.2);
   padding: 5px 10px 5px 10px;
 }
 .like-comment-section {
@@ -567,6 +569,28 @@
   }
   .sign-up {
     height: 100%;
+  }
+  .homepage-people-section {
+    display: none;
+  }
+
+  .homepage-posts-section {
+    gap: 20px;
+    padding-bottom: 20px;
+  }
+
+  .homepage-create-post {
+    width: 90vw;
+    margin-top: 1vh;
+  }
+
+  .post {
+    width: 90vw;
+  }
+
+  .navbar {
+    position: sticky;
+    top:0
   }
 }
 

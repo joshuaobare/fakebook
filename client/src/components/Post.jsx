@@ -166,6 +166,7 @@ const Post = (props) => {
           </div>
         ) : null}
       </div>
+      <hr />
       <div className="post-text">{props.post.text}</div>
       <div className="like-comment-count-section">
         <div>
@@ -176,7 +177,7 @@ const Post = (props) => {
           {comments.length} {comments.length === 1 ? "comment" : "comments"}
         </div>
       </div>
-      <hr />
+      
       <div className="like-comment-section">
         <div
           className="like-section-cont"
