@@ -7,6 +7,7 @@ import { ReactComponent as CommentIcon } from "../assets/comment.svg";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Dialog from "@mui/material/Dialog";
 import { Close } from "@mui/icons-material";
+import { format } from 'date-fns'
 //import Comment from "./Comment";
 
 const Post = (props) => {
@@ -112,7 +113,7 @@ const Post = (props) => {
 
     if (timeDifference < 86400) {
       const time = Math.floor((timeDifference * 24) / 86400);
-      setTimestamp(`${time} hour${time !== 1 ? "s" : ""} ago`);
+      setTimestamp(`Today at ${format(dateTimestamp,"h")}:${format(dateTimestamp,"m")}`);
     } else if (timeDifference < 604800) {
       const time = Math.floor((timeDifference * 7) / 604800);
       setTimestamp(`${time} day${time !== 1 ? "s" : ""} ago`);

@@ -61,6 +61,7 @@ exports.create_post = [
     const post = new Post({
       userId,
       text,
+      timestamp: Date.now()
     });
 
     if (!errors.isEmpty()) {
