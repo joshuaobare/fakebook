@@ -43,6 +43,10 @@
 .navbar-logo {
   height: 40px;
 }
+.navbar-search-input:focus {
+  outline: none;
+  color: black;
+}
 .navbar-left, .navbar-center,.navbar-right {
   display: flex;
   gap: 10px;
@@ -94,6 +98,7 @@
 }
 .navbar-profile-pic {
   height: 40px;
+  width: 40px;
   border-radius: 100%;
 }
 
@@ -532,6 +537,7 @@
 .logo-text {
   font-family: klavika, sans-serif;
   color: #1877f2;
+  display: none;
 }
 
 @keyframes logo-spin {
@@ -601,6 +607,13 @@
     top:0
   }
 
+  .logo-text {
+    display: block;
+  }
+
+  .navbar-search-section {
+    display: none;
+  }
   .navbar-left, .navbar-center,.navbar-right {
     display: none;
   }
