@@ -64,7 +64,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className="App">
       <BrowserRouter basename="/">
         {loggedIn? <NavBar /> : null}
         <main className="main-body">
@@ -104,7 +104,7 @@ function App() {
           </Routes>
         </main>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 
