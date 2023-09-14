@@ -156,9 +156,10 @@ const Post = (props) => {
           {comments.length} {comments.length === 1 ? "comment" : "comments"}
         </div>
       </div>
+      <hr />
       <div className="like-comment-section">
         <div
-          className="like-section"
+          className="like-section-cont"
           onClick={() => likePost(props.fetchPosts)}
         >
           {!liked ? (

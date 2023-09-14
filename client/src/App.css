@@ -178,6 +178,7 @@
   flex-direction: column;
   gap: 50px;
   margin-top: 20px;
+  
 }
 
 .post {
@@ -185,19 +186,23 @@
   flex-direction: column;
   width: 31vw;
   background-color: #fff;
+  /*padding: 20px 20px 10px 20px; */
 }
 .delete-post-icon {
   cursor: pointer;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 .post-header {
   display: flex;
   gap: 10px;
+  padding: 20px 20px 10px 20px;
 }
 
 .post-text {
   padding: 10px;
+  text-align: left;
 }
 .post-header-name-section {
   display: flex;
@@ -222,9 +227,15 @@
   text-align: center;
   cursor: pointer;
 }
-
+.like-comment-count-section {
+  border-top: .5px solid #CED0D4;
+  border-bottom: .5px solid #CED0D4;
+  padding: 5px 10px 5px 10px;
+}
 .like-comment-section {
   align-items: center;
+  
+  padding: 5px 5px 5px 5px
 }
 
 .like-section,
@@ -233,8 +244,14 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
+  padding: 5px;
+  border-radius: 5px;
 }
+.like-section:hover,
+.comment-section:hover {
+  background-color: rgba(0, 0, 0, .1);
 
+}
 .comment {
   display: flex;
   gap: 5px;
