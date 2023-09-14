@@ -102,8 +102,16 @@
   border-radius: 100%;
 }
 
+.user-dropdown {
+  position: absolute;
+  top: 6.2vh;
+  right: 2vw;
+}
+
+
 .navbar-center {
   margin-right: 12vw;
+  gap: 100px;
 }
 .search-bar-results {
   position: absolute;
