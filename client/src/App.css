@@ -200,6 +200,10 @@
   padding: 20px 20px 10px 20px;
 }
 
+.post-header-timestamp {
+  font-size: .8125rem;
+  color: #828282;
+}
 .post-text {
   padding: 0px 10px 10px 10px;
   text-align: left;

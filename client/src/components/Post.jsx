@@ -111,15 +111,14 @@ const Post = (props) => {
     const now = Date.now();
     const timeDifference = (now - dateTimestamp) / 1000;
 
-    if (timeDifference < 86400) {
-      const time = Math.floor((timeDifference * 24) / 86400);
-      setTimestamp(`Today at ${format(dateTimestamp,"h")}:${format(dateTimestamp,"m")}`);
-    } else if (timeDifference < 604800) {
-      const time = Math.floor((timeDifference * 7) / 604800);
-      setTimestamp(`${time} day${time !== 1 ? "s" : ""} ago`);
-    } else if (timeDifference >= 604800) {
-      const time = Math.floor(timeDifference / 604800);
-      setTimestamp(`${time} week${time !== 1 ? "s" : ""} ago`);
+    if (timeDifference < 86400) {      
+      setTimestamp(`Today at ${format(dateTimestamp,"h")}:${format(dateTimestamp,"mm")} ${format(dateTimestamp,"aa")}`);
+    } else if (timeDifference < 604800) {      
+      setTimestamp(`${format(dateTimestamp,"EEEE")} at ${format(dateTimestamp,"h")}:${format(dateTimestamp,"mm")} ${format(dateTimestamp,"aa")}`)
+    }else if (timeDifference < 31536000) {      
+      setTimestamp(`${format(dateTimestamp,"MMMM")} ${format(dateTimestamp,"d")} at ${format(dateTimestamp,"h")}:${format(dateTimestamp,"mm")} ${format(dateTimestamp,"aa")}`);
+    } else{      
+      setTimestamp(`${format(dateTimestamp,"MMMM")} ${format(dateTimestamp,"d")}, ${format(dateTimestamp,"yyyy")} at ${format(dateTimestamp,"h")}:${format(dateTimestamp,"mm")} ${format(dateTimestamp,"aa")}`);
       //setTimestamp(`${dateTimestamp.getDay()} at ${dateTimestamp.getHours() < 12 ? `${dateTimestamp.getHours()} AM `: `${dateTimestamp.getHours()} PM`}`);
     }
   }
