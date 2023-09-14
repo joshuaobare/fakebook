@@ -425,6 +425,37 @@
   font-size: 28px;
   text-align: left;
 }
+
+.sign-up {  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.sign-up-cont {
+  width: 430px;
+  background-color: white;
+}
+
+.signup-form-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.signup-input {
+  border: 1px solid #CCD0D5;
+  color: #1C1E21;
+  font-family: SFPro, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 16px;
+  padding: 11px;
+  background-color: #f0f2f5;
+  border-radius: 5px;
+}
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -445,6 +476,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
