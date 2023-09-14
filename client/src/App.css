@@ -43,7 +43,7 @@
 .navbar-logo {
   height: 40px;
 }
-.navbar > div {
+.navbar-left, .navbar-center,.navbar-right {
   display: flex;
   gap: 10px;
   align-items: center;
@@ -74,6 +74,9 @@
 }
 .navbar-search-icon {
   padding-left: 10px;
+}
+.mobile-navbar {
+  display: none;
 }
 
 .material-symbols-outlined.navbar-middle-tab {
@@ -591,6 +594,16 @@
   .navbar {
     position: sticky;
     top:0
+  }
+
+  .navbar-left, .navbar-center,.navbar-right {
+    display: none;
+  }
+  .mobile-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
   }
 }
 

@@ -107,6 +107,29 @@ const NavBar = () => {
           className="navbar-profile-pic"
         />
       </div>
+      <div className="mobile-navbar">
+        <img src={fblogo} alt="Fakebook Logo" className="navbar-logo" />
+        <div>
+          <span className="material-symbols-outlined navbar-search-icon">
+            search
+          </span>
+        </div>
+        <Link to="/">
+          <span className="material-symbols-outlined navbar-middle-tab">
+            home
+          </span>
+        </Link>
+        <Link to="/friends">
+          <span className="material-symbols-outlined navbar-middle-tab">
+            group
+          </span>
+        </Link>
+        <img
+          src={user.avatar}
+          alt="Profile Pic Icon"
+          className="navbar-profile-pic"
+        />
+      </div>
     </nav>
   );
 };
