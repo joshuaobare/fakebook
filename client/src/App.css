@@ -529,6 +529,11 @@
   background: #555;
 }
 
+.logo-text {
+  font-family: klavika, sans-serif;
+  color: #1877f2;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
