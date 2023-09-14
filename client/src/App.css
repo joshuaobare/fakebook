@@ -404,7 +404,7 @@
   padding: 14px 16px;
   border: 1px solid #dddfe2;
 }
-.login-signup-btn {
+.login-signup-btn, .signup-btn {
   width: 75%;
   background-color: #42B72A;
   color: white;
@@ -438,12 +438,36 @@
 .sign-up-cont {
   width: 430px;
   background-color: white;
+  border-radius: 8px;
+  border: 1px solid #dadde1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+}
+.sign-up-header {
+  text-align: left;
+  padding: 10px;
+}
+.sign-up-header-top {
+  font-size: 32px;
+  font-weight: 800;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
+.sign-up-header-bottom {
+  color: #606770;
+  font-size: 15px;
+}
 .signup-form-item {
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+.signup-btn-cont {
+  margin-top: 10px;
+}
+
+.signup-btn {
+  width: 60%;
+  font-weight: bolder;
 }
 
 .signup-input {

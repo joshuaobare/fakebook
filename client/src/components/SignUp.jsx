@@ -83,14 +83,14 @@ function SignUp() {
   return (
     <div className="sign-up">
       <div className="sign-up-cont">
-        <div>
-          <div>Sign Up</div>
-          <div>It's quick and easy</div>
+        <div className="sign-up-header">
+          <div className="sign-up-header-top">Sign Up</div>
+          <div className="sign-up-header-bottom">It's quick and easy</div>
         </div>
         <hr />
         <form
           action=""
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          className="bg-white rounded px-8 pt-6 pb-8 mb-4"
           method="post"
           onSubmit={handleSignUpSubmission}
         >
@@ -200,8 +200,8 @@ function SignUp() {
               </label>
             </div>
           </div>
-          <div>
-            <button>Sign Up</button>
+          <div className="signup-btn-cont">
+            <button className="signup-btn">Sign Up</button>
           </div>
         </form>
       </div>
