@@ -7,6 +7,25 @@ const NavBar = () => {
   const [profiles, setProfiles] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [foundProfiles, setFoundProfiles] = useState([]);
+  const [hamburgerMenuOn, setHamburgerMenuOn] = useState(false);
+  const [userMenuOn, setUserMenuOn] = useState(false);
+
+  const hamburgerMenuHandler = () => {
+    setHamburgerMenuOn(prevState => !prevState)
+  };
+
+  const userMenuHandler = () => {
+    setUserMenuOn(prevState => !prevState)
+  };
+
+  const userMenuStyle = {
+    display: userMenuOn ? 'flex' : 'none',
+    flexDirection: 'column'
+  }
+
+  const hamburgerMenuStyle = {
+     
+  }
 
   const fetchProfiles = async () => {
     const request = await fetch(`http://localhost:3000/api/users`, {
@@ -142,11 +161,13 @@ const NavBar = () => {
             alt="Fakebook Logo"
             className="navbar-logo h-8 mr-3"
           />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white logo-text">Fakebook</span>
+          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white logo-text">
+            Fakebook
+          </span>
           <div className="navbar-search-section">
             <span className="material-symbols-outlined navbar-search-icon">
               search
-            </span>            
+            </span>
             <input
               type="text"
               placeholder="Search Fakebook"
@@ -156,22 +177,22 @@ const NavBar = () => {
               onChange={searchHandler}
             />
             <div className="search-bar-results">
-            {foundProfiles.map((profile) => (
-              <li key={profile._id} className="search-bar-result-item">
-                <Link
-                  to={`/user/${profile._id}`}
-                  className="friends-tab-friend"
-                >
-                  <img
-                    src={profile.avatar}
-                    alt="friend-avatar"
-                    className="navbar-profile-pic"
-                  />
-                  <div>{profile.fullName}</div>
-                </Link>
-              </li>
-            ))}
-          </div>
+              {foundProfiles.map((profile) => (
+                <li key={profile._id} className="search-bar-result-item">
+                  <Link
+                    to={`/user/${profile._id}`}
+                    className="friends-tab-friend"
+                  >
+                    <img
+                      src={profile.avatar}
+                      alt="friend-avatar"
+                      className="navbar-profile-pic"
+                    />
+                    <div>{profile.fullName}</div>
+                  </Link>
+                </li>
+              ))}
+            </div>
           </div>
         </Link>
         <div className="flex items-center md:order-2">
@@ -182,18 +203,21 @@ const NavBar = () => {
             aria-expanded="false"
             data-dropdown-toggle="user-dropdown"
             data-dropdown-placement="bottom"
+            onClick={userMenuHandler}
           >
             <span className="sr-only">Open user menu</span>
             <img
               className="w-8 h-8 rounded-full navbar-profile-pic"
               src={user.avatar}
               alt="user photo"
+              
             />
           </button>
           {/*<!-- Dropdown menu -->*/}
           <div
-            className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+            className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
             id="user-dropdown"
+            style= {userMenuStyle}
           >
             <div className="px-4 py-3">
               <span className="block text-sm text-gray-900 dark:text-white">
@@ -266,6 +290,7 @@ const NavBar = () => {
         <div
           className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
           id="navbar-user"
+          
         >
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
