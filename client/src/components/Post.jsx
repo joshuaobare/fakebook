@@ -16,6 +16,7 @@ const Post = (props) => {
   const [currentUserProfile, setCurrentUserProfile] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [timestamp, setTimestamp] = useState("")
 
   const likePost = async (refresh) => {
     const request = await fetch(
@@ -104,11 +105,30 @@ const Post = (props) => {
     
   };
 
+  const timestampHandler = () => {
+    const dateTimestamp = new Date(props.post.timestamp);
+    const now = Date.now();
+    const timeDifference = (now - dateTimestamp) / 1000;
+
+    if (timeDifference < 86400) {
+      const time = Math.floor((timeDifference * 24) / 86400);
+      setTimestamp(`${time} hour${time !== 1 ? "s" : ""} ago`);
+    } else if (timeDifference < 604800) {
+      const time = Math.floor((timeDifference * 7) / 604800);
+      setTimestamp(`${time} day${time !== 1 ? "s" : ""} ago`);
+    } else if (timeDifference >= 604800) {
+      const time = Math.floor(timeDifference / 604800);
+      setTimestamp(`${time} week${time !== 1 ? "s" : ""} ago`);
+      //setTimestamp(`${dateTimestamp.getDay()} at ${dateTimestamp.getHours() < 12 ? `${dateTimestamp.getHours()} AM `: `${dateTimestamp.getHours()} PM`}`);
+    }
+  }
+
   useEffect(() => {
     fetchPoster();
     fetchComments();
     likeChecker();
     userCheck();
+    timestampHandler()
   }, []);
 
   useEffect(() => {
@@ -138,7 +158,7 @@ const Post = (props) => {
           <div className="post-header-username">
             <Link to={`/user/${props.post.userId}`}>{poster.fullName}</Link>
           </div>
-          <div className="post-header-timestamp">{props.post.timestamp}</div>
+          <div className="post-header-timestamp">{timestamp}</div>
         </div>
         {currentUserProfile ? (
           <div className="delete-post-icon" onClick={deleteDialogHandler}>
