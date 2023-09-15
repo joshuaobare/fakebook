@@ -156,8 +156,8 @@ const NavBar = () => {
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="flex flex-wrap items-center justify-between mx-auto p-4">
-      <div className="navbar-left">
-        <Link to="/">
+      <div className="navbar-left" >
+        <Link to="/" style={{display: "flex", alignItems:"center"}}>
           <img
             src={fblogo}
             alt="Fakebook Logo"
