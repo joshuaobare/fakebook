@@ -245,7 +245,7 @@ const NavBar = () => {
                 {user.email}
               </span>
             </div>
-            <ul className="py-2" aria-labelledby="user-menu-button">              
+            <ul className="py-2" aria-labelledby="user-menu-button">
               <li>
                 <a
                   href="#"
@@ -332,7 +332,26 @@ const NavBar = () => {
                 id="search-navbar"
                 className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Search..."
+                value={searchValue}
+                onChange={searchHandler}
               />
+              <div className="search-bar-results">
+                {foundProfiles.map((profile) => (
+                  <li key={profile._id} className="search-bar-result-item">
+                    <Link
+                      to={`/user/${profile._id}`}
+                      className="friends-tab-friend"
+                    >
+                      <img
+                        src={profile.avatar}
+                        alt="friend-avatar"
+                        className="navbar-profile-pic"
+                      />
+                      <div>{profile.fullName}</div>
+                    </Link>
+                  </li>
+                ))}
+              </div>
             </div>
           </ul>
         </div>
