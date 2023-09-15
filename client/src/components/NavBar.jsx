@@ -156,7 +156,8 @@ const NavBar = () => {
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="flex flex-wrap items-center justify-between mx-auto p-4">
-        <Link className="flex items-center" to="/">
+      <div className="navbar-left">
+        <Link to="/">
           <img
             src={fblogo}
             alt="Fakebook Logo"
@@ -165,37 +166,40 @@ const NavBar = () => {
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white logo-text">
             Fakebook
           </span>
-          <div className="navbar-search-section">
-            <span className="material-symbols-outlined navbar-search-icon">
-              search
-            </span>
-            <input
-              type="text"
-              placeholder="Search Fakebook"
-              className="navbar-search-input"
-              name="search"
-              value={searchValue}
-              onChange={searchHandler}
-            />
-            <div className="search-bar-results">
-              {foundProfiles.map((profile) => (
-                <li key={profile._id} className="search-bar-result-item">
-                  <Link
-                    to={`/user/${profile._id}`}
-                    className="friends-tab-friend"
-                  >
-                    <img
-                      src={profile.avatar}
-                      alt="friend-avatar"
-                      className="navbar-profile-pic"
-                    />
-                    <div>{profile.fullName}</div>
-                  </Link>
-                </li>
-              ))}
-            </div>
-          </div>
         </Link>
+        <div className="navbar-search-section">
+          <span className="material-symbols-outlined navbar-search-icon">
+            search
+          </span>
+          <input
+            type="text"
+            placeholder="Search Fakebook"
+            className="navbar-search-input"
+            name="search"
+            value={searchValue}
+            onChange={searchHandler}
+          />
+          <div className="search-bar-results">
+            {foundProfiles.map((profile) => (
+              <li key={profile._id} className="search-bar-result-item">
+                <Link
+                  to={`/user/${profile._id}`}
+                  className="friends-tab-friend"
+                >
+                  <img
+                    src={profile.avatar}
+                    alt="friend-avatar"
+                    className="navbar-profile-pic"
+                  />
+                  <div>{profile.fullName}</div>
+                </Link>
+              </li>
+            ))}
+          </div>
+        </div>
+      </div>
+      
+
         <div className="flex items-center navbar-center">
           <Link
             to="/"
