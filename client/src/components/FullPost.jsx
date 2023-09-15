@@ -11,8 +11,7 @@ import { format } from "date-fns";
 
 const FullPost = (props) => {
   const [postData, setPostData] = useState({
-    likes: []
-    
+    likes: [],
   });
   const [poster, setPoster] = useState({
     fullName: "",
@@ -25,7 +24,7 @@ const FullPost = (props) => {
     postId: props.activePostData.postId,
     userId: user._id,
   });
-  const postElement = useRef(null)
+  const postElement = useRef(null);
   const [timestamp, setTimestamp] = useState("");
 
   const likePost = async () => {
@@ -86,23 +85,26 @@ const FullPost = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const request = await fetch(`http://localhost:3000/api/post/${props.activePostData.postId}/comment`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      body: JSON.stringify(formData),
-    });
-    const response = await request.json()
-    
-    if(response.message !== undefined){
+    const request = await fetch(
+      `http://localhost:3000/api/post/${props.activePostData.postId}/comment`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(formData),
+      }
+    );
+    const response = await request.json();
+
+    if (response.message !== undefined) {
       setFormData({
         text: "",
         postId: props.activePostData.postId,
         userId: props.activePostData.userId,
-      })
-      fetchPost()      
+      });
+      fetchPost();
     }
   };
 
@@ -118,21 +120,20 @@ const FullPost = (props) => {
     const hasLiked = postData.likes.some(
       (like) => like.toString() === user._id.toString()
     );
-    
+
     if (hasLiked) {
       setLiked(true);
     }
     timestampHandler();
-    
   }, [postData]);
 
   const commentSectionStyle = {
-    minHeight: `calc(55vh - 10vh)`
-      //${postElement.current.clientHeight}px)`
-  }
+    minHeight: `calc(55vh - 10vh)`,
+    //${postElement.current.clientHeight}px)`
+  };
 
   const timestampHandler = async () => {
-    console.log(postData)
+    console.log(postData);
     const dateTimestamp = new Date(await postData.timestamp);
     const now = Date.now();
     const timeDifference = (now - dateTimestamp) / 1000;
@@ -176,88 +177,96 @@ const FullPost = (props) => {
   };
 
   return (
-    <Dialog open={props.postDialogOpen}>
-      <div className="full-post">
-        <div className="full-post-header">
-          <div className="full-post-header-title">
-            {poster.fullName.split(" ")[0]}'s Post
+      <Dialog open={props.postDialogOpen}>
+        <div className="full-post">
+          <div className="full-post-header">
+            <div className="full-post-header-title">
+              {poster.fullName.split(" ")[0]}'s Post
+            </div>
+            <div
+              className="dialog-close"
+              onClick={() => {
+                props.dialogCloser();
+                props.fetchPosts();
+              }}
+            >
+              <Close />
+            </div>
           </div>
-          <div className="dialog-close" onClick={() => {
-            props.dialogCloser()
-            props.fetchPosts()
-            }}>
-            <Close />
+          <div className="full-post-center">
+            <div className="post-header">
+              <img
+                src={poster.avatar}
+                alt="Poster Avatar"
+                className="navbar-profile-pic"
+              />
+              <div className="post-header-name-section">
+                <div className="post-header-username">{poster.fullName}</div>
+                <div className="post-header-timestamp">{timestamp}</div>
+              </div>
+            </div>
+            <div className="post-text">{postData.text}</div>
+            <div className="like-comment-count-section">
+              <div className="like-count">
+                {postData.likes.length}{" "}
+                {postData.likes.length === 1 ? "like" : "likes"}
+              </div>
+              <div className="like-count">
+                {comments.length}{" "}
+                {comments.length === 1 ? "comment" : "comments"}
+              </div>
+            </div>
+            <div className="like-comment-section">
+              <div className="like-section-cont" onClick={() => likePost()}>
+                {!liked ? (
+                  <div className="like-section">
+                    <LikeIcon />
+                    <div>Like</div>
+                  </div>
+                ) : (
+                  <div className="like-section">
+                    <LikedIcon /> <div>Unlike</div>
+                  </div>
+                )}
+              </div>
+              <div className="comment-section">
+                <CommentIcon />
+                <div>Comment</div>
+              </div>
+            </div>
+            <div className="full-post-comments" ref={postElement}>
+              {comments.map((comment) => (
+                <Comment key={comment._id} comment={comment} />
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="full-post-center">
-          <div className="post-header">
+          <div className="full-post-add-comment-section">
             <img
-              src={poster.avatar}
-              alt="Poster Avatar"
-              className="navbar-profile-pic"
+              src={user.avatar}
+              alt="User Avatar"
+              className="commenter-pic"
             />
-            <div className="post-header-name-section">
-              <div className="post-header-username">{poster.fullName}</div>
-              <div className="post-header-timestamp">{timestamp}</div>
-            </div>
-          </div>
-          <div className="post-text">{postData.text}</div>
-          <div className="like-comment-count-section">
-            <div className="like-count">
-              {postData.likes.length}{" "}
-              {postData.likes.length === 1 ? "like" : "likes"}
-            </div>
-            <div className="like-count">
-              {comments.length} {comments.length === 1 ? "comment" : "comments"}
-            </div>
-          </div>
-          <div className="like-comment-section">
-            <div className="like-section-cont" onClick={() => likePost()}>
-              {!liked ? (
-                <div className="like-section">
-                  <LikeIcon />
-                  <div>Like</div>
-                </div>
-              ) : (
-                <div className="like-section">
-                  <LikedIcon /> <div>Unlike</div>
-                </div>
-              )}
-            </div>
-            <div className="comment-section">
-              <CommentIcon />
-              <div>Comment</div>
-            </div>
-          </div>
-          <div className="full-post-comments" ref={postElement} >
-            {comments.map((comment) => (
-              <Comment key={comment._id} comment={comment} />
-            ))}
+            <form
+              action=""
+              method="post"
+              className="comment-form"
+              onSubmit={handleSubmit}
+            >
+              <input
+                type="text"
+                placeholder="Write a comment..."
+                className="full-post-comment-input"
+                name="text"
+                value={formData.text}
+                onChange={handleChange}
+              />
+              <button className="create-comment-form-btn">
+                <span className="material-symbols-outlined">send</span>
+              </button>
+            </form>
           </div>
         </div>
-        <div className="full-post-add-comment-section">
-          <img src={user.avatar} alt="User Avatar" className="commenter-pic" />
-          <form
-            action=""
-            method="post"
-            className="comment-form"
-            onSubmit={handleSubmit}
-          >
-            <input
-              type="text"
-              placeholder="Write a comment..."
-              className="full-post-comment-input"
-              name="text"
-              value={formData.text}
-              onChange={handleChange}
-            />
-            <button className="create-post-form-btn">
-              <span className="material-symbols-outlined">send</span>
-            </button>
-          </form>
-        </div>
-      </div>
-    </Dialog>
+      </Dialog>
   );
 };
 

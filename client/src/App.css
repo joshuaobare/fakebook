@@ -190,8 +190,7 @@
 .homepage-create-post-input {
   width: 100%;
   padding: 8px 12px;
-  border-top-right-radius: 50px;
-  border-bottom-right-radius: 50px;
+
   border-bottom-left-radius: 50px;
   border-top-left-radius: 50px;
   background-color: #f0f2f5;
@@ -286,6 +285,10 @@
 }
 .full-post {
   height: 84vh;
+}
+.full-post-cont {
+  height: 100vh;
+  width: 100%;
 }
 .full-post-header {
   display: flex;
@@ -406,14 +409,14 @@
   border-bottom-right-radius: 50px;
   border-bottom-left-radius: 50px;
   border-top-left-radius: 50px;
-  background-color: #f0f2f5;
+  background-color: ;
 }
 .homepage-create-post-input:focus {
   outline: none;
   border: none;
 }
 
-.create-post-form-btn {
+.create-post-form-btn,.create-comment-form-btn {
   border: none;
   outline: none;
   display: flex;
@@ -422,6 +425,10 @@
   background-color: #f0f2f5;
   border-bottom-right-radius: 50px;
   border-top-right-radius: 50px;
+}
+
+.create-comment-form-btn {
+background-color: #fff;
 }
 .create-post-form-btn:hover {
 background-color: rgba(0, 0, 0, 0.1);
@@ -647,6 +654,12 @@ background-color: rgba(0, 0, 0, 0.1);
   .logo-text {
     display: block;
   }
+  .full-post-add-comment-section {
+    position: relative;
+  }
+  .full-post-comments {
+    padding-bottom: 20px;
+  }
 
   .navbar-search-section {
     display: none;
@@ -669,6 +682,9 @@ background-color: rgba(0, 0, 0, 0.1);
     top: 50px;
     position: absolute;
     right: 9.4vw;
+  }
+  .MuiDialog-root {
+    height: 99vh;
   }
 }
 
