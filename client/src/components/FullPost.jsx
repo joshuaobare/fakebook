@@ -3,7 +3,7 @@
 import { ReactComponent as LikeIcon } from "../assets/fbLike.svg";
 import { ReactComponent as CommentIcon } from "../assets/comment.svg";
 import { ReactComponent as LikedIcon } from "../assets/fbLiked.svg";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Dialog from "@mui/material/Dialog";
 import { Close } from "@mui/icons-material";
 import Comment from "./Comment";
@@ -23,6 +23,7 @@ const FullPost = (props) => {
     postId: props.activePostData.postId,
     userId: user._id,
   });
+  const postElement = useRef(null)
 
   const likePost = async () => {
     const request = await fetch(
@@ -105,18 +106,26 @@ const FullPost = (props) => {
   useEffect(() => {
     fetchPost();
     fetchPoster();
+    document.onreadystatechange = () => {
+      console.log(postElement.current.clientHeight);
+    };
   }, []);
 
   useEffect(() => {
     const hasLiked = postData.likes.some(
       (like) => like.toString() === user._id.toString()
     );
-    console.log(user);
-
+    
     if (hasLiked) {
       setLiked(true);
     }
+    
   }, [postData]);
+
+  const commentSectionStyle = {
+    minHeight: `calc(55vh - 10vh)`
+      //${postElement.current.clientHeight}px)`
+  }
 
   return (
     <Dialog open={props.postDialogOpen}>
@@ -172,7 +181,7 @@ const FullPost = (props) => {
               <div>Comment</div>
             </div>
           </div>
-          <div className="full-post-comments">
+          <div className="full-post-comments" ref={postElement} >
             {comments.map((comment) => (
               <Comment key={comment._id} comment={comment} />
             ))}

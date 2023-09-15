@@ -313,8 +313,7 @@
   font-weight: bold;
 }
 
-.full-post-comments {
-  height: 100%;
+.full-post-comments {  
   overflow-y: scroll;
 }
 .commenter-pic {
@@ -328,7 +327,7 @@
   gap: 5px;
   align-items: center;
   width: 100%;
-  position: relative;
+  position: absolute;
   bottom: 0;
   background-color: white;
 }
