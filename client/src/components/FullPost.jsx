@@ -7,10 +7,12 @@ import { useEffect, useState, useRef } from "react";
 import Dialog from "@mui/material/Dialog";
 import { Close } from "@mui/icons-material";
 import Comment from "./Comment";
+import { format } from "date-fns";
 
 const FullPost = (props) => {
   const [postData, setPostData] = useState({
-    likes: [],
+    likes: []
+    
   });
   const [poster, setPoster] = useState({
     fullName: "",
@@ -24,6 +26,7 @@ const FullPost = (props) => {
     userId: user._id,
   });
   const postElement = useRef(null)
+  const [timestamp, setTimestamp] = useState("");
 
   const likePost = async () => {
     const request = await fetch(
@@ -119,6 +122,7 @@ const FullPost = (props) => {
     if (hasLiked) {
       setLiked(true);
     }
+    timestampHandler();
     
   }, [postData]);
 
@@ -126,6 +130,50 @@ const FullPost = (props) => {
     minHeight: `calc(55vh - 10vh)`
       //${postElement.current.clientHeight}px)`
   }
+
+  const timestampHandler = async () => {
+    console.log(postData)
+    const dateTimestamp = new Date(await postData.timestamp);
+    const now = Date.now();
+    const timeDifference = (now - dateTimestamp) / 1000;
+
+    if (timeDifference < 86400) {
+      setTimestamp(
+        `Today at ${format(dateTimestamp, "h")}:${format(
+          dateTimestamp,
+          "mm"
+        )} ${format(dateTimestamp, "aa")}`
+      );
+    } else if (timeDifference < 604800) {
+      setTimestamp(
+        `${format(dateTimestamp, "EEEE")} at ${format(
+          dateTimestamp,
+          "h"
+        )}:${format(dateTimestamp, "mm")} ${format(dateTimestamp, "aa")}`
+      );
+    } else if (timeDifference < 31536000) {
+      setTimestamp(
+        `${format(dateTimestamp, "MMMM")} ${format(
+          dateTimestamp,
+          "d"
+        )} at ${format(dateTimestamp, "h")}:${format(
+          dateTimestamp,
+          "mm"
+        )} ${format(dateTimestamp, "aa")}`
+      );
+    } else {
+      setTimestamp(
+        `${format(dateTimestamp, "MMMM")} ${format(
+          dateTimestamp,
+          "d"
+        )}, ${format(dateTimestamp, "yyyy")} at ${format(
+          dateTimestamp,
+          "h"
+        )}:${format(dateTimestamp, "mm")} ${format(dateTimestamp, "aa")}`
+      );
+      //setTimestamp(`${dateTimestamp.getDay()} at ${dateTimestamp.getHours() < 12 ? `${dateTimestamp.getHours()} AM `: `${dateTimestamp.getHours()} PM`}`);
+    }
+  };
 
   return (
     <Dialog open={props.postDialogOpen}>
@@ -150,7 +198,7 @@ const FullPost = (props) => {
             />
             <div className="post-header-name-section">
               <div className="post-header-username">{poster.fullName}</div>
-              <div className="post-header-timestamp">{postData.timestamp}</div>
+              <div className="post-header-timestamp">{timestamp}</div>
             </div>
           </div>
           <div className="post-text">{postData.text}</div>
