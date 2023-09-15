@@ -155,16 +155,16 @@ const FullPost = (props) => {
           </div>
           <div className="post-text">{postData.text}</div>
           <div className="like-comment-count-section">
-            <div>
+            <div className="like-count">
               {postData.likes.length}{" "}
               {postData.likes.length === 1 ? "like" : "likes"}
             </div>
-            <div>
+            <div className="like-count">
               {comments.length} {comments.length === 1 ? "comment" : "comments"}
             </div>
           </div>
           <div className="like-comment-section">
-            <div className="like-section" onClick={() => likePost()}>
+            <div className="like-section-cont" onClick={() => likePost()}>
               {!liked ? (
                 <div className="like-section">
                   <LikeIcon />

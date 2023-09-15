@@ -47,7 +47,9 @@
   outline: none;
   color: black;
 }
-.navbar-left, .navbar-center,.navbar-right {
+.navbar-left,
+.navbar-center,
+.navbar-right {
   display: flex;
   gap: 10px;
   align-items: center;
@@ -108,7 +110,6 @@
   right: 2vw;
 }
 
-
 .navbar-center {
   margin-right: 12vw;
   gap: 100px;
@@ -126,7 +127,7 @@
 }
 
 .search-bar-result-item:hover {
-  background-color: rgba(0, 0, 0, .1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .main-body {
   width: 100%;
@@ -201,7 +202,6 @@
   flex-direction: column;
   gap: 50px;
   margin-top: 20px;
-  
 }
 
 .post {
@@ -223,8 +223,10 @@
   padding: 10px;
 }
 
-.post-header-timestamp {
-  font-size: .8125rem;
+.post-header-timestamp,
+.comment-count,
+.like-count {
+  font-size: 0.8125rem;
   color: #828282;
 }
 .post-text {
@@ -255,14 +257,14 @@
   cursor: pointer;
 }
 .like-comment-count-section {
-  border-top: .5px solid rgba(130,130,130,.2);
-  border-bottom: .5px solid rgba(130,130,130,.2);
+  border-top: 0.5px solid rgba(130, 130, 130, 0.2);
+  border-bottom: 0.5px solid rgba(130, 130, 130, 0.2);
   padding: 5px 10px 5px 10px;
 }
 .like-comment-section {
   align-items: center;
-  
-  padding: 5px 5px 5px 5px
+
+  padding: 5px 5px 5px 5px;
 }
 
 .like-section,
@@ -276,8 +278,7 @@
 }
 .like-section:hover,
 .comment-section:hover {
-  background-color: rgba(0, 0, 0, .1);
-
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .comment {
   display: flex;
@@ -313,7 +314,7 @@
   font-weight: bold;
 }
 
-.full-post-comments {  
+.full-post-comments {
   overflow-y: scroll;
 }
 .commenter-pic {
@@ -334,6 +335,13 @@
 
 .full-post-comment-input {
   width: 100%;
+}
+.comment-count {
+  cursor: pointer;
+}
+
+.comment-count,
+.like-count {
 }
 
 .profile {
@@ -449,9 +457,10 @@
   padding: 14px 16px;
   border: 1px solid #dddfe2;
 }
-.login-signup-btn, .signup-btn {
+.login-signup-btn,
+.signup-btn {
   width: 75%;
-  background-color: #42B72A;
+  background-color: #42b72a;
   color: white;
 }
 .login-left {
@@ -471,7 +480,7 @@
   text-align: left;
 }
 
-.sign-up {  
+.sign-up {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -485,7 +494,7 @@
   background-color: white;
   border-radius: 8px;
   border: 1px solid #dadde1;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 .sign-up-header {
   text-align: left;
@@ -516,8 +525,8 @@
 }
 
 .signup-input {
-  border: 1px solid #CCD0D5;
-  color: #1C1E21;
+  border: 1px solid #ccd0d5;
+  color: #1c1e21;
   font-family: SFPro, Helvetica, Arial, sans-serif;
   font-size: 15px;
   line-height: 16px;
@@ -525,8 +534,6 @@
   background-color: #f0f2f5;
   border-radius: 5px;
 }
-
-
 
 /* width */
 ::-webkit-scrollbar {
@@ -570,14 +577,13 @@
   }
 }
 
-@media (max-width:600px) {
+@media (max-width: 600px) {
   .login {
     flex-direction: column;
   }
 
   .login-left {
     width: 100vw;
-    
   }
 
   .login-input {
@@ -619,7 +625,7 @@
 
   .navbar {
     position: sticky;
-    top:0
+    top: 0;
   }
 
   .logo-text {
@@ -629,7 +635,9 @@
   .navbar-search-section {
     display: none;
   }
-  .navbar-left, .navbar-center,.navbar-right {
+  .navbar-left,
+  .navbar-center,
+  .navbar-right {
     display: none;
   }
   .search-bar-results {
