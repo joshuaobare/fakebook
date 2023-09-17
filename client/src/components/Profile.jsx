@@ -8,19 +8,21 @@ import { useParams } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import { Close } from "@mui/icons-material";
 import Post from "./Post";
+import { format } from "date-fns";
 import FullPost from "./FullPost";
 
 const Profile = (props) => {
   const { id } = useParams();
   const [profile, setProfile] = useState({
     friends: [],
-    friendRequests: [],
+    friendRequests: [],    
   });
   const [posts, setPosts] = useState([]);
   const [currentUserProfile, setCurrentUserProfile] = useState(false);
   const [isFriend, setIsFriend] = useState(false);
   const [requestSent, setRequestSent] = useState(false);
   const [friendDialogOpen, setFriendDialogOpen] = useState(false);
+  const [joinedAt, setJoinedAt] = useState("")
   const user = JSON.parse(localStorage.getItem("user"));
 
   const fetchPosts = async () => {
@@ -116,16 +118,22 @@ const Profile = (props) => {
     fetchProfile();
 
   };
+  const dateSetter = async () => {
+    const date = new Date(await profile.joinedAt)
+    setJoinedAt(`${format(date, "MMMM")} ${format(date, "yyyy")}`)
+  }
 
   useEffect(() => {
     fetchPosts();
     fetchProfile();
     userCheck();
   }, []);
-
+  console.log(profile)
   useEffect(() => {
     friendsCheck();
     requestCheck();
+    console.log(profile)
+    dateSetter()
   }, [profile]);
 
   return (
@@ -176,8 +184,7 @@ const Profile = (props) => {
         </div>
         <div className="profile-bottom">
           <div className="profile-bottom-intro">
-            <div className="profile-intro-header">Intro</div>
-            <div>{profile.bio}</div>
+            <div className="profile-intro-header">Intro</div>            
             <div className="profile-intro-item">
               <img src={worklogo} alt="" className="profile-intro-icon"/><span className="profile-intro-span">Works as a</span> {profile.jobTitle}
             </div>
@@ -191,10 +198,10 @@ const Profile = (props) => {
             </div>
             <div className="profile-intro-item">
               {" "}
-              <img src={clocklogo} alt="" className="profile-intro-icon"/><span className="profile-intro-span">Joined</span> {profile.joinedAt}
+              <img src={clocklogo} alt="" className="profile-intro-icon"/><span className="profile-intro-span">Joined</span> {joinedAt}
             </div>
           </div>
-          <div>
+          <div className="profile-posts-section">
             {posts.map((post) => (
               <Post
                 key={post._id}
