@@ -490,7 +490,7 @@ font-weight: normal;
   border-bottom-right-radius: 50px;
   border-bottom-left-radius: 50px;
   border-top-left-radius: 50px;
-  background-color: ;
+  background-color: #f0f2f5;
 }
 .homepage-create-post-input:focus {
   outline: none;

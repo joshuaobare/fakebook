@@ -168,12 +168,12 @@ const Post = (props) => {
   return (
     <div className="post">
       <Dialog open={deleteDialogOpen}>
-        <div>
-          <div onClick={deleteDialogHandler}>
+        <div className="profile-friend-dialog">
+          <div onClick={deleteDialogHandler} className="profile-friend-dialog-top">
             <Close />
           </div>
-          <div>Are you sure?</div>
-          <button onClick={deletePost}>Delete Post</button>
+          <div className="profile-friend-dialog-mid">Are you sure?</div>
+          <button onClick={deletePost} className="remove-friend-btn">Delete Post</button>
         </div>
       </Dialog>
       <div className="post-header">
