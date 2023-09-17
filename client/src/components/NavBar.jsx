@@ -154,7 +154,7 @@ const NavBar = () => {
             </nav> */
   }
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900">
+    <nav className="bg-white border-gray-200 dark:bg-gray-900 new-navbar">
       <div className="flex flex-wrap items-center justify-between mx-auto p-4">
       <div className="navbar-left" >
         <Link to="/" style={{display: "flex", alignItems:"center"}}>
