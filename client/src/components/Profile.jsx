@@ -147,7 +147,7 @@ const Profile = (props) => {
       </Dialog>
       <div className="profile-cont">
         <div className="profile-top">
-          <div className="profile-cover" style={style}></div>
+          {/* <div className="profile-cover" style={style}></div> */}
           <div className="profile-header-cont">
             <div className="profile-header">
               <img
@@ -155,7 +155,7 @@ const Profile = (props) => {
                 alt="Profile Picture"
                 className="profile-pic"
               />
-              <div>
+              <div className="profile-header-right">
                 <h1 className="profile-header-username">{profile.fullName}</h1>
                 <div>{profile.friends.length} friends</div>
               </div>
@@ -174,7 +174,7 @@ const Profile = (props) => {
           </div>
         </div>
         <div className="profile-bottom">
-          <div>
+          <div className="profile-bottom-intro">
             <div>Intro</div>
             <div>{profile.bio}</div>
             <div className="profile-intro-item">

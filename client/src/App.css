@@ -190,7 +190,6 @@
 .homepage-create-post-input {
   width: 100%;
   padding: 8px 12px;
-
   border-bottom-left-radius: 50px;
   border-top-left-radius: 50px;
   background-color: #f0f2f5;
@@ -354,15 +353,16 @@
 .like-count {
 }
 
-.profile {
-  height: 100vh;
-  width: 98vw;
+.profile {  
+  width: 100%;
   display: flex;
   justify-content: center;
+  background-color: #f0f2f5;
 }
 
 .profile-cont {
-  width: 80vw;
+  width: 100%;
+  background-color: #f0f2f5;
 }
 .profile-cover {
   height: 57vh;
@@ -371,25 +371,26 @@
 .profile-header {
   display: flex;
   gap: 10px;
-  align-items: center;
+  align-items: center;  
+}
+.profile-top {
+  background-color: #fff;
 }
 
 .profile-header-username {
-  font-size: 2rem;
-  margin-left: 50px;
+  font-size: 2rem;  
+  font-weight: bolder;
 }
 
 .profile-header-cont {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
+  padding: 10px 200px 10px 200px;
 }
 .profile-pic {
   height: 168px;
   border-radius: 100%;
-  position: relative;
-  left: 60px;
-  bottom: 100px;
 }
 
 .profile-intro-item {
@@ -400,6 +401,15 @@
 .profile-bottom {
   display: flex;
   justify-content: center;
+  margin-top: 20px;
+  padding: 10px 200px 10px 200px;
+  gap: 50px;
+}
+.profile-bottom-intro {
+  background-color: #fff;
+  height: fit-content;
+  padding: 10px;
+  border-radius: 8px;
 }
 
 .create-post-form {
