@@ -142,9 +142,11 @@
   justify-content: center;
   width: 100%;
   height: calc(100vh - 7.8vh);
+  background-color: #f0f2f5;
+  padding-top: 30px;
 }
 
-.friends-tab > div {
+.friends-tab-requests-section, .friends-tab-friends-section {
   width: 35vw;
 }
 
@@ -152,11 +154,31 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  width: 20vw;
 }
 .friends-tab-requests {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  min-height: 60vh ;
+  
+}
+
+.all-friends {
+  background-color: #fff;
+  border-radius: 8px;
+  min-height: 60vh ;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  padding-left: 10px;
 }
 .homepage {
   width: 100%;
@@ -778,14 +800,14 @@ background-color: rgba(0, 0, 0, 0.1);
   .profile-bottom-intro {
     min-width: none;
     width: 90vw;
-  }
-
+  }  
   .profile-header-friend-count {
     text-align: center;
   }
   .profile-header-cont {
     flex-direction: column;
     padding: 10px;
+    gap: 10px;
   }
 }
 

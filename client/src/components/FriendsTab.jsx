@@ -85,10 +85,10 @@ const FriendsTab = () => {
 
   return (
     <div className="friends-tab">
-      <div>
+      <div className="friends-tab-requests-section">
         <h1>Friend Requests</h1>
         {friendRequests.length === 0 ? (
-          <div>No friend requests to show</div>
+          <div className="friends-tab-requests">No friend requests to show</div>
         ) : (
             friendRequests.map((request) => (
               <div key={request._id} className="friends-tab-requests">
@@ -108,10 +108,11 @@ const FriendsTab = () => {
             ))
           )}
       </div>
-      <div>
+      <div className="friends-tab-friends-section">
         <h1>Friends</h1>
+        <div className="all-friends">
         {friends.length === 0 ? (
-          <div>No friends</div>
+          <div className="friends-tab-friend">No friends</div>
         ) : (
           friends.map((friend) => (
             <div key={friend._id} >
@@ -126,6 +127,8 @@ const FriendsTab = () => {
             </div>
           ))
         )}
+        </div>
+        
       </div>
     </div>
   );
