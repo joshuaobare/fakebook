@@ -146,12 +146,12 @@ const Profile = (props) => {
         />
       ) : null}
       <Dialog open={friendDialogOpen}>
-        <div>
-          <div onClick={friendDialogHandler}>
+        <div className="profile-friend-dialog">
+          <div onClick={friendDialogHandler} className="profile-friend-dialog-top">
             <Close />
           </div>
-          <div>Are you sure?</div>
-          <button onClick={removeFriend}>Remove friend</button>
+          <div className="profile-friend-dialog-mid">Are you sure?</div>
+          <button onClick={removeFriend} className="remove-friend-btn">Remove Friend</button>
         </div>
       </Dialog>
       <div className="profile-cont">
@@ -171,13 +171,13 @@ const Profile = (props) => {
             </div>
             <div>
               {currentUserProfile ? (
-                <button>Edit Profile</button>
+                <button className="edit-profile-btn">Edit Profile</button>
               ) : requestSent ? (
-                <button>Request Pending</button>
+                <button className="requested-btn" disabled>Request Pending</button>
               ) : !isFriend ? (
-                <button onClick={sendRequest}>Add Friend</button>
+                <button onClick={sendRequest} className="add-friend-btn">Add Friend</button>
               ) : (
-                <button onClick={friendDialogHandler}>Remove Friend</button>
+                <button onClick={friendDialogHandler} className="remove-friend-btn">Remove Friend</button>
               )}
             </div>
           </div>
@@ -186,7 +186,7 @@ const Profile = (props) => {
           <div className="profile-bottom-intro">
             <div className="profile-intro-header">Intro</div>            
             <div className="profile-intro-item">
-              <img src={worklogo} alt="" className="profile-intro-icon"/><span className="profile-intro-span">Works as a</span> {profile.jobTitle}
+              <img src={worklogo} alt="" className="profile-intro-icon"/>{profile.jobTitle}
             </div>
             <div className="profile-intro-item">
               {" "}

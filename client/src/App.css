@@ -432,7 +432,42 @@
   gap: 5px;
   font-weight: 600;
   color: white;
-  background: linear-gradient(253deg,rgb(0, 51, 102),rgb(127, 162, 191));
+  background: linear-gradient(253deg,rgb(24, 119, 242),rgb(127, 162, 191));
+}
+.profile-friend-dialog {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.remove-friend-btn {
+  background-color: red;  
+}
+
+.requested-btn {
+  background-color: #dadde1;
+}
+.edit-profile-btn {
+  background-color: #42b72a;
+  font-weight: bold;
+  color: white;
+}
+.add-friend-btn {
+  background-color: #1877f2;
+}
+.add-friend-btn,.remove-friend-btn {
+  color: white;
+  font-weight: bold;
+  border: none;
+  outline: none;
+}
+.profile-friend-dialog-top {
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+  width: 100%;
 }
 
 .profile-posts-section {
@@ -731,6 +766,26 @@ background-color: rgba(0, 0, 0, 0.1);
   }
   .MuiDialog-root {
     height: 99vh;
+  }
+.profile-cont {
+  justify-content: center;
+}
+  .profile-bottom {
+    flex-direction: column;
+    padding: 10px;
+    align-items: center;
+  }
+  .profile-bottom-intro {
+    min-width: none;
+    width: 90vw;
+  }
+
+  .profile-header-friend-count {
+    text-align: center;
+  }
+  .profile-header-cont {
+    flex-direction: column;
+    padding: 10px;
   }
 }
 
