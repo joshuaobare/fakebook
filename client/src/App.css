@@ -809,6 +809,23 @@ background-color: rgba(0, 0, 0, 0.1);
     padding: 10px;
     gap: 10px;
   }
+  .friends-tab {
+    flex-direction: column;
+    height: fit-content;
+    padding-bottom: 20px;
+    align-items: center;
+    padding-top: 10px;
+  }
+.all-friends {
+  min-height: fit-content;
+}
+  .friends-tab-friend {
+    width: 80vw;
+  }
+  .friends-tab-requests-section, .friends-tab-friends-section {
+    width: 90vw;
+    align-items: center;
+  }
 }
 
 .card {

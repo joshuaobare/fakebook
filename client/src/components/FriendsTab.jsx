@@ -85,6 +85,28 @@ const FriendsTab = () => {
 
   return (
     <div className="friends-tab">
+      <div className="friends-tab-friends-section">
+        <h1>Friends</h1>
+        <div className="all-friends">
+        {friends.length === 0 ? (
+          <div className="friends-tab-friend">No friends</div>
+        ) : (
+          friends.map((friend) => (
+            <div key={friend._id} >
+              <Link to={`/user/${friend._id}`} className="friends-tab-friend">
+                <img
+                  src={friend.avatar}
+                  alt="friend-avatar"
+                  className="navbar-profile-pic"
+                />
+                <div>{friend.fullName}</div>
+              </Link>
+            </div>
+          ))
+        )}
+        </div>
+        
+      </div>
       <div className="friends-tab-requests-section">
         <h1>Friend Requests</h1>
         {friendRequests.length === 0 ? (
@@ -108,28 +130,7 @@ const FriendsTab = () => {
             ))
           )}
       </div>
-      <div className="friends-tab-friends-section">
-        <h1>Friends</h1>
-        <div className="all-friends">
-        {friends.length === 0 ? (
-          <div className="friends-tab-friend">No friends</div>
-        ) : (
-          friends.map((friend) => (
-            <div key={friend._id} >
-              <Link to={`/user/${friend._id}`} className="friends-tab-friend">
-                <img
-                  src={friend.avatar}
-                  alt="friend-avatar"
-                  className="navbar-profile-pic"
-                />
-                <div>{friend.fullName}</div>
-              </Link>
-            </div>
-          ))
-        )}
-        </div>
-        
-      </div>
+      
     </div>
   );
 };
