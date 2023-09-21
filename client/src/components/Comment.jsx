@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { format } from "date-fns";
 
 /* eslint-disable react/prop-types */
 const Comment = (props) => {
   const [commenter, setCommenter] = useState({})
+  const [timestamp, setTimestamp] = useState("");
 
   const fetchUser = async () => {
     const request = await fetch(
@@ -22,14 +24,59 @@ const Comment = (props) => {
 
   useEffect(()=>{
     fetchUser()
+    timestampHandler()
   },[])
 
+  const timestampHandler = () => {
+    
+    const dateTimestamp = new Date(props.comment.timestamp);
+    const now = Date.now();
+    const timeDifference = (now - dateTimestamp) / 1000;
+
+    if (timeDifference < 86400) {
+      setTimestamp(
+        `Today at ${format(dateTimestamp, "h")}:${format(
+          dateTimestamp,
+          "mm"
+        )} ${format(dateTimestamp, "aa")}`
+      );
+    } else if (timeDifference < 604800) {
+      setTimestamp(
+        `${format(dateTimestamp, "EEEE")} at ${format(
+          dateTimestamp,
+          "h"
+        )}:${format(dateTimestamp, "mm")} ${format(dateTimestamp, "aa")}`
+      );
+    } else if (timeDifference < 31536000) {
+      setTimestamp(
+        `${format(dateTimestamp, "MMMM")} ${format(
+          dateTimestamp,
+          "d"
+        )} at ${format(dateTimestamp, "h")}:${format(
+          dateTimestamp,
+          "mm"
+        )} ${format(dateTimestamp, "aa")}`
+      );
+    } else {
+      setTimestamp(
+        `${format(dateTimestamp, "MMMM")} ${format(
+          dateTimestamp,
+          "d"
+        )}, ${format(dateTimestamp, "yyyy")} at ${format(
+          dateTimestamp,
+          "h"
+        )}:${format(dateTimestamp, "mm")} ${format(dateTimestamp, "aa")}`
+      );
+      //setTimestamp(`${dateTimestamp.getDay()} at ${dateTimestamp.getHours() < 12 ? `${dateTimestamp.getHours()} AM `: `${dateTimestamp.getHours()} PM`}`);
+    }
+  };
 
   return (
     <div className="comment">
       <img src={commenter.avatar} className="navbar-profile-pic" alt="Commenter Avatar" />
       <div>
-        <div>{commenter.fullName}</div>
+        <div className="comment-name">{commenter.fullName}</div>
+        <div className="post-header-timestamp">{timestamp}</div>
         <div>{props.comment.text}</div>
       </div>
     </div>

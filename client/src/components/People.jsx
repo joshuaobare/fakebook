@@ -34,6 +34,7 @@ const People = () => {
   return (
     <div>
       <h4>People you may know</h4>
+      <div className="people-section-profiles">
       {profiles.map((profile) => (
         <div key={profile._id}>
           <Link to={`/user/${profile._id}`} className="friends-tab-friend">
@@ -46,6 +47,8 @@ const People = () => {
           </Link>
         </div>
       ))}
+      </div>
+      
     </div>
   );
 };
