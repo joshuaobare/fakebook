@@ -700,8 +700,9 @@ background-color: rgba(0, 0, 0, 0.1);
   display: none;
 }
 
-a {
-  color:black
+.sign-up.edit-profile {
+  align-items: flex-start;
+  padding-top: 40px;
 }
 
 @keyframes logo-spin {

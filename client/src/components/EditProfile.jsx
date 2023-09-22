@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 /* eslint-disable react/no-unescaped-entities */
-function SignUp() {
+function EditProfile() {
   const [formData, setFormData] = useState({
     fullName: "",
     username: "",
@@ -81,11 +81,10 @@ function SignUp() {
   };
 
   return (
-    <div className="sign-up">
+    <div className="sign-up edit-profile">
       <div className="sign-up-cont">
         <div className="sign-up-header">
-          <div className="sign-up-header-top">Sign Up</div>
-          <div className="sign-up-header-bottom">It's quick and easy</div>
+          <div className="sign-up-header-top">Edit Profile</div>          
         </div>
         <hr />
         <form
@@ -132,29 +131,29 @@ function SignUp() {
           </div>
           <div className="signup-form-item">            
             <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              className="signup-input"
-              id="password"
-              value={formData.password}
+              type="text"
+              name="jobTitle"
+              id="jobTitle"
+              placeholder="Job Title"
+              value={formData.email}
               onChange={handleSignUpChange}
+              className="signup-input"
             />
-            <span className="error-msg">{submissionError.password}</span>
+            <span className="error-msg">{submissionError.email}</span>
           </div>
           <div className="signup-form-item">            
             <input
-              type="password"
-              name="confirmPassword"
-              id="confirmPassword"
-              placeholder="Confirm Password"
-              className="signup-input"
-              value={formData.confirmPassword}
+              type="text"
+              name="homeLocation"
+              id="homeLocation"
+              placeholder="Home Location"
+              value={formData.email}
               onChange={handleSignUpChange}
+              className="signup-input"
             />
-            <span className="error-msg">{submissionError.confirmPassword}</span>
+            <span className="error-msg">{submissionError.email}</span>
           </div>
-
+          
           <div>
             <label htmlFor="avatar-input">Avatar</label>
             <div
@@ -209,4 +208,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default EditProfile;
