@@ -704,7 +704,23 @@ background-color: rgba(0, 0, 0, 0.1);
   align-items: flex-start;
   padding-top: 40px;
 }
+.edit-profile-avatar-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
 
+.edit-profile-avatar{
+  height: 60px;
+  width: 60px;
+  border-radius: 100%;
+}
+
+.edit-profile-label {
+  text-align: left;
+}
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

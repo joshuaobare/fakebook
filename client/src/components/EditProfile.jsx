@@ -118,6 +118,7 @@ function EditProfile() {
           onSubmit={handleSignUpSubmission}
         >
           <div className="signup-form-item">
+          <label htmlFor="fullName" className="edit-profile-label">Full Name</label>
             <input
               type="text"
               name="fullName"
@@ -130,6 +131,7 @@ function EditProfile() {
             <span className="error-msg">{submissionError.fullName}</span>
           </div>
           <div className="signup-form-item">
+          <label htmlFor="jobTitle" className="edit-profile-label">Job Title</label>
             <input
               type="text"
               name="jobTitle"
@@ -142,6 +144,7 @@ function EditProfile() {
             <span className="error-msg">{submissionError.email}</span>
           </div>
           <div className="signup-form-item">
+          <label htmlFor="homeLocation" className="edit-profile-label">Home Location</label>
             <input
               type="text"
               name="homeLocation"
@@ -154,8 +157,9 @@ function EditProfile() {
             <span className="error-msg">{submissionError.email}</span>
           </div>
 
-          <div>
+          <div className="edit-profile-avatar-section">
             <label htmlFor="avatar-input">Avatar</label>
+            <img src={avatar} alt="avatar" className="edit-profile-avatar"/>
             <div
               className="flex items-center justify-center w-full"
               id="avatar-input-cont"
