@@ -58,15 +58,18 @@ const NavBar = (props) => {
   };
 
   const logout = async () => {
-    const request = await fetch("http://localhost:3000/api/logout")
-    const response = await request.json()
-console.log(response)
-    if(response.message !== undefined) {
-      localStorage.removeItem("user")
-      localStorage.removeItem("token")
-      props.logoutHandler()
+    const request = await fetch("http://localhost:3000/api/logout", {
+      method: "GET",
+      headers: { "Content-type": "application/json" },
+    });
+    const response = await request.json();
+    console.log(response);
+    if (response.message !== undefined) {
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      props.logoutHandler();
     }
-  }
+  };
 
   useEffect(() => {
     fetchProfiles();
@@ -90,7 +93,6 @@ console.log(response)
     setFoundProfiles(filteredValue);
   }, [searchValue]);
 
-    
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900 new-navbar">
       <div className="flex flex-wrap items-center justify-between mx-auto p-4">
@@ -188,11 +190,7 @@ console.log(response)
             </div>
             <ul className="py-2" aria-labelledby="user-menu-button">
               <li>
-                <button
-                  href="#"
-                  className="logout-btn"
-                  onClick={logout}
-                >
+                <button href="#" className="logout-btn" onClick={logout}>
                   Logout
                 </button>
               </li>

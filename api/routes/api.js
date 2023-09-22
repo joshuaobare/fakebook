@@ -30,7 +30,7 @@ router.post("/user", userController.user_create);
 
 router.post("/login", userController.login_user);
 
-router.post("/logout", userController.logout_user);
+router.get("/logout", userController.logout_user);
 
 // FRIEND ROUTES
 router.put(
