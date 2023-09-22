@@ -74,7 +74,7 @@ exports.user_create = [
           fullName,
           password: hashedPassword,
           email,
-          avatar: avatar || ""
+          avatar: avatar || "",
         });
 
         if (!errors.isEmpty()) {
@@ -86,6 +86,33 @@ exports.user_create = [
         }
       }
     });
+  }),
+];
+
+exports.user_update = [
+  body("fullName")
+    .trim()
+    .escape()
+    .isLength({ min: 1 })
+    .withMessage("Name too short"),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    const { avatar, fullName, jobTitle, homeLocation } = req.body;
+    const {id} = req.params
+
+    const user = User.findByIdAndUpdate(id, {
+      avatar, fullName, jobTitle, homeLocation
+    })
+
+    if (!errors.isEmpty()) {
+      res.json({ errors: errors.array() });
+      return;
+    } else {
+      await user.exec();
+      res.json({ message: "User updated successfully" });
+    }
+
   }),
 ];
 
@@ -111,10 +138,10 @@ exports.login_user = asyncHandler(async (req, res, next) => {
 
 exports.logout_user = (req, res, next) => {
   req.logout(function (err) {
-    if(err) {
-      console.log(err)
-      return next(err)
+    if (err) {
+      console.log(err);
+      return next(err);
     }
-    res.json({message: "Successfully logged out"})
-  })
-}
+    res.json({ message: "Successfully logged out" });
+  });
+};

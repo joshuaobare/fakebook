@@ -106,8 +106,6 @@ export default function EditProfile() {
     if( id !== user._id){
       navigate("/")
     }
-
-
     fetchProfile();
   }, []);
 

@@ -20,6 +20,12 @@ router.get(
   userController.user_get
 );
 
+router.put(
+  "/user/:id",
+  passport.authenticate("jwt", { session: false }),
+  userController.user_update
+)
+
 router.post("/user", userController.user_create);
 
 router.post("/login", userController.login_user);
