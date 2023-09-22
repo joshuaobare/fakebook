@@ -1,13 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 /* eslint-disable react/no-unescaped-entities */
 function EditProfile() {
   const [formData, setFormData] = useState({
     fullName: "",
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+    jobTitle: "",
+    homeLocation: "",
   });
   const [avatar, setAvatar] = useState("");
   const [submissionError, setSubmissionError] = useState({
@@ -17,6 +16,7 @@ function EditProfile() {
     password: "",
     confirmPassword: "",
   });
+  const { id } = useParams();
 
   function convertToBase64(file) {
     return new Promise((resolve, reject) => {
@@ -80,11 +80,35 @@ function EditProfile() {
     }
   };
 
+  const fetchProfile = async () => {
+    const request = await fetch(`http://localhost:3000/api/user/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    const response = await request.json();
+
+    if (response.user !== undefined) {
+      setFormData({
+        fullName: response.user.fullName,
+        homeLocation: response.user.homeLocation,
+        jobTitle: response.user.jobTitle,
+      });
+      setAvatar(response.user.avatar)
+    }
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
   return (
     <div className="sign-up edit-profile">
       <div className="sign-up-cont">
         <div className="sign-up-header">
-          <div className="sign-up-header-top">Edit Profile</div>          
+          <div className="sign-up-header-top">Edit Profile</div>
         </div>
         <hr />
         <form
@@ -93,7 +117,7 @@ function EditProfile() {
           method="post"
           onSubmit={handleSignUpSubmission}
         >
-          <div className="signup-form-item">            
+          <div className="signup-form-item">
             <input
               type="text"
               name="fullName"
@@ -105,55 +129,31 @@ function EditProfile() {
             />
             <span className="error-msg">{submissionError.fullName}</span>
           </div>
-          <div className="signup-form-item">            
-            <input
-              type="text"
-              name="username"
-              className="signup-input"
-              id="username"
-              placeholder="Username"
-              value={formData.username}
-              onChange={handleSignUpChange}
-            />
-            <span className="error-msg">{submissionError.username}</span>
-          </div>
-          <div className="signup-form-item">            
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleSignUpChange}
-              className="signup-input"
-            />
-            <span className="error-msg">{submissionError.email}</span>
-          </div>
-          <div className="signup-form-item">            
+          <div className="signup-form-item">
             <input
               type="text"
               name="jobTitle"
               id="jobTitle"
               placeholder="Job Title"
-              value={formData.email}
+              value={formData.jobTitle}
               onChange={handleSignUpChange}
               className="signup-input"
             />
             <span className="error-msg">{submissionError.email}</span>
           </div>
-          <div className="signup-form-item">            
+          <div className="signup-form-item">
             <input
               type="text"
               name="homeLocation"
               id="homeLocation"
               placeholder="Home Location"
-              value={formData.email}
+              value={formData.homeLocation}
               onChange={handleSignUpChange}
               className="signup-input"
             />
             <span className="error-msg">{submissionError.email}</span>
           </div>
-          
+
           <div>
             <label htmlFor="avatar-input">Avatar</label>
             <div
