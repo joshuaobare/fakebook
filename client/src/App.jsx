@@ -4,6 +4,7 @@ import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import HomePage from "./components/HomePage";
 import NavBar from "./components/NavBar";
+import EditProfile from "./components/EditProfile";
 import FullPost from "./components/FullPost";
 import Profile from "./components/Profile";
 import FriendsTab from "./components/FriendsTab";
@@ -99,6 +100,7 @@ function App() {
               }
             />
             <Route path="/friends" element={<FriendsTab />} />
+            <Route path="/user/:id/edit" element={<EditProfile />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>

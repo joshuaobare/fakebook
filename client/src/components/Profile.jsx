@@ -4,7 +4,7 @@ import worklogo from "../assets/worklogo.png";
 import rellogo from "../assets/rellogo.png";
 import clocklogo from "../assets/clock.png";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import { Close } from "@mui/icons-material";
 import Post from "./Post";
@@ -171,7 +171,11 @@ const Profile = (props) => {
             </div>
             <div>
               {currentUserProfile ? (
-                <button className="edit-profile-btn">Edit Profile</button>
+                <button className="edit-profile-btn" style={{color: 'white'}}>
+                  <Link to={`/user/${profile._id}/edit`}>
+                  Edit Profile
+                  </Link>
+                  </button>
               ) : requestSent ? (
                 <button className="requested-btn" disabled>Request Pending</button>
               ) : !isFriend ? (
