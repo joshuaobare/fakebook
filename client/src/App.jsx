@@ -38,6 +38,9 @@ function App() {
   const loginHandler = () => {
     setLoggedIn(true);
   };
+  const logoutHandler = () => {
+    setLoggedIn(false);
+  };
   const toggleUserUpdate = () => {
     setUserUpdate((prevState) => !prevState);
   };
@@ -71,7 +74,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter basename="/">
-        {loggedIn ? <NavBar userUpdate={userUpdate} /> : null}
+        {loggedIn ? <NavBar userUpdate={userUpdate} logoutHandler={logoutHandler} /> : null}
         <main className="main-body">
           <Routes>
             <Route

@@ -57,6 +57,17 @@ const NavBar = (props) => {
     setSearchValue(e.target.value);
   };
 
+  const logout = async () => {
+    const request = await fetch("http://localhost:3000/api/logout")
+    const response = await request.json()
+console.log(response)
+    if(response.message !== undefined) {
+      localStorage.removeItem("user")
+      localStorage.removeItem("token")
+      props.logoutHandler()
+    }
+  }
+
   useEffect(() => {
     fetchProfiles();
     setUser(JSON.parse(localStorage.getItem("user")));
@@ -79,90 +90,7 @@ const NavBar = (props) => {
     setFoundProfiles(filteredValue);
   }, [searchValue]);
 
-  {
-    /*
-    <nav className="navbar">
-      <div className="navbar-left">
-        <img src={fblogo} alt="Fakebook Logo" className="navbar-logo" />
-        <div className="navbar-search-section">
-          <span className="material-symbols-outlined navbar-search-icon">
-            search
-          </span>
-          <input
-            type="text"
-            placeholder="Search Fakebook"
-            className="navbar-search-input"
-            name="search"
-            value={searchValue}
-            onChange={searchHandler}
-          />
-          <div className="search-bar-results">
-            {foundProfiles.map((profile) => (
-              <li key={profile._id} className="search-bar-result-item">
-                <Link
-                  to={`/user/${profile._id}`}
-                  className="friends-tab-friend"
-                >
-                  <img
-                    src={profile.avatar}
-                    alt="friend-avatar"
-                    className="navbar-profile-pic"
-                  />
-                  <div>{profile.fullName}</div>
-                </Link>
-              </li>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className="navbar-center">
-        <div className="navbar-icon-cont">
-          <Link to="/">
-            <span className="material-symbols-outlined navbar-middle-tab">
-              home
-            </span>
-          </Link>
-        </div>
-        <div className="navbar-icon-cont">
-          <Link to="/friends">
-            <span className="material-symbols-outlined navbar-middle-tab">
-              group
-            </span>
-          </Link>
-        </div>
-      </div>
-      <div className="navbar-right">
-        <img
-          src={user.avatar}
-          alt="Profile Pic Icon"
-          className="navbar-profile-pic"
-        />
-      </div>
-      <div className="mobile-navbar">
-        <img src={fblogo} alt="Fakebook Logo" className="navbar-logo" />
-        <div>
-          <span className="material-symbols-outlined navbar-search-icon">
-            search
-          </span>
-        </div>
-        <Link to="/">
-          <span className="material-symbols-outlined navbar-middle-tab">
-            home
-          </span>
-        </Link>
-        <Link to="/friends">
-          <span className="material-symbols-outlined navbar-middle-tab">
-            group
-          </span>
-        </Link>
-        <img
-          src={user.avatar}
-          alt="Profile Pic Icon"
-          className="navbar-profile-pic"
-        />
-      </div>
-            </nav> */
-  }
+    
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900 new-navbar">
       <div className="flex flex-wrap items-center justify-between mx-auto p-4">
@@ -260,12 +188,13 @@ const NavBar = (props) => {
             </div>
             <ul className="py-2" aria-labelledby="user-menu-button">
               <li>
-                <a
+                <button
                   href="#"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  className="logout-btn"
+                  onClick={logout}
                 >
                   Logout
-                </a>
+                </button>
               </li>
             </ul>
           </div>
