@@ -1,12 +1,14 @@
+/* eslint-disable react/prop-types */
 import fblogo from "../assets/fblogo.png";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = (props) => {
   const [user, setUser] = useState({
     avatar: "",
-    email: ""
-  })
+    email: "",
+    _id: "",
+  });
   const [profiles, setProfiles] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [foundProfiles, setFoundProfiles] = useState([]);
@@ -57,8 +59,12 @@ const NavBar = () => {
 
   useEffect(() => {
     fetchProfiles();
-    setUser(JSON.parse(localStorage.getItem("user")))
+    setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+  }, [props.userUpdate]);
 
   useEffect(() => {
     const filteredValue = profiles.filter((profile) => {
@@ -160,49 +166,48 @@ const NavBar = () => {
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900 new-navbar">
       <div className="flex flex-wrap items-center justify-between mx-auto p-4">
-      <div className="navbar-left" >
-        <Link to="/" style={{display: "flex", alignItems:"center"}}>
-          <img
-            src={fblogo}
-            alt="Fakebook Logo"
-            className="navbar-logo h-8 mr-3"
-          />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white logo-text">
-            Fakebook
-          </span>
-        </Link>
-        <div className="navbar-search-section">
-          <span className="material-symbols-outlined navbar-search-icon">
-            search
-          </span>
-          <input
-            type="text"
-            placeholder="Search Fakebook"
-            className="navbar-search-input"
-            name="search"
-            value={searchValue}
-            onChange={searchHandler}
-          />
-          <div className="search-bar-results">
-            {foundProfiles.map((profile) => (
-              <li key={profile._id} className="search-bar-result-item">
-                <Link
-                  to={`/user/${profile._id}`}
-                  className="friends-tab-friend"
-                >
-                  <img
-                    src={profile.avatar}
-                    alt="friend-avatar"
-                    className="navbar-profile-pic"
-                  />
-                  <div>{profile.fullName}</div>
-                </Link>
-              </li>
-            ))}
+        <div className="navbar-left">
+          <Link to="/" style={{ display: "flex", alignItems: "center" }}>
+            <img
+              src={fblogo}
+              alt="Fakebook Logo"
+              className="navbar-logo h-8 mr-3"
+            />
+            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white logo-text">
+              Fakebook
+            </span>
+          </Link>
+          <div className="navbar-search-section">
+            <span className="material-symbols-outlined navbar-search-icon">
+              search
+            </span>
+            <input
+              type="text"
+              placeholder="Search Fakebook"
+              className="navbar-search-input"
+              name="search"
+              value={searchValue}
+              onChange={searchHandler}
+            />
+            <div className="search-bar-results">
+              {foundProfiles.map((profile) => (
+                <li key={profile._id} className="search-bar-result-item">
+                  <Link
+                    to={`/user/${profile._id}`}
+                    className="friends-tab-friend"
+                  >
+                    <img
+                      src={profile.avatar}
+                      alt="friend-avatar"
+                      className="navbar-profile-pic"
+                    />
+                    <div>{profile.fullName}</div>
+                  </Link>
+                </li>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      
 
         <div className="flex items-center navbar-center">
           <Link

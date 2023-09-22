@@ -18,6 +18,7 @@ function App() {
   });
   const [postDialogOpen, setPostDialogOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [userUpdate, setUserUpdate] = useState(false);
 
   const dialogOpener = (postData) => {
     setPostDialogOpen(true);
@@ -35,8 +36,11 @@ function App() {
     });
   };
   const loginHandler = () => {
-    setLoggedIn(true)
-  }
+    setLoggedIn(true);
+  };
+  const toggleUserUpdate = () => {
+    setUserUpdate((prevState) => !prevState);
+  };
 
   const loginCheck = async () => {
     const request = await fetch(`http://localhost:3000/api/verification`, {
@@ -59,7 +63,7 @@ function App() {
   console.log(loggedIn);
 
   useEffect(() => {
-    if (localStorage.getItem("token") !== null) {      
+    if (localStorage.getItem("token") !== null) {
       loginCheck();
     }
   }, []);
@@ -67,7 +71,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter basename="/">
-        {loggedIn? <NavBar /> : null}
+        {loggedIn ? <NavBar userUpdate={userUpdate} /> : null}
         <main className="main-body">
           <Routes>
             <Route
@@ -82,7 +86,7 @@ function App() {
                     postDialogOpen={postDialogOpen}
                   />
                 ) : (
-                  <Login loginHandler={loginHandler}/>
+                  <Login loginHandler={loginHandler} />
                 )
               }
               errorElement={<ErrorPage />}
@@ -100,7 +104,10 @@ function App() {
               }
             />
             <Route path="/friends" element={<FriendsTab />} />
-            <Route path="/user/:id/edit" element={<EditProfile />} />
+            <Route
+              path="/user/:id/edit"
+              element={<EditProfile toggleUserUpdate={toggleUserUpdate} />}
+            />
             <Route path="/signup" element={<SignUp />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>

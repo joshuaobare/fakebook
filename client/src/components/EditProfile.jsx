@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 /* eslint-disable react/no-unescaped-entities */
-export default function EditProfile() {
+export default function EditProfile(props) {
   const [formData, setFormData] = useState({
     fullName: "",
     jobTitle: "",
@@ -75,6 +75,7 @@ export default function EditProfile() {
         setAvatar("");
         navigate(`/user/${id}`);
         localStorage.setItem("user", JSON.stringify(response.user))
+        props.toggleUserUpdate()
       }
     } catch (err) {
       console.error(err);
