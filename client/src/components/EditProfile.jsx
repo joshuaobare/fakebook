@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 /* eslint-disable react/no-unescaped-entities */
-function EditProfile() {
+export default function EditProfile() {
   const [formData, setFormData] = useState({
     fullName: "",
     jobTitle: "",
@@ -17,6 +17,8 @@ function EditProfile() {
     confirmPassword: "",
   });
   const { id } = useParams();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate()
 
   function convertToBase64(file) {
     return new Promise((resolve, reject) => {
@@ -101,6 +103,11 @@ function EditProfile() {
   };
 
   useEffect(() => {
+    if( id !== user._id){
+      navigate("/")
+    }
+
+
     fetchProfile();
   }, []);
 
@@ -212,4 +219,4 @@ function EditProfile() {
   );
 }
 
-export default EditProfile;
+
