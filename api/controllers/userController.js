@@ -112,10 +112,10 @@ exports.user_update = [
       res.json({ errors: errors.array() });
       return;
     } else {
-      await user.exec();
       try {
+        await user.exec();
         const updatedUser = await User.findById(id).exec();
-        res.json({ message: "User updated successfully", user });
+        res.json({ message: "User updated successfully", user: updatedUser });
       } catch (error) {
         res.json({ error });
       }

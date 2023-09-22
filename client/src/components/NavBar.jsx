@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = useState({
+    avatar: "",
+    email: ""
+  })
   const [profiles, setProfiles] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [foundProfiles, setFoundProfiles] = useState([]);
@@ -54,6 +57,7 @@ const NavBar = () => {
 
   useEffect(() => {
     fetchProfiles();
+    setUser(JSON.parse(localStorage.getItem("user")))
   }, []);
 
   useEffect(() => {

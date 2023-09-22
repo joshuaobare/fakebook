@@ -74,6 +74,7 @@ export default function EditProfile() {
         });
         setAvatar("");
         navigate(`/user/${id}`);
+        localStorage.setItem("user", JSON.stringify(response.user))
       }
     } catch (err) {
       console.error(err);
