@@ -11,14 +11,10 @@ export default function EditProfile() {
   const [avatar, setAvatar] = useState("");
   const [submissionError, setSubmissionError] = useState({
     fullName: "",
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
   });
   const { id } = useParams();
   const user = JSON.parse(localStorage.getItem("user"));
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function convertToBase64(file) {
     return new Promise((resolve, reject) => {
@@ -37,7 +33,7 @@ export default function EditProfile() {
     setAvatar(await convertToBase64(e.target.files[0]));
   };
 
-  const handleSignUpChange = (e) => {
+  const handleEditChange = (e) => {
     const { name, value } = e.target;
 
     setFormData((prevState) => {
@@ -49,13 +45,16 @@ export default function EditProfile() {
     console.log(formData);
   };
 
-  const handleSignUpSubmission = async (e) => {
+  const handleEditSubmission = async (e) => {
     e.preventDefault();
     console.log({ ...formData, avatar });
     try {
-      const request = await fetch("http://localhost:3000/api/user/", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
+      const request = await fetch(`http://localhost:3000/api/user/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
         body: JSON.stringify({ ...formData, avatar }),
       });
       const response = await request.json();
@@ -70,12 +69,11 @@ export default function EditProfile() {
       } else {
         setFormData({
           fullName: "",
-          username: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
+          jobTitle: "",
+          homeLocation: "",
         });
         setAvatar("");
+        navigate(`/user/${id}`);
       }
     } catch (err) {
       console.error(err);
@@ -98,13 +96,13 @@ export default function EditProfile() {
         homeLocation: response.user.homeLocation,
         jobTitle: response.user.jobTitle,
       });
-      setAvatar(response.user.avatar)
+      setAvatar(response.user.avatar);
     }
   };
 
   useEffect(() => {
-    if( id !== user._id){
-      navigate("/")
+    if (id !== user._id) {
+      navigate("/");
     }
     fetchProfile();
   }, []);
@@ -120,10 +118,12 @@ export default function EditProfile() {
           action=""
           className="bg-white rounded px-8 pt-6 pb-8 mb-4"
           method="post"
-          onSubmit={handleSignUpSubmission}
+          onSubmit={handleEditSubmission}
         >
           <div className="signup-form-item">
-          <label htmlFor="fullName" className="edit-profile-label">Full Name</label>
+            <label htmlFor="fullName" className="edit-profile-label">
+              Full Name
+            </label>
             <input
               type="text"
               name="fullName"
@@ -131,40 +131,42 @@ export default function EditProfile() {
               placeholder="Full name"
               className="signup-input"
               value={formData.fullName}
-              onChange={handleSignUpChange}
+              onChange={handleEditChange}
             />
             <span className="error-msg">{submissionError.fullName}</span>
           </div>
           <div className="signup-form-item">
-          <label htmlFor="jobTitle" className="edit-profile-label">Job Title</label>
+            <label htmlFor="jobTitle" className="edit-profile-label">
+              Job Title
+            </label>
             <input
               type="text"
               name="jobTitle"
               id="jobTitle"
               placeholder="Job Title"
               value={formData.jobTitle}
-              onChange={handleSignUpChange}
+              onChange={handleEditChange}
               className="signup-input"
             />
-            <span className="error-msg">{submissionError.email}</span>
           </div>
           <div className="signup-form-item">
-          <label htmlFor="homeLocation" className="edit-profile-label">Home Location</label>
+            <label htmlFor="homeLocation" className="edit-profile-label">
+              Home Location
+            </label>
             <input
               type="text"
               name="homeLocation"
               id="homeLocation"
               placeholder="Home Location"
               value={formData.homeLocation}
-              onChange={handleSignUpChange}
+              onChange={handleEditChange}
               className="signup-input"
             />
-            <span className="error-msg">{submissionError.email}</span>
           </div>
 
           <div className="edit-profile-avatar-section">
             <label htmlFor="avatar-input">Avatar</label>
-            <img src={avatar} alt="avatar" className="edit-profile-avatar"/>
+            <img src={avatar} alt="avatar" className="edit-profile-avatar" />
             <div
               className="flex items-center justify-center w-full"
               id="avatar-input-cont"
@@ -209,12 +211,10 @@ export default function EditProfile() {
             </div>
           </div>
           <div className="signup-btn-cont">
-            <button className="signup-btn">Sign Up</button>
+            <button className="signup-btn">Update</button>
           </div>
         </form>
       </div>
     </div>
   );
 }
-
-
