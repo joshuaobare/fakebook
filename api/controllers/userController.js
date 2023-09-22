@@ -99,20 +99,27 @@ exports.user_update = [
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
     const { avatar, fullName, jobTitle, homeLocation } = req.body;
-    const {id} = req.params
+    const { id } = req.params;
 
     const user = User.findByIdAndUpdate(id, {
-      avatar, fullName, jobTitle, homeLocation
-    })
+      avatar,
+      fullName,
+      jobTitle,
+      homeLocation,
+    });
 
     if (!errors.isEmpty()) {
       res.json({ errors: errors.array() });
       return;
     } else {
       await user.exec();
-      res.json({ message: "User updated successfully" });
+      try {
+        const updatedUser = await User.findById(id).exec();
+        res.json({ message: "User updated successfully", user });
+      } catch (error) {
+        res.json({ error });
+      }
     }
-
   }),
 ];
 
