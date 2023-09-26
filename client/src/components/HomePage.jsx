@@ -7,6 +7,7 @@ import People from "./People";
 
 const HomePage = (props) => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const postsSorter = (postsArray) => {
@@ -34,26 +35,32 @@ const HomePage = (props) => {
   };
 
   const fetchPosts = async () => {
-    const request = await fetch("http://localhost:3000/api/posts", {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-    const response = await request.json();
+    try {
+      const request = await fetch("http://localhost:3000/api/posts", {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      const response = await request.json();
 
-    if (response.posts !== undefined) {
-      if (user.friends.length !== 0) {
-        postsSorter(response.posts);
-      } else {
-        response.posts.sort((x, y) => {
-          return (
-            new Date(y.timestamp).getTime() - new Date(x.timestamp).getTime()
-          );
-        });
-        setPosts([...response.posts]);
+      if (response.posts !== undefined) {
+        if (user.friends.length !== 0) {
+          postsSorter(response.posts);
+        } else {
+          response.posts.sort((x, y) => {
+            return (
+              new Date(y.timestamp).getTime() - new Date(x.timestamp).getTime()
+            );
+          });
+          setPosts([...response.posts]);
+        }
       }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -75,21 +82,25 @@ const HomePage = (props) => {
           fetchPosts={fetchPosts}
         />
       ) : null}
-      
+
       <main className="homepage-main">
         <div className="homepage-posts-section">
-        <CreatePost fetchPosts={fetchPosts} />
-          {posts.map((post) => {
-            return (
-              <Post
-                key={post._id}
-                post={post}
-                dialogHandler={props.dialogHandler}
-                activePostData={props.activePostData}
-                fetchPosts={fetchPosts}
-              />
-            );
-          })}
+          <CreatePost fetchPosts={fetchPosts} />
+          {loading ? (
+            <div>Loading</div>
+          ) : (
+            posts.map((post) => {
+              return (
+                <Post
+                  key={post._id}
+                  post={post}
+                  dialogHandler={props.dialogHandler}
+                  activePostData={props.activePostData}
+                  fetchPosts={fetchPosts}
+                />
+              );
+            })
+          )}
         </div>
         <aside className="homepage-people-section">
           <People />
