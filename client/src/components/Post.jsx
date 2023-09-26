@@ -6,6 +6,7 @@ import { ReactComponent as LikedIcon } from "../assets/fbLiked.svg";
 import { ReactComponent as CommentIcon } from "../assets/comment.svg";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Dialog from "@mui/material/Dialog";
+import CircularProgress from "@mui/material/CircularProgress";
 import { Close } from "@mui/icons-material";
 import { format } from "date-fns";
 //import Comment from "./Comment";
@@ -18,7 +19,7 @@ const Post = (props) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [timestamp, setTimestamp] = useState("");
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   const likePost = async (refresh) => {
     const request = await fetch(
@@ -159,12 +160,11 @@ const Post = (props) => {
       likeChecker();
       userCheck();
       timestampHandler();
-    } catch (error){
-      console.log(error)
-    }finally{
-      setLoading(false)
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
-    
   }, []);
 
   useEffect(() => {
@@ -173,15 +173,24 @@ const Post = (props) => {
     userCheck();
   }, [props.activePostData]);
 
-  return loading? <div>Loading</div> : (
+  return loading ? (
+    <div>
+      <CircularProgress />
+    </div>
+  ) : (
     <div className="post">
       <Dialog open={deleteDialogOpen}>
         <div className="profile-friend-dialog">
-          <div onClick={deleteDialogHandler} className="profile-friend-dialog-top">
+          <div
+            onClick={deleteDialogHandler}
+            className="profile-friend-dialog-top"
+          >
             <Close />
           </div>
           <div className="profile-friend-dialog-mid">Are you sure?</div>
-          <button onClick={deletePost} className="remove-friend-btn">Delete Post</button>
+          <button onClick={deletePost} className="remove-friend-btn">
+            Delete Post
+          </button>
         </div>
       </Dialog>
       <div className="post-header">

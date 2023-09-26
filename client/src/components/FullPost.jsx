@@ -5,6 +5,7 @@ import { ReactComponent as CommentIcon } from "../assets/comment.svg";
 import { ReactComponent as LikedIcon } from "../assets/fbLiked.svg";
 import { useEffect, useState, useRef } from "react";
 import Dialog from "@mui/material/Dialog";
+import { Link } from "react-router-dom";
 import { Close } from "@mui/icons-material";
 import Comment from "./Comment";
 import { format } from "date-fns";
@@ -201,7 +202,7 @@ const FullPost = (props) => {
                 className="navbar-profile-pic"
               />
               <div className="post-header-name-section">
-                <div className="post-header-username">{poster.fullName}</div>
+              <Link to={`/user/${poster._id}`}>{poster.fullName}</Link>
                 <div className="post-header-timestamp">{timestamp}</div>
               </div>
             </div>

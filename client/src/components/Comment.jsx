@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
 const Comment = (props) => {
@@ -75,7 +76,7 @@ const Comment = (props) => {
     <div className="comment">
       <img src={commenter.avatar} className="navbar-profile-pic" alt="Commenter Avatar" />
       <div>
-        <div className="comment-name">{commenter.fullName}</div>
+        <div className="comment-name"><Link to={`/user/${commenter._id}`}>{commenter.fullName}</Link></div>
         <div className="post-header-timestamp">{timestamp}</div>
         <div>{props.comment.text}</div>
       </div>

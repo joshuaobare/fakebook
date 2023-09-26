@@ -361,6 +361,7 @@
 .commenter-pic {
   height: 32px;
   border-radius: 100%;
+  width: 32px;
 }
 
 .full-post-add-comment-section {
