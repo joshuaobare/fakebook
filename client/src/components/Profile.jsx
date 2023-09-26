@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import { Close } from "@mui/icons-material";
+import CircularProgress from "@mui/material/CircularProgress";
 import Post from "./Post";
 import { format } from "date-fns";
 import FullPost from "./FullPost";
@@ -15,14 +16,15 @@ const Profile = (props) => {
   const { id } = useParams();
   const [profile, setProfile] = useState({
     friends: [],
-    friendRequests: [],    
+    friendRequests: [],
   });
   const [posts, setPosts] = useState([]);
   const [currentUserProfile, setCurrentUserProfile] = useState(false);
   const [isFriend, setIsFriend] = useState(false);
   const [requestSent, setRequestSent] = useState(false);
   const [friendDialogOpen, setFriendDialogOpen] = useState(false);
-  const [joinedAt, setJoinedAt] = useState("")
+  const [joinedAt, setJoinedAt] = useState("");
+  const [loading, setLoading] = useState(true);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const fetchPosts = async () => {
@@ -100,43 +102,55 @@ const Profile = (props) => {
   };
 
   const friendDialogHandler = () => {
-    setFriendDialogOpen(prevState => !prevState)
-  }
+    setFriendDialogOpen((prevState) => !prevState);
+  };
 
   const removeFriend = async () => {
-    const request = await fetch(`http://localhost:3000/api/friend/${id}/remove`, {
-      method:'PUT',
-      headers:{
-        "Content-type": "application/json",
+    const request = await fetch(
+      `http://localhost:3000/api/friend/${id}/remove`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      body: JSON.stringify({ userId: user._id, friendId: profile._id }),
-    })
+        },
+        body: JSON.stringify({ userId: user._id, friendId: profile._id }),
+      }
+    );
 
-    const response = await request.json()    
-    setFriendDialogOpen(false)
+    const response = await request.json();
+    setFriendDialogOpen(false);
     fetchProfile();
-
   };
   const dateSetter = async () => {
-    const date = new Date(await profile.joinedAt)
-    setJoinedAt(`${format(date, "MMMM")} ${format(date, "yyyy")}`)
-  }
+    const date = new Date(await profile.joinedAt);
+    setJoinedAt(`${format(date, "MMMM")} ${format(date, "yyyy")}`);
+  };
 
   useEffect(() => {
-    fetchPosts();
-    fetchProfile();
-    userCheck();
+    try {
+      fetchPosts();
+      fetchProfile();
+      userCheck();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
-  console.log(profile)
+ 
   useEffect(() => {
     friendsCheck();
     requestCheck();
-    console.log(profile)
-    dateSetter()
+    console.log(profile);
+    dateSetter();
   }, [profile]);
 
-  return (
+  return loading ? (
+    <div>
+      <CircularProgress />
+    </div>
+  ) : (
     <div className="profile">
       {props.postDialogOpen ? (
         <FullPost
@@ -147,11 +161,16 @@ const Profile = (props) => {
       ) : null}
       <Dialog open={friendDialogOpen}>
         <div className="profile-friend-dialog">
-          <div onClick={friendDialogHandler} className="profile-friend-dialog-top">
+          <div
+            onClick={friendDialogHandler}
+            className="profile-friend-dialog-top"
+          >
             <Close />
           </div>
           <div className="profile-friend-dialog-mid">Are you sure?</div>
-          <button onClick={removeFriend} className="remove-friend-btn">Remove Friend</button>
+          <button onClick={removeFriend} className="remove-friend-btn">
+            Remove Friend
+          </button>
         </div>
       </Dialog>
       <div className="profile-cont">
@@ -166,43 +185,57 @@ const Profile = (props) => {
               />
               <div className="profile-header-right">
                 <h1 className="profile-header-username">{profile.fullName}</h1>
-                <div className="profile-header-friend-count">{profile.friends.length} friends</div>
+                <div className="profile-header-friend-count">
+                  {profile.friends.length} friends
+                </div>
               </div>
             </div>
             <div>
               {currentUserProfile ? (
-                <button className="edit-profile-btn" style={{color: 'white'}}>
-                  <Link to={`/user/${profile._id}/edit`}>
-                  Edit Profile
-                  </Link>
-                  </button>
+                <button className="edit-profile-btn" style={{ color: "white" }}>
+                  <Link to={`/user/${profile._id}/edit`}>Edit Profile</Link>
+                </button>
               ) : requestSent ? (
-                <button className="requested-btn" disabled>Request Pending</button>
+                <button className="requested-btn" disabled>
+                  Request Pending
+                </button>
               ) : !isFriend ? (
-                <button onClick={sendRequest} className="add-friend-btn">Add Friend</button>
+                <button onClick={sendRequest} className="add-friend-btn">
+                  Add Friend
+                </button>
               ) : (
-                <button onClick={friendDialogHandler} className="remove-friend-btn">Remove Friend</button>
+                <button
+                  onClick={friendDialogHandler}
+                  className="remove-friend-btn"
+                >
+                  Remove Friend
+                </button>
               )}
             </div>
           </div>
         </div>
         <div className="profile-bottom">
           <div className="profile-bottom-intro">
-            <div className="profile-intro-header">Intro</div>            
+            <div className="profile-intro-header">Intro</div>
             <div className="profile-intro-item">
-              <img src={worklogo} alt="" className="profile-intro-icon"/>{profile.jobTitle}
+              <img src={worklogo} alt="" className="profile-intro-icon" />
+              {profile.jobTitle}
             </div>
             <div className="profile-intro-item">
               {" "}
-              <img src={locationlogo} alt="" className="profile-intro-icon" /><span className="profile-intro-span">From</span> {profile.homeLocation}
+              <img src={locationlogo} alt="" className="profile-intro-icon" />
+              <span className="profile-intro-span">From</span>{" "}
+              {profile.homeLocation}
             </div>
             <div className="profile-intro-item">
               {" "}
-              <img src={rellogo} alt="" className="profile-intro-icon"/> {profile.relationshipStatus}
+              <img src={rellogo} alt="" className="profile-intro-icon" />{" "}
+              {profile.relationshipStatus}
             </div>
             <div className="profile-intro-item">
               {" "}
-              <img src={clocklogo} alt="" className="profile-intro-icon"/><span className="profile-intro-span">Joined</span> {joinedAt}
+              <img src={clocklogo} alt="" className="profile-intro-icon" />
+              <span className="profile-intro-span">Joined</span> {joinedAt}
             </div>
           </div>
           <div className="profile-posts-section">
