@@ -97,6 +97,7 @@ const HomePage = (props) => {
                   dialogHandler={props.dialogHandler}
                   activePostData={props.activePostData}
                   fetchPosts={fetchPosts}
+                  setLoading = {setLoading}
                 />
               );
             })

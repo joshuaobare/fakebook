@@ -18,6 +18,7 @@ const Post = (props) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [timestamp, setTimestamp] = useState("");
+  const [loading, setLoading] = useState(true)
 
   const likePost = async (refresh) => {
     const request = await fetch(
@@ -152,11 +153,18 @@ const Post = (props) => {
   };
 
   useEffect(() => {
-    fetchPoster();
-    fetchComments();
-    likeChecker();
-    userCheck();
-    timestampHandler();
+    try {
+      fetchPoster();
+      fetchComments();
+      likeChecker();
+      userCheck();
+      timestampHandler();
+    } catch (error){
+      console.log(error)
+    }finally{
+      setLoading(false)
+    }
+    
   }, []);
 
   useEffect(() => {
@@ -165,7 +173,7 @@ const Post = (props) => {
     userCheck();
   }, [props.activePostData]);
 
-  return (
+  return loading? <div>Loading</div> : (
     <div className="post">
       <Dialog open={deleteDialogOpen}>
         <div className="profile-friend-dialog">
