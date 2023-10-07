@@ -19,7 +19,7 @@ const Login = (props) => {
   const handleLoginSubmission = async (e) => {
     e.preventDefault();
     try {
-      const request = await fetch("http://localhost:3000/api/login/", {
+      const request = await fetch("https://patient-bush-3727.fly.dev/api/login/", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(formData),
@@ -40,7 +40,7 @@ const Login = (props) => {
   const guestLogin = async (e) => {
     e.preventDefault();
     try {
-      const request = await fetch("http://localhost:3000/api/login/", {
+      const request = await fetch("https://patient-bush-3727.fly.dev/api/login/", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ username: "testerProfile", password: "random" }),

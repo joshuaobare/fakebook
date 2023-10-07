@@ -46,7 +46,7 @@ function App() {
   };
 
   const loginCheck = async () => {
-    const request = await fetch(`http://localhost:3000/api/verification`, {
+    const request = await fetch(`https://patient-bush-3727.fly.dev/api/verification`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",

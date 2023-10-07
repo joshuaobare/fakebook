@@ -36,7 +36,7 @@ const HomePage = (props) => {
 
   const fetchPosts = async () => {
     try {
-      const request = await fetch("http://localhost:3000/api/posts", {
+      const request = await fetch("https://patient-bush-3727.fly.dev/api/posts", {
         method: "GET",
         headers: {
           "Content-type": "application/json",

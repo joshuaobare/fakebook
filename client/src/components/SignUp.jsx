@@ -51,7 +51,7 @@ function SignUp() {
     e.preventDefault();
     console.log({ ...formData, avatar });
     try {
-      const request = await fetch("http://localhost:3000/api/user/", {
+      const request = await fetch("https://patient-bush-3727.fly.dev/api/user/", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ ...formData, avatar }),

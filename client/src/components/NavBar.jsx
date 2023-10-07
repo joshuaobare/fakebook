@@ -34,7 +34,7 @@ const NavBar = (props) => {
   };
 
   const fetchProfiles = async () => {
-    const request = await fetch(`http://localhost:3000/api/users`, {
+    const request = await fetch(`https://patient-bush-3727.fly.dev/api/users`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -58,7 +58,7 @@ const NavBar = (props) => {
   };
 
   const logout = async () => {
-    const request = await fetch("http://localhost:3000/api/logout", {
+    const request = await fetch("https://patient-bush-3727.fly.dev/api/logout", {
       method: "GET",
       headers: { "Content-type": "application/json" },
     });

@@ -9,7 +9,7 @@ const Comment = (props) => {
 
   const fetchUser = async () => {
     const request = await fetch(
-      `http://localhost:3000/api/user/${props.comment.userId}`,
+      `https://patient-bush-3727.fly.dev/api/user/${props.comment.userId}`,
       {
         method: "GET",
         headers: {

@@ -30,7 +30,7 @@ const FriendsTab = () => {
   };
 
   const fetchProfiles = async () => {
-    const request = await fetch(`http://localhost:3000/api/users`, {
+    const request = await fetch(`https://patient-bush-3727.fly.dev/api/users`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -46,7 +46,7 @@ const FriendsTab = () => {
   };
 
   const acceptRequest = async (id) => {
-      const request = await fetch(`http://localhost:3000/api/friend/${id}/friend`, {
+      const request = await fetch(`https://patient-bush-3727.fly.dev/api/friend/${id}/friend`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
@@ -63,7 +63,7 @@ const FriendsTab = () => {
   }
 
   const rejectRequest = async (id) => {
-    const request = await fetch(`http://localhost:3000/api/friend/${id}/deleteRequest`, {
+    const request = await fetch(`https://patient-bush-3727.fly.dev/api/friend/${id}/deleteRequest`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",

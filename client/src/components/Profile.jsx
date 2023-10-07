@@ -28,7 +28,7 @@ const Profile = (props) => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const fetchPosts = async () => {
-    const request = await fetch(`http://localhost:3000/api/user/${id}/posts`, {
+    const request = await fetch(`https://patient-bush-3727.fly.dev/api/user/${id}/posts`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -41,7 +41,7 @@ const Profile = (props) => {
   };
 
   const fetchProfile = async () => {
-    const request = await fetch(`http://localhost:3000/api/user/${id}`, {
+    const request = await fetch(`https://patient-bush-3727.fly.dev/api/user/${id}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -85,7 +85,7 @@ const Profile = (props) => {
 
   const sendRequest = async () => {
     const request = await fetch(
-      `http://localhost:3000/api/friend/${id}/request`,
+      `https://patient-bush-3727.fly.dev/api/friend/${id}/request`,
       {
         method: "PUT",
         headers: {
@@ -107,7 +107,7 @@ const Profile = (props) => {
 
   const removeFriend = async () => {
     const request = await fetch(
-      `http://localhost:3000/api/friend/${id}/remove`,
+      `https://patient-bush-3727.fly.dev/api/friend/${id}/remove`,
       {
         method: "PUT",
         headers: {

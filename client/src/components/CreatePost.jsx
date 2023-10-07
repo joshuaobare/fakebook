@@ -17,7 +17,7 @@ const CreatePost = (props) => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();    
-    const request = await fetch("http://localhost:3000/api/post", {
+    const request = await fetch("https://patient-bush-3727.fly.dev/api/post", {
       method: "POST",
       headers: {
         "Content-type": "application/json",       

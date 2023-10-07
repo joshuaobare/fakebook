@@ -30,7 +30,7 @@ const FullPost = (props) => {
 
   const likePost = async () => {
     const request = await fetch(
-      `http://localhost:3000/api/post/${postData._id}/like`,
+      `https://patient-bush-3727.fly.dev/api/post/${postData._id}/like`,
       {
         method: "PUT",
         headers: {
@@ -48,7 +48,7 @@ const FullPost = (props) => {
 
   const fetchPost = async () => {
     const request = await fetch(
-      `http://localhost:3000/api/post/${props.activePostData.postId}`,
+      `https://patient-bush-3727.fly.dev/api/post/${props.activePostData.postId}`,
       {
         method: "GET",
         headers: {
@@ -63,7 +63,7 @@ const FullPost = (props) => {
   };
   const fetchPoster = async () => {
     const request = await fetch(
-      `http://localhost:3000/api/user/${props.activePostData.userId}`,
+      `https://patient-bush-3727.fly.dev/api/user/${props.activePostData.userId}`,
       {
         method: "GET",
         headers: {
@@ -87,7 +87,7 @@ const FullPost = (props) => {
     e.preventDefault();
 
     const request = await fetch(
-      `http://localhost:3000/api/post/${props.activePostData.postId}/comment`,
+      `https://patient-bush-3727.fly.dev/api/post/${props.activePostData.postId}/comment`,
       {
         method: "POST",
         headers: {
