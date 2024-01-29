@@ -7,7 +7,6 @@ Functionality includes:
 - Liking posts
 - Creating posts
 - Commenting on posts
-- Creating profiles via Google Auth
 - Editing your profile
 - A guest mode  
 
